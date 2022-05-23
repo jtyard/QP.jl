@@ -96,8 +96,6 @@ function toM(q)
     P[1]*F(q.coeffs[1]) - i * sum([P[j]*F(q.coeffs[j]) for j in 2:4]) 
 end
 
-issq()
-
 function toU(q) 
     M = toM(q)
     F = M.base_ring
@@ -113,7 +111,6 @@ function toU(q)
     end
     MM
 end
-
 
 
 

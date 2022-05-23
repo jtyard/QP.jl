@@ -1,6 +1,6 @@
-module QP
+using Oscar
 
-import Oscar
+module QP
 
 include("Sic.jl")
 
