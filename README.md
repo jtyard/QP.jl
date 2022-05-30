@@ -1,11 +1,11 @@
 # QP.jl - for Quantum Programming
 
 - 2-sided ideal class group
--- `TwoSidedIdealClassGroup(OO)` in magma
+  - `TwoSidedIdealClassGroup(OO)` in magma
 - Set $\mathrm{Pic}_\ell$ of equivalence classes of invertible right ideals under left equivalence. 
--- `RightIdealClasses(OO)`
+  - `RightIdealClasses(OO)`
 - Number of conjugacy classes, or types (Clark) of orders
--- `#ConjugacyClasses(OO)`
+  - `#ConjugacyClasses(OO)`
 
 
 
