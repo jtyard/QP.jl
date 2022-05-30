@@ -7,7 +7,7 @@ A [formal language](https://en.wikipedia.org/wiki/Formal_language) is a subset $
 Kleene hierarchy
 - $\mathsf{ALL}$ all languages
 - $\mathsf{CS}$ context-sensitive languages
-- $\mathrm{CF}$ context-free languages
+- $\mathsf{CF}$ context-free languages
 - $\mathsf{RE}$ recursively enumerable languages
 
 ## Types
