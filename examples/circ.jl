@@ -1,9 +1,7 @@
 # Construction of some basic quaternion orders in julia
 
 using Oscar
-
-# Define a wrapper function that coerces the generators automatically (the Hecke code is very new)
-QuaternionAlgebra(K,a,b) = Hecke.AlgQuat(K,K(a),K(b))
+using QP
 
 # Construct the standard rational quaternion algebra with i^2 = j^2 = k^2 = ijk = -1
 A = QuaternionAlgebra(QQ,-1,-1)
@@ -15,8 +13,8 @@ A1, Ai, Aj, Ak = basis(A)
 L = Order(A,basis(A)) 
 println(discriminant(L))
 
-# Hurwitz quaternion order
-H = Order(A,[A1, Ai, Aj, A(2)^-1*(1 + Ai + Aj + Ak)] ) 
+# Hurwitz quaternion order ∪ ∞
+H = Order(A,[A1, Ai, Aj, A(2)^-1*(1 + Ai + Aj + Ak)])
 println(discriminant(H))
 
 # Check that H is indeed a maximal order
