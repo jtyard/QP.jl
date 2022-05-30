@@ -6,6 +6,9 @@
 
 ## Types
 - [Type theories](https://ncatlab.org/nlab/show/type+theory) are formal languages whose elements have types 
+
+
+## Extensional vs intensional
 - [Extensional](https://ncatlab.org/nlab/show/extensional+type+theory) [vs](https://ncatlab.org/nlab/show/type+theory#ExtensionalIntensional) [Intensional](https://ncatlab.org/nlab/show/intensional+type+theory)
 ## Dependent types
 - [dependent type](https://ncatlab.org/nlab/show/dependent+type) 
