@@ -1,7 +1,7 @@
 # Type theories
 
 ## Tensor categories, $n$-categories, HoTT
-- Proof theorists complain that julia doesn't have parameterized types in the strict sense of type theory
+- Proof theorists $n$ complain that julia doesn't have parameterized types in the strict sense of type theory
 
 https://github.com/JuliaLang/julia/issues/6113
 
