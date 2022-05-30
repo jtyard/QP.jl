@@ -22,7 +22,7 @@ ZN(N) = ResidueRing(ZZ,N)
 #sl(N) = SL(2,ZN(N))
 
 #################
-# Matrix units
+# Matrix units and projectors
 #################
 
 # Matrix units
