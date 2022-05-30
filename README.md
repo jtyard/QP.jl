@@ -1,27 +1,17 @@
-# QP.jl - for Quantum Programming
-
-- 2-sided ideal class group
-  - `TwoSidedIdealClassGroup(OO)` in magma
-- Set $\mathrm{Pic}_\ell$ of equivalence classes of invertible right ideals under left equivalence. 
-  - `RightIdealClasses(OO)`
-- Number of conjugacy classes, or types (Clark) of orders
-  - `#ConjugacyClasses(OO)`
+# QP.jl - Quantum Programming
 
 
 
 ## Goals / desires
-- Abstract modeling of quantum systems
-- Ability to define large, even infinite, tensor products and Hilbert spaces
-- Work with whatever kinds of numbers you want (julia, arb, FLINT, ..., TensorFlow)
+- Abstract framework for modeling quantum systems
 - Explicit computing in bases 
+- Implementation-agnostic (native julia, arb, FLINT, ..., TensorFlow)
 - Fast computation of stabilizer/graph states 
 - Parametric models / exponential families
-
-
-## Circuit synthesis over arithmetic groups
-- Circuit synthesis for qubits with quaternion algebras and beyond
-- Need to use `PolyMake.jl` for more general orders? 
 - Solving pentagon and hexagon equations?
+- [Arithmetic of quantum circuits](Arithmetic.md) for qubits and beyond
+- Incorporate [type foundations](TypeFoundations.md) such at [HoTT](https://homotopytypetheory.org/)
+
 
 
 ## Informal proof systems?
