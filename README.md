@@ -15,7 +15,6 @@
 
 
 ## Informal proof systems?
-
 *Informal* proof system as workflow for searching for proofs using machine learning.  From MATH 239 to current research in physics and mathematics.
 - How to represent information?
   - Scraping arXiv / hep-th
