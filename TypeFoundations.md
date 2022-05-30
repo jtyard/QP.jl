@@ -2,20 +2,39 @@
 
 ## Formal language
 
-- A [formal language](https://en.wikipedia.org/wiki/Formal_language) is a subset $L \subset \Sigma^*$ of strings over a (usually finite) alphabet $\Sigma$.
+A [formal language](https://en.wikipedia.org/wiki/Formal_language) is a subset $L \subset \Sigma^*$ of strings over a (usually finite) alphabet $\Sigma$.
+
+Kleene hierarchy
+- $\mathsf{ALL}$ all languages
+- $\mathsf{CS}$ context-sensitive languages
+- $\mathrm{CF}$ context-free languages
+- $\mathsf{RE}$ recursively enumerable languages
 
 ## Types
-- [Type theories](https://ncatlab.org/nlab/show/type+theory) are formal languages whose elements have types 
+- [Type theories](https://ncatlab.org/nlab/show/type+theory) are formal languages consisting of terms.  Some of these terms are called types and each term has a definite type.  So is it a formal language $L$ together with a map 
+$$\mathsf{type}:L \to L$$?
+Applications include
+    - Syntax for category theory
+    - Formal verification and automated theorem proving 
+    - Foundations of mathematics
+    - Logic, proof theory, computability theory
+- [Propositions as types](https://ncatlab.org/nlab/show/propositions+as+types): Regard each type $A$ as a proposition each term $t:A$ as a proof, or witness, of $A$.    
 
 
 ## Extensional vs intensional
 - [Extensional](https://ncatlab.org/nlab/show/extensional+type+theory) [vs](https://ncatlab.org/nlab/show/type+theory#ExtensionalIntensional) [Intensional](https://ncatlab.org/nlab/show/intensional+type+theory)
 ## Dependent types
 - [dependent type](https://ncatlab.org/nlab/show/dependent+type) 
-- [dependent type theory](https://ncatlab.org/nlab/show/dependent+type+theory) of which 
-- An example is [Martin-Lof dependent type theory](https://ncatlab.org/nlab/show/Martin-L%C3%B6f+dependent+type+theory)
+- [dependent type theory](https://ncatlab.org/nlab/show/dependent+type+theory)
+- A morphism $f : A \to B$ in a category gives a dependent type $f(a):B$ 
 - Can [define] categories (https://ncatlab.org/nlab/show/type-theoretic+definition+of+category) using dependent type theories.  Similarly with 2-categories, of which monoidal categories are an example.  What is known about type definitiosn of $n$-categories? What about cobordisms or even just simplicial sets?
     -To do: solve Ch.9 exercises in [HoTT](https://homotopytypetheory.org/book/) on categories and 2-categories so I can have some idea of what I'm talking about.
+
+
+
+
+## Martin-Lof dependent type theory 
+- [Martin-Lof dependent type theory](https://ncatlab.org/nlab/show/Martin-L%C3%B6f+dependent+type+theory)
 
 
 ## Homotopy Type Theory (HoTT)
