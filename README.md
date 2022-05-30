@@ -10,7 +10,7 @@
 - Parametric models / exponential families
 - Solving pentagon and hexagon equations?
 - [Arithmetic of quantum circuits](Arithmetic.md) for qubits and beyond
-- Incorporate [type foundations](TypeFoundations.md) such at [HoTT](https://homotopytypetheory.org/)
+- Incorporate [type foundations](TypeFoundations.md) such as [HoTT](https://homotopytypetheory.org/)
 
 
 
