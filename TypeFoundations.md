@@ -1,12 +1,18 @@
-# Type theories
+# Type foundations
 
-[Type theories](https://ncatlab.org/nlab/show/type+theory)
+## Formal language
+
+- A [formal language]() is a subset $L \subset \Sigma^*$ of strings over an alphabet $\Sigma$.
+
+## Types
+
+- [Type theories](https://ncatlab.org/nlab/show/type+theory) are formal languages in which all strings have a type.
 
 ## Dependent types
 - [dependent type](https://ncatlab.org/nlab/show/dependent+type) 
 - [dependent type theory](https://ncatlab.org/nlab/show/dependent+type+theory) of which 
 - An example is [Martin-Lof dependent type theory](https://ncatlab.org/nlab/show/Martin-L%C3%B6f+dependent+type+theory)
-- Can [define categories] (https://ncatlab.org/nlab/show/type-theoretic+definition+of+category) in dependent type theories.  Similarly with 2-categories, of which monoidal categories are an example.  What is known about type definitiosn of $n$-categories? What about cobordisms or even just simplicial sets?
+- Can [define] categories (https://ncatlab.org/nlab/show/type-theoretic+definition+of+category) using dependent type theories.  Similarly with 2-categories, of which monoidal categories are an example.  What is known about type definitiosn of $n$-categories? What about cobordisms or even just simplicial sets?
     -To do: solve Ch.9 exercises in [HoTT](https://homotopytypetheory.org/book/) on categories and 2-categories so I can have some idea of what I'm talking about.
 
 
