@@ -13,7 +13,7 @@ Kleene hierarchy
 ## Types
 - [Type theories](https://ncatlab.org/nlab/show/type+theory) are formal languages consisting of terms.  Some of these terms are called types and each term has a definite type.  So is it a formal language $L$ together with a map 
 $$\mathsf{type}:L \to L?$$
-Applications include
+- Applications include
     - Syntax for category theory
     - Formal verification and automated theorem proving 
     - Foundations of mathematics
