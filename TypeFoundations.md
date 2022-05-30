@@ -2,12 +2,11 @@
 
 ## Formal language
 
-- A [formal language]() is a subset $L \subset \Sigma^*$ of strings over an alphabet $\Sigma$.
+- A [formal language](https://en.wikipedia.org/wiki/Formal_language) is a subset $L \subset \Sigma^*$ of strings over a (usually finite) alphabet $\Sigma$.
 
 ## Types
-
-- [Type theories](https://ncatlab.org/nlab/show/type+theory) are formal languages in which all strings have a type.
-
+- [Type theories](https://ncatlab.org/nlab/show/type+theory) are formal languages whose elements have types 
+- [Extensional](https://ncatlab.org/nlab/show/extensional+type+theory) [vs](https://ncatlab.org/nlab/show/type+theory#ExtensionalIntensional) [Intensional](https://ncatlab.org/nlab/show/intensional+type+theory)
 ## Dependent types
 - [dependent type](https://ncatlab.org/nlab/show/dependent+type) 
 - [dependent type theory](https://ncatlab.org/nlab/show/dependent+type+theory) of which 
