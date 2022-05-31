@@ -2,7 +2,9 @@
 
 ## Formal language
 
-A [formal language](https://en.wikipedia.org/wiki/Formal_language) is a subset $L \subset \Sigma^*$ of strings over a (usually finite) alphabet $\Sigma$.
+- A [formal language](https://en.wikipedia.org/wiki/Formal_language) is a subset $L \subset \Sigma^*$ of strings over a (usually finite) alphabet $\Sigma$.
+- Formal system is a formal language along with... 
+- Formal logic specifies a subset of $L$ to be used as [judgements](https://ncatlab.org/nlab/show/judgment)
 
 Kleene hierarchy
 - $\mathsf{ALL}$ all languages
@@ -13,12 +15,14 @@ Kleene hierarchy
 ## Types
 - [Type theories](https://ncatlab.org/nlab/show/type+theory) are formal languages consisting of terms.  Some of these terms are called types and each term has a definite type.  So is it a formal language $L$ together with a map 
 $$\mathsf{type}:L \to L?$$
+- Write $t:A$ for the judgement "$t$ is a term of type $A$".
 - Applications include
     - Syntax for category theory
-    - Formal verification and automated theorem proving 
+    - Formal verification
+    - Automated theorem proving 
     - Foundations of mathematics
     - Logic, proof theory, computability theory
-- [Propositions as types](https://ncatlab.org/nlab/show/propositions+as+types): Regard each type $A$ as a proposition each term $t:A$ as a proof, or witness, of $A$.    
+- [Propositions as types](https://ncatlab.org/nlab/show/propositions+as+types): Identify each type $A$ with the proposition "there is a term $t:A$".  Term $t$ of type $A$ viewed as a proof, or witness, of $A$ (or rather, that there is a term $t:A$.) 
 
 
 ## Extensional vs intensional
@@ -33,7 +37,9 @@ $$\mathsf{type}:L \to L?$$
 
 
 
-## Martin-Lof dependent type theory 
+## Martin-Lof type theory 
+
+- 
 - [Martin-Lof dependent type theory](https://ncatlab.org/nlab/show/Martin-L%C3%B6f+dependent+type+theory)
 
 
