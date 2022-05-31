@@ -15,14 +15,18 @@ Kleene hierarchy
 ## Types
 - [Type theories](https://ncatlab.org/nlab/show/type+theory) are formal languages consisting of terms.  Some of these terms are called types and each term has a definite type.  So is it a formal language $L$ together with a map 
 $$\mathsf{type}:L \to L?$$
-- Write $t:A$ for the judgement "$t$ is a term of type $A$".
+- In set theory there are sets and propositions, whereas type theory has only types. 
+- Judgements belong to the meta-language.
+- Write $t:A$ for the judgment "$t$ is a term of type $A$". 
+- [Propositions as types](https://ncatlab.org/nlab/show/propositions+as+types): Identify each type $A$ with the proposition "there is a term $t:A$".  Term $t$ of type $A$ viewed as a proof, or witness, of $A$ (or rather, that there is a term $t:A$.)
+    - Generalizes propositional logic, which can be viewed as rules for doing things like turning a proof of $A$ and a proof of $B$ into a proof of $A \wedge B$.
 - Applications include
     - Syntax for category theory
     - Formal verification
     - Automated theorem proving 
     - Foundations of mathematics
     - Logic, proof theory, computability theory
-- [Propositions as types](https://ncatlab.org/nlab/show/propositions+as+types): Identify each type $A$ with the proposition "there is a term $t:A$".  Term $t$ of type $A$ viewed as a proof, or witness, of $A$ (or rather, that there is a term $t:A$.) 
+ 
 
 
 ## Extensional vs intensional
