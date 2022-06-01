@@ -1,24 +1,16 @@
 module QP
 
 using Oscar
-
 using Caching
 
-export Oscar
+export ZZN, zetaN, qint 
 
-export ZZmod
+export Eij, SWAP, Pplus, Pminus
 
-export Eij
 
-export SWAP, Pplus, Pminus
 
-export MatrixPolynomialRing, VariableMatrix
 
-export QuaternionAlgebra
-
-export qint
-
-abstract type QuantumSystem end
+# abstract type QuantumSystem end
 
 
 
@@ -34,7 +26,13 @@ abstract type QuantumSystem end
 
 Base.Int(a::nmod) = Int(ZZ(a))
 
-ZZmod(N) = ResidueRing(ZZ,N) 
+ZZN(N) = ResidueRing(ZZ,N) 
+
+zetaN(N) = cyclotomic_field(N)[2]
+
+# However should rewrite this to live in the real cyclotomic field (also which version???)
+qint(n,m) = sum([zetaN(2*n)^(m-1 - 2*i) for i in 0:m-1])
+
 
 #################
 # Matrix units and projectors
@@ -56,34 +54,9 @@ Pplus(N) = (1//2)*(identity_matrix(QQ,N^2) + SWAP(N))
 Pminus(N) = (1//2)*(identity_matrix(QQ,N^2) - SWAP(N))
 
 
-###############
-# Matrix polynomials
-###############
-
-function MatrixPolynomialRing(F,N::Int,X::Union{AbstractString, Char, Symbol} = "X")
-    PolynomialRing(F,[string(X,"_{",i,",",j,"}") for i in 0:N-1 for j in 0:N-1],cached=true)[1]
-end
-
-function VariableMatrix(F,N::Int,X::Union{AbstractString, Char, Symbol} = "X")
-    R = MatrixPolynomialRing(F,N,X)
-    matrix(R,N,N,gens(R))
-end
+include("Vars.jl")
+include("Weil.jl")
+include("Algebras.jl")
 
 
-#########
-# Quantum integers and things
-#########
-
-qint(n,m) = sum([CyclotomicField(2*n)[2]^(m-1 - 2*i) for i in 0:m-1])
-
-
-#################
-# Algebras and orders
-#################
-
-# Define a wrapper function that coerces the generators automatically 
-QuaternionAlgebra(K,a,b) = Hecke.AlgQuat(K,K(a),K(b))
-
-
-
-end
+end # module

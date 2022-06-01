@@ -15,7 +15,7 @@ Kleene hierarchy
 ## Types
 - [Type theories](https://ncatlab.org/nlab/show/type+theory) are formal languages consisting of terms.  Some of these terms are called types and each term has a definite type.  So is it a formal language $L$ together with a map 
 $$\mathsf{type}:L \to L?$$
-- In set theory there are sets and propositions, whereas type theory has only types. 
+- In set theory we use the propositional calculus to build sets out of sets, whereas type theory has only types i.e. we use types to build types from types.  
 - Judgements belong to the meta-language.
 - Write $t:A$ for the judgment "$t$ is a term of type $A$". 
 - [Propositions as types](https://ncatlab.org/nlab/show/propositions+as+types): Identify each type $A$ with the proposition "there is a term $t:A$".  Term $t$ of type $A$ viewed as a proof, or witness, of $A$ (or rather, that there is a term $t:A$.)
@@ -42,10 +42,8 @@ $$\mathsf{type}:L \to L?$$
 
 
 ## Martin-Lof type theory 
-
-- 
-- [Martin-Lof dependent type theory](https://ncatlab.org/nlab/show/Martin-L%C3%B6f+dependent+type+theory)
-
+- [Martin-Lof type theory](https://en.wikipedia.org/wiki/Intuitionistic_type_theory) aka intuitionistic type theory or constructive type theory
+- [Martin-Lof dependent type theory](https://ncatlab.org/nlab/show/Martin-L%C3%B6f+dependent+type+theory) aka 
 
 ## Homotopy Type Theory (HoTT)
 
