@@ -24,6 +24,7 @@ end
 #####
 # "Legacy"
 #####
+
 QQX(N) = MatrixPolynomialRing(QQ,N)
 
 Xij(i::Union{Int,nmod},j::Union{Int,nmod},N::Int) = gens(QQX(N))[1 + (Int(j) % N) + N*(Int(i) % N)]
@@ -36,5 +37,15 @@ Xij(N::Int) = matrix(QQX(N),[[Xij(i,j,N) for j =0:N-1] for i =0:N-1])
     GradedPolynomialRing(QQ,vcat([string("z",i) for i in 0:N-1],[string("w",i) for i in 0:N-1]))[1]
 end
 
-zj(j::nmod) = gens(QQX(Int(characteristic(base_ring(j)))))[1 + (i % N)]
-wj(j::nmod) = gens(QQX(Int(characteristic(base_ring(j)))))[1 + N + (i % N)]
+function zj(j::nmod) 
+    N = Int(characteristic(parent(j)))
+    j = Int(j)
+    gens(QQzw(N))[1 + (j % N)]
+end
+
+function wj(j::nmod) 
+    N = Int(characteristic(parent(j)))
+    j = Int(j)
+    gens(QQzw(N))[1 + N + (j % N)]
+end
+
