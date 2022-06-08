@@ -41,9 +41,9 @@ $$\mathsf{type}:L \to L?$$
 
 
 
-## Martin-Lof type theory 
-- [Martin-Lof type theory](https://en.wikipedia.org/wiki/Intuitionistic_type_theory) aka intuitionistic type theory or constructive type theory
-- [Martin-Lof dependent type theory](https://ncatlab.org/nlab/show/Martin-L%C3%B6f+dependent+type+theory) aka 
+## Martin-Löf type theory 
+- [Martin-Löf type theory](https://en.wikipedia.org/wiki/Intuitionistic_type_theory) aka intuitionistic type theory or constructive type theory
+- [Martin-Löf dependent type theory](https://ncatlab.org/nlab/show/Martin-L%C3%B6f+dependent+type+theory) aka 
 
 ## Homotopy Type Theory (HoTT)
 
@@ -84,7 +84,7 @@ context free $\subset$ context sensitive $\subset$ recursively enumerable $\subs
 
 Maybe some complexity classes?
 
-## Martin-L\"{o}f dependent type theories
+## Martin-Löf dependent type theories
 A deductive system, such as first-order predicate logic, applies 
 - Types = propositions and programs = proofs
 
