@@ -2,7 +2,9 @@
 # Generalized Paulis and Heisenberg group
 ###############
 
-export gpX, gpZ, heis, heiscocycle, heispairing, gauss_sum, weil_w0, weil_N, weil_T, weil
+export gpX, gpZ, heis, heis2, heiscocycle, heispairing, gauss_sum, weil_w0, weil_N, weil_T, weil
+
+export heisAAZ
 
 # generalized Pauli X 
 function gpX(N::Int)
@@ -16,9 +18,8 @@ end
 # generalized Pauli Z
 gpZ(N::Int) = diagonal_matrix([zetaN(N)^i for i in 0:N-1]...)
 
-
 # Section of the Heisenberg group from AAZ & AFMY
-# Do I need to change the signs/order?  What about for mod d and/or integer coordinates?
+# Do I need to change the signs/order?  What about for mod d and/or integer coordinates
 function heis(j::nmod_mat)
     N = Int(characteristic(base_ring(j)))
     if iseven(N)
@@ -26,9 +27,11 @@ function heis(j::nmod_mat)
         (-z)^Int(-j[1]*j[2])*map(C,gpZ(N)^Int(-j[1])*gpX(N)^Int(-j[2]))
     else  
         twoinv = ZN(N)(2)^-1
-        zN(N)^Int(-j[1]*j[2]*twoinv)*gpZ(N)^Int(-j[1])*gpX(N)^Int(-j[2])
+        zetaN(N)^Int(-j[1]*j[2]*twoinv)*gpZ(N)^Int(-j[1])*gpX(N)^Int(-j[2])
     end
 end
+
+heis(i::Union{Int,nmod},j::Union{Int,nmod},N::Int) = heis(ZN(N)[Int(i) Int(j)])
 
 function heiscocycle(j::nmod_mat,k::nmod_mat) 
     N = Int(characteristic(base_ring(j))) 
@@ -42,8 +45,26 @@ function heispairing(j::nmod_mat,k::nmod_mat)
     zetaN(N)^Int((j[1]*k[2] - j[2]*k[1]))
 end
 
+# Let's work with 
+function heis2(j::nmod_mat)
+    N2 = Int(characteristic(base_ring(j)))
+    @assert iseven(N2) "Characteristic must be even"
+    N = Int(N2//2)
+    C,w = cyclotomic_field(N2)
+        (-w)^Int(j[1]*j[2])*map(C,gpX(N)^Int(j[1])*gpZ(N)^Int(j[2]))
+end
+
+# eqn (8) of AAZ
+function heisAAZ(i,j,N)
+    C,z = isodd(N) ? cyclotomic_field(N) : cyclotomic_field(2*N);
+    w = isodd(N) ? z : z 
+    w^Int(i*j)*map(C,gpX(N)^Int(i)*gpZ(N)^Int(j))
+end
+
+
 ###############
 # Weil representation 
+# So far it only works for prime N 
 ###############
 
 function gauss_sum(a::nmod)
