@@ -99,6 +99,6 @@ A deductive system, such as first-order predicate logic, applies
 
 - *Definitional* or *judgemental equality: There is also an equality judgement $a \equiv b:A$ 
 
-*Homotopy types*: $A$ ia a \emph{1-type} if for all $a,b:A$ all $p,q:x=y$ and $r,s:p=q$
+- *Homotopy types*: $A$ ia a *1-type* if for all $a,b:A$ all $p,q:x=y$ and $r,s:p=q$
 
 
