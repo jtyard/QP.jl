@@ -72,3 +72,33 @@ https://github.com/epatters/Catlab.jl though I think there is at least one more.
 ## Other references
 
 Displayed Categories https://arxiv.org/abs/1705.04296 (implemented in Coq)
+
+
+## Chapter -1?
+
+A \emph{language} $L$ over an \emph{alphabet} $A$ is just a subset $L \subset A^*$.
+
+A \emph{formal language} is a language accepted by some regular expression / formal grammar / finite automaton. 
+
+context free $\subset$ context sensitive $\subset$ recursively enumerable $\subset$ computable $\subset \mathsf{ALL} = 2^{\{0,1\}^*}$
+
+Maybe some complexity classes?
+
+## Martin-L\"{o}f dependent type theories
+A deductive system, such as first-order predicate logic, applies 
+- Types = propositions and programs = proofs
+
+- Deductive system: *rules* for deriving *judgements*
+
+- judgement $a:A$ means `'$a$ is an instance of the type $A$'', or 
+`'$a$ is a witness, or evidence, for the truth of the proposition $A$''. 
+
+- Judgement $a:A$ of a proposition $A$ analogous to the set-theoretic proposition $a \in A$ but it is a judgement.  In actuality, $a:B$
+
+- *Propositional equality* For $a,b:A$, there is an equality \emph{proposition} $a=_Ab$
+
+- *Definitional* or *judgemental equality: There is also an equality judgement $a \equiv b:A$ 
+
+*Homotopy types*: $A$ ia a \emph{1-type} if for all $a,b:A$ all $p,q:x=y$ and $r,s:p=q$
+
+
