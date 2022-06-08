@@ -76,9 +76,9 @@ Displayed Categories https://arxiv.org/abs/1705.04296 (implemented in Coq)
 
 ## Chapter -1?
 
-A \emph{language} $L$ over an \emph{alphabet} $A$ is just a subset $L \subset A^*$.
+A *language* $L$ over an *alphabet* $A$ is just a subset $L \subset A^*$.
 
-A \emph{formal language} is a language accepted by some regular expression / formal grammar / finite automaton. 
+A *formal language* is a language accepted by some regular expression / formal grammar / finite automaton. 
 
 context free $\subset$ context sensitive $\subset$ recursively enumerable $\subset$ computable $\subset \mathsf{ALL} = 2^{\{0,1\}^*}$
 
