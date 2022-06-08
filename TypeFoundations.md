@@ -90,8 +90,8 @@ A deductive system, such as first-order predicate logic, applies
 
 - Deductive system: *rules* for deriving *judgements*
 
-- judgement $a:A$ means `'$a$ is an instance of the type $A$'', or 
-`'$a$ is a witness, or evidence, for the truth of the proposition $A$''. 
+- judgement $a:A$ means "$a$ is an instance of the type $A$", or 
+"$a$ is a witness, or evidence, for the truth of the proposition $A$". 
 
 - Judgement $a:A$ of a proposition $A$ analogous to the set-theoretic proposition $a \in A$ but it is a judgement.  In actuality, $a:B$
 
