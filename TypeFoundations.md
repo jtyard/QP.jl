@@ -80,7 +80,7 @@ A *language* $L$ over an *alphabet* $A$ is just a subset $L \subset A^*$.
 
 A *formal language* is a language accepted by some regular expression / formal grammar / finite automaton. 
 
-context free $\subset$ context sensitive $\subset$ recursively enumerable $\subset$ computable $\subset \mathsf{ALL} = 2^{\{0,1\}^*}$
+context free $\subset$ context sensitive $\subset$ recursively enumerable $\subset$ computable $\subset \mathsf{ALL} = 2^{\\{0,1\\}^*}$
 
 Maybe some complexity classes?
 
