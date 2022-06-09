@@ -102,3 +102,9 @@ A deductive system, such as first-order predicate logic, applies
 - *Homotopy types*: $A$ ia a *1-type* if for all $a,b:A$ all $p,q:x=y$ and $r,s:p=q$
 
 
+## Categorical semantics
+
+https://ncatlab.org/nlab/show/type+theory#CategoricalSemantics
+
+In a more restrictive setting (I'm still murky on the details) the objects of a category are types themselves and a morphism $f : A \to B$ corresponds to a term $f(x)$ of type $B$
+with $x$ a free variable of type $A$.  People write $x:A \entails f(x):B$, to be interpreted as $f$ turning a term of type $A$ into a term of type $B$.
