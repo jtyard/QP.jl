@@ -95,7 +95,7 @@ A deductive system, such as first-order predicate logic, applies
 
 - Judgement $a:A$ of a proposition $A$ analogous to the set-theoretic proposition $a \in A$ but it is a judgement.  
 
-- *Propositional equality* For $a,b:A$, there is an equality \emph{proposition} $a=_Ab$
+- *Propositional equality* For $a,b:A$, there is an equality *proposition* $a=_Ab$
 
 - *Definitional* or *judgemental equality*: There is also an equality judgement $a \equiv b:A$ 
 
