@@ -97,7 +97,7 @@ A deductive system, such as first-order predicate logic, applies
 
 - *Propositional equality* For $a,b:A$, there is an equality *proposition* $a=_Ab$
 
-- *Definitional* or *judgemental equality*: There is also an equality judgement $a \equiv b:A$ 
+- *Definitional* or *judgemental equality*: There is also an equality *judgement* $a \equiv_A b:A$ 
 
 - *Homotopy types*: $A$ ia a *1-type* if for all $a,b:A$ all $p,q:x=y$ and $r,s:p=q$
 
