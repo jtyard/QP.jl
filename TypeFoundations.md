@@ -93,11 +93,11 @@ A deductive system, such as first-order predicate logic, applies
 - judgement $a:A$ means "$a$ is an instance of the type $A$", or 
 "$a$ is a witness, or evidence, for the truth of the proposition $A$". 
 
-- Judgement $a:A$ of a proposition $A$ analogous to the set-theoretic proposition $a \in A$ but it is a judgement.  In actuality, $a:B$
+- Judgement $a:A$ of a proposition $A$ analogous to the set-theoretic proposition $a \in A$ but it is a judgement.  
 
 - *Propositional equality* For $a,b:A$, there is an equality \emph{proposition} $a=_Ab$
 
-- *Definitional* or *judgemental equality: There is also an equality judgement $a \equiv b:A$ 
+- *Definitional* or *judgemental equality*: There is also an equality judgement $a \equiv b:A$ 
 
 - *Homotopy types*: $A$ ia a *1-type* if for all $a,b:A$ all $p,q:x=y$ and $r,s:p=q$
 
