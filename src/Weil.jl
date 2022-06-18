@@ -4,7 +4,7 @@
 
 export gpX, gpZ, heis, heis2, heiscocycle, heispairing, gauss_sum, weil_w0, weil_N, weil_T, weil
 
-export heisAAZ
+export heisAAZ, heisQ
 
 # generalized Pauli X 
 function gpX(N::Int)
@@ -61,6 +61,15 @@ function heisAAZ(i,j,N)
     w^Int(i*j)*map(C,gpX(N)^Int(i)*gpZ(N)^Int(j))
 end
 
+
+# Quaternion section (N=2 only)
+function heisQ(j::nmod_mat)
+    N = Int(characteristic(base_ring(j)))
+    @assert N==2 "Characteristic must equal 2"
+    C,i = cyclotomic_field(4)
+    #return ( i^(Int(j[1]*j[2])) ) * ( (C[0 i; i 0])^Int(j[1]) ) * ( (C[i 0; 0 -i])^Int(j[2]) )
+    return  (C[0 i; i 0])^Int(j[1]) * (C[i 0; 0 -i])^Int(j[2])
+end
 
 ###############
 # Weil representation 

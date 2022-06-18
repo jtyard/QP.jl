@@ -12,3 +12,6 @@ v = rand(V); w = rand(V);
 
 heis(v)*heis(w)*heis(-v)*heis(-w) == heispairing(v,w), dagger(heis(v)) == heis(-v), dagger(heis2(v)) == heis2(-v), v, det(heis(v)), det(heis2(v))
 
+
+f = j -> heisQ(j)
+matrix([(abelian_2cocycle(Z22,f)(a,b))//(abelian_2cocycle(Z22,f)(b,a)) for a in Z22, b in Z22])

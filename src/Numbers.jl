@@ -1,7 +1,7 @@
 # Useful rings, fields and elements
 using Oscar
 
-export ZN, zetaN, qint, dagger
+export ZN, zetaN, qint, dagger, primes
 
 #################
 # Ring   Element type
@@ -37,3 +37,9 @@ function sicrcf(N::Int)
     _,ph = ray_class_group((isodd(N) ? N : 2*N)*OK,infinite_places(K))
     number_field(ray_class_field(ph),using_stark_units = true)
 end
+
+import Oscar.primes
+
+primes(N::Int) = [n for n in 2:N if is_prime(n)]
+
+primes(M::Int,N::Int) = [n for n in M:N if is_prime(n)]/9
