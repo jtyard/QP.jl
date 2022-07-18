@@ -15,9 +15,11 @@
 
 
 ## TODO 
+- Group actions
+- Projective schemes
 - Generalize Weil to composite $N$
-  -- Sort out even case
-  -- Fix this [Oscar issue](https://github.com/oscar-system/Oscar.jl/issues/649) to implement $\mathrm{SL}(2,\mathbb{Z}/N)$ for all $N$.
+  - Sort out even case
+  - Fix this [Oscar issue](https://github.com/oscar-system/Oscar.jl/issues/649) to implement $\mathrm{SL}(2,\mathbb{Z}/N)$ for all $N$.
 
 
 ## Towards arithmetic of quantum circuits
