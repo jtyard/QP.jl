@@ -1,6 +1,9 @@
 #################
 # Elementary matrices
 #################
+
+#import Oscar.Hecke.⊗
+
 export Eij, SWAP, Pplus, Pminus, qudit_bra, qudit_ket, tensor, ⊗
 
 # Matrix units
@@ -19,11 +22,8 @@ qudit_ket(i::Union{Int,nmod},N::Int) = transpose(qudit_bra(i,N))
 # Tensor products
 
 tensor = kronecker_product
-
-⊗ = tensor
-# What was my other plan with this??
-#⊗(A::MatElem{T},B::MatElem{S}) = tensor(A,B)
-
+#A::MatElem ⊗ B::MatElem = tensor(A,B)
+# Conflicts with Hecke.⊗ maybe import it directly?
 
 # Useful matrices on the tensor product
 

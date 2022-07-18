@@ -7,13 +7,21 @@ julia> using Oscar
 julia> ZN(3)
 Integers modulo 3
 
-julia> ZN(3)[1 2]
+julia> ZN(3)[4 2]
 [1   2]
 
-julia> heis(ZN(3)[1 2])
+julia> heis(ZN(3)[4 2])
 [  0   0   -z_3 - 1]
 [z_3   0          0]
 [  0   1          0]
+
+julia> Xij(3)
+[X_{0,0}   X_{0,1}   X_{0,2}]
+[X_{1,0}   X_{1,1}   X_{1,2}]
+[X_{2,0}   X_{2,1}   X_{2,2}]
+
+
+
 ```
 
 
@@ -22,14 +30,14 @@ julia> heis(ZN(3)[1 2])
 - Implementation-agnostic (native julia, arb, FLINT, ..., TensorFlow)
 - Julia/Oscar/Nemo/Hecke/ANTIC/GAP/Polymake vs Python/Magma/Sage/Pari
 
-## Current capabilities
+## Current 
 
 - Rings of polynomial functions on matrices over number fields 
 - Useful matrices and tensor products 
 - Qudit generalized Paulis
 - Prime qudit generalized Clifford = Weil representation
 - Projective linear groups 
-- Investigating the algebraic geometry of SIC-POVMs algebraic geometry
+- Investigating properties of SIC-POVMs 
 
 ## TODO 
 - Group actions
