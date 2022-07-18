@@ -1,36 +1,33 @@
 # QP.jl - Quantum Programming
 
-
-
-## Goals / desires
+Goals / desires
 - Abstract framework for modeling quantum systems
-- Explicit computing in bases 
+- Explicit computing in bases (vector, operator, etc)
 - Implementation-agnostic (native julia, arb, FLINT, ..., TensorFlow)
-- Fast computation of stabilizer/graph states 
+- Mainly Julia/Oscar/Nemo/Hecke otherwise Magma, Sage, Pari
+
+## TODO 
+- Generalize Weil to composite $N$
+  -- Sort out even case
+  -- Fix this [Oscar issue](https://github.com/oscar-system/Oscar.jl/issues/649) to implement $\mathrm{SL}(2,\mathbb{Z}/N)$ for all $N$.
+
+
+## Towards arithmetic of quantum circuits
+The following are already implemented in Hecke for not-totally-definite algebras but algorithms for definite algebras are lacking. 
+- 2-sided ideal class group
+  - `TwoSidedIdealClassGroup(OO)` in Magma
+- Set $\mathrm{Pic}_\ell$ of equivalence classes of invertible right ideals under left equivalence. 
+  - `RightIdealClasses(OO)`
+- Number of conjugacy classes, or types (Clark) of orders
+  - `#ConjugacyClasses(OO)`
+- Hecke does one split prime.  `PolyMake.jl` for totally positive and more general? 
+
+Explore this more
+
+
+## Longer term
+- Stabilizer/graph states 
 - Parametric models / exponential families
-- Solving pentagon and hexagon equations?
-- [Arithmetic of quantum circuits](Arithmetic.md) for qubits and beyond
-- Incorporate [type foundations](TypeFoundations.md) such as [HoTT](https://homotopytypetheory.org/)
-
-
-
-## Informal proof systems?
-*Informal* proof system as workflow for searching for proofs using machine learning.  From MATH 239 to current research in physics and mathematics.
-- How to represent information?
-  - Scraping arXiv / hep-th
-  - *concept classifier* 
-  - Can a computer "discover" math or physics?
-  - A possible answer: Computer very good at doing calculations.  In what sense could we possibly ask a computer to "understand" the result?  Can it learn to recognize / read / learn from existing proofs?
-- Supervised / unsupervised learning: 
-  - Supervised: Teach it
-  - Unsupervised: Computers can easily generate examples by doing calculations.   
- Like, have it look at a paper and try to verify little parts as a check on its understanding.  
-  - Publishing - How does it record its understanding or otherwise label what it finds "interesting".
-  - In addition to julia also consider rust and go.
-
-
-
-
-
+- Example: Solving pentagon and hexagon equations
 
 
