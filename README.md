@@ -28,8 +28,8 @@ julia> heis(ZN(3)[1 2])
 - Useful matrices and tensor products 
 - Qudit generalized Paulis
 - Prime qudit generalized Clifford = Weil representation
-- Constructing and investigating algebraic geometry of SIC-POVMs
-
+- Projective linear groups 
+- Investigating the algebraic geometry of SIC-POVMs algebraic geometry
 
 ## TODO 
 - Group actions
@@ -37,22 +37,23 @@ julia> heis(ZN(3)[1 2])
 - Generalize Weil to composite $N$
   - Sort out even case
   - Fix this [Oscar issue](https://github.com/oscar-system/Oscar.jl/issues/649) to implement $\mathrm{SL}(2,\mathbb{Z}/N)$ for all $N$.
-- Schur transform
+
 
 
 ## Towards arithmetic of quantum circuits
 - 2-sided ideal class group
   - `TwoSidedIdealClassGroup(OO)` in Magma
 - Set $\mathrm{Pic}_\ell$ of equivalence classes of invertible right ideals under left equivalence. 
-  - `RightIdealClasses(OO)`
-- Number of conjugacy classes, or types (Clark) of orders
-  - `#ConjugacyClasses(OO)`
+  - `RightIdealClasses(OO)` in Magma
+- Number of conjugacy classes, or types of orders
+  - `#ConjugacyClasses(OO)` in Magma
 - Hecke does one split prime.  Can we use `PolyMake.jl` for totally positive and more general? 
 
 
-## Longer term
+## More to do
 - Stabilizer/graph states 
 - Parametric models / exponential families
-- Example: Solving pentagon and hexagon equations
-
+- Solving pentagon and hexagon equations 
+- Ross-Selinger and extensions
+- Schur transform
 
