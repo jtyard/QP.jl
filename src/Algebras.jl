@@ -1,7 +1,7 @@
 #################
 # Algebras and orders
 #################
-export QuaternionAlgebra, Dn, su2levelk, su2levelkD, su2levelkR
+export quaternion_algebra, Dn, su2levelk, su2levelkD, su2levelkR
 
 # A wrapper that coerces the generators automatically 
 quaternion_algebra(K,a,b) = Hecke.AlgQuat(K,K(a),K(b))

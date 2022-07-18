@@ -4,7 +4,7 @@ using Oscar
 using QP
 
 # Construct the standard rational quaternion algebra with i^2 = j^2 = k^2 = ijk = -1
-A = QuaternionAlgebra(QQ,-1,-1)
+A = quaternion_algebra(QQ,-1,-1)
 
 # Lets give the standard quaternions names
 A1, Ai, Aj, Ak = basis(A)
@@ -29,7 +29,7 @@ println(OA == H)
 ZZx, x = PolynomialRing(ZZ, "x")
 K, s = NumberField(x^2 - 2, "√2")
 
-B = QuaternionAlgebra(K,-1,-1)
+B = quaternion_algebra(K,-1,-1)
 B1, Bi, Bj, Bk = basis(B)
 
 LOK = Order(B,basis(B))

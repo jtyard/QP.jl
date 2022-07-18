@@ -1,97 +1,82 @@
-using Oscar
-
-include("Sic.jl")
-
-N = 7
-
-#CN = cyclotomic_field(N)
-
-ZZx, x = PolynomialRing(ZZ, "x")
-D = (N-3)*(N+1)
-
-K, s = NumberField(x^2 - 2, "s")
-OK = maximal_order(K)
-
-infK = infinite_places(K)
-
-if real(evaluate(s,infK[1])) < 0
-    infK = [infK[2],infK[1]]
-end
-
-PP = prime_decomposition(OK,N)
-P1 = PP[1][1]
-P2 = PP[2][1]
-
-G1, ph1 = ray_class_group(P1,[infK[2]])
-G2, ph2 = ray_class_group(P2,[infK[2]])
-
-n1 = order(G1)
-n2 = order(G2)
-if n2 < n1
-    P1,G1,ph1,n1,P2,G2,ph2,n2 = P2,G2,ph2,n2,P1,G1,ph1,n1
-end
-
-Ky, y = PolynomialRing(K,"y")
-F,r = NumberField(y^2 - (2*s-1),"r")
-# Make it work for ii later
-
-ZZz,zs = PolynomialRing(ZZ,[string("z",i) for i in 0:N-1])
-z(i) = zs[1 + (i % N)]
-
-norm2 = sum([z(i)^2 for i in 0:N-1])
-norm4 = norm2^2
-
-zzzz(j) = sum([z(i)*z(i+j[1])*z(i+j[2])*z(i+j[1]+j[2]) for i in 0:N-1])
-f(j) = (N+1)*zzzz(j) - norm4*( (((j[1] % N) == 0) ? 1 : 0) + (((j[2] % N) == 0) ? 1 : 0))
-
-u = (r-1-s)//2 
-psi = [F(1),u,u,u^-1,u,u^-1,u^-1]
-
-[[evaluate(f([j1,j2]),psi) for j2 in 0:N-1] for j1 in 0:N-1]
-
-CCC() = AcbField(precision(BigFloat))
-RRR() = ArbField(precision(BigFloat))
-
-function starks(N::Integer)
-    L = lvals(N)
-    n = length(L)
-    CC = CCC()
-    Larb = [CC(real(a)) + onei(CC)*CC(imag(a)) for a in L]
-    zn = exppii(CC(2/n))
-    zetas = [sum([zn^(i*j) * Larb[j] for j = 1:2:n]) for i = 0:n-1]
-    [exp(real(a)) for a in zetas]
-end
 
 
 
-function findquadpoly(a::arb)
-    N = ZZ(2)^200
-    MS = MatrixSpace(ZZ,3,4)
-    A = MS([1 0 0 N; 0 1 0 ZZ(floor(N*a)); 0 0 1 ZZ(floor(N*a^2))])
-    println(A)
-    B = lll(A)
-    B[1,1] + B[1,2]*x+B[1,3]*x^2
-end
+# 
+N=7; Zd = ZN(N); s = Zd[0 -1; 1 0]; t = Zd[1 1; 0 1]; X = gpX(N); Z = gpZ(N);
 
-function arbstarkcoefs(N::Integer)
-    _,t = PolynomialRing(RRR(),"t")
-    f = prod([t-s for s in starks(N)])
-    [a for a in coefficients(f)]
-end
+j = Zd[rand(0:N-1); rand(0:N-1)]; k = Zd[rand(0:N-1); rand(0:N-1)]; heis(j)*heis(k) ==  heis(j+k)*heiscocycle(j,k)
+heis(j)*heis(k)*heis(-j)heis(-k) == heispairing(j,k)*weil(Zd[1 0;0 1])
 
-# Quick and dirty weil reprsentation for diagonals
-function wA(a::Integer,N::Integer)
-    U = zeros(Integer,N,d)
-    U[1,1] = 1
-    for j = 1:N-1
-        U[j + 1,(a*j % N) + 1] = 1
+j = Zd[rand(0:N-1); rand(0:N-1)]; weil(s)*heis(j)*weil(s)^-1 == heis(s*j)
+j = Zd[rand(0:N-1); rand(0:N-1)]; weil(t)*heis(j)*weil(t)^-1 == heis(t*j)
 
-        
-    end
-    #U*jacobi_symbol(a,d)
-    U # ignore the jacobi sign to always fix |0>
-end
+
+#@time Isat = saturation(I,Rp)
+#hilbert_series_reduced(quo(R,I)[1])
+
+#@time pd = primary_decomposition(I,alg = :SY)
+#pp = [p[2] for p in pd]
+#display([[dim(p+q) for q in pp] for p in pp])
 
 
 
+# Calculations verify the following: 
 
+# Irad = radical(I)
+# Isat = saturation(I,Rp)
+# pd = primary_decomposition(I)
+
+# N=2 I = Irad = Isat; length(pd) = 2; dim = 0
+
+# N=3 I = Isat neq Irad; length(pd) = 8; dim = 1
+# julia> hilbert_series_reduced(quo(R,I)[1])
+# (t^5 + 7*t^4 + 16*t^3 + 16*t^2 + 7*t + 1, t^2 - 2*t + 1)
+# julia> hilbert_series_reduced(quo(R,radical(I))[1])
+#  0.279213 seconds (169.81 k allocations: 6.843 MiB, 7.30% compilation time)
+# (16*t^2 + 7*t + 1, t^2 - 2*t + 1)
+
+# N=4 I = Isat; length(pd) = ?? (should be 56); dim = 0
+
+#julia> @time Isat = saturation(I,Rp)
+#754.226843 seconds (5.61 G allocations: 103.652 GiB, 0.19% gc time, 0.00% compilation time)
+#ideal(X_{0,0}*X_{1,1} - X_{0,1}*X_{1,0}, X_{0,0}*X_{1,2} - X_{0,2}*X_{1,0}, X_{0,0}*X_{1,3} - X_{0,3}*X_{1,0}, X_{0,1}*X_{1,2} - X_{0,2}*X_{1,1}, X_{0,1}*X_{1,3} - X_{0,3}*X_{1,1}, X_{0,2}*X_{1,3} - X_{0,3}*X_{1,2}, X_{0,0}*X_{2,1} - X_{0,1}*X_{2,0}, X_{0,0}*X_{2,2} - X_{0,2}*X_{2,0}, X_{0,0}*X_{2,3} - X_{0,3}*X_{2,0}, X_{0,1}*X_{2,2} - X_{0,2}*X_{2,1}, X_{0,1}*X_{2,3} - X_{0,3}*X_{2,1}, X_{0,2}*X_{2,3} - X_{0,3}*X_{2,2}, X_{0,0}*X_{3,1} - X_{0,1}*X_{3,0}, X_{0,0}*X_{3,2} - X_{0,2}*X_{3,0}, X_{0,0}*X_{3,3} - X_{0,3}*X_{3,0}, X_{0,1}*X_{3,2} - X_{0,2}*X_{3,1}, X_{0,1}*X_{3,3} - X_{0,3}*X_{3,1}, X_{0,2}*X_{3,3} - X_{0,3}*X_{3,2}, X_{1,0}*X_{2,1} - X_{1,1}*X_{2,0}, X_{1,0}*X_{2,2} - X_{1,2}*X_{2,0}, X_{1,0}*X_{2,3} - X_{1,3}*X_{2,0}, X_{1,1}*X_{2,2} - X_{1,2}*X_{2,1}, X_{1,1}*X_{2,3} - X_{1,3}*X_{2,1}, X_{1,2}*X_{2,3} - X_{1,3}*X_{2,2}, X_{1,0}*X_{3,1} - X_{1,1}*X_{3,0}, X_{1,0}*X_{3,2} - X_{1,2}*X_{3,0}, X_{1,0}*X_{3,3} - X_{1,3}*X_{3,0}, X_{1,1}*X_{3,2} - X_{1,2}*X_{3,1}, X_{1,1}*X_{3,3} - X_{1,3}*X_{3,1}, X_{1,2}*X_{3,3} - X_{1,3}*X_{3,2}, X_{2,0}*X_{3,1} - X_{2,1}*X_{3,0}, X_{2,0}*X_{3,2} - X_{2,2}*X_{3,0}, X_{2,0}*X_{3,3} - X_{2,3}*X_{3,0}, X_{2,1}*X_{3,2} - X_{2,2}*X_{3,1}, X_{2,1}*X_{3,3} - X_{2,3}*X_{3,1}, X_{2,2}*X_{3,3} - X_{2,3}*X_{3,2}, 3*X_{0,0}^2 - 4*X_{0,0}*X_{1,1} - 4*X_{0,0}*X_{2,2} - 4*X_{0,0}*X_{3,3} + 3*X_{1,1}^2 - 4*X_{1,1}*X_{2,2} - 4*X_{1,1}*X_{3,3} + 3*X_{2,2}^2 - 4*X_{2,2}*X_{3,3} + 3*X_{3,3}^2, -X_{0,0}^2 + 3*X_{0,0}*X_{1,1} - 2*X_{0,0}*X_{2,2} + 3*X_{0,0}*X_{3,3} - X_{1,1}^2 + 3*X_{1,1}*X_{2,2} - 2*X_{1,1}*X_{3,3} - X_{2,2}^2 + 3*X_{2,2}*X_{3,3} - X_{3,3}^2, -X_{0,0}^2 - 2*X_{0,0}*X_{1,1} + 8*X_{0,0}*X_{2,2} - 2*X_{0,0}*X_{3,3} - X_{1,1}^2 - 2*X_{1,1}*X_{2,2} + 8*X_{1,1}*X_{3,3} - X_{2,2}^2 - 2*X_{2,2}*X_{3,3} - X_{3,3}^2, 5*X_{0,1}*X_{2,1} + 5*X_{0,3}*X_{2,3} + 5*X_{1,0}*X_{3,0} + 5*X_{1,2}*X_{3,2}, 5*X_{0,1}*X_{3,2} + 5*X_{0,3}*X_{1,2} + 5*X_{1,0}*X_{2,3} + 5*X_{2,1}*X_{3,0}, 5*X_{0,1}*X_{0,3} + 5*X_{1,0}*X_{1,2} + 5*X_{2,1}*X_{2,3} + 5*X_{3,0}*X_{3,2}, 5*X_{0,2}^2 + 5*X_{1,3}^2 + 5*X_{2,0}^2 + 5*X_{3,1}^2, 5*X_{0,2}*X_{1,3} + 5*X_{0,2}*X_{3,1} + 5*X_{1,3}*X_{2,0} + 5*X_{2,0}*X_{3,1})
+
+#julia> I == Isat
+#true
+
+
+
+#dim(affine_cone(S)) - 1
+
+
+#@time pd = primary_decomposition(I,alg = :SY)
+#pp = [p[2] for p in pd]
+#display([[dim(p+q) for q in pp] for p in pp])
+
+
+
+#Isat = saturation(I,Rp)
+#pdsat = primary_decomposition(Isat)
+#A,_ = quo(RX(N),Isat + Itr)
+
+#G1 = abelian_group([0])
+#R1 = grade(RX(N))
+
+#G12 = abelian_group([0,N])
+#R12 = grade(RX(N),[G12([1,i-j]) for i in 0:N-1 for j in 0:N-1])
+
+
+#B,_ = quo(RG,ideal([RG(e) for e in eqns]))
+
+#dims = [[dim(homogenous_component(R12,G12([a,b]))[1]) for b in 0:N-1] for a in 0:4]
+
+#println(Array(dims))
+#println([sum(d) for d in dims])
+
+#println([dim(homogenous_component(R1,G1([a]))[1]) for a in 0:3])
+
+#S,Yvars = PolynomialRing(QQ,[string("Y_{",i,",",j,"}") for i in 0:N-1 for j in 0:N-1])
+#Y(j) = Yvars[1 + mod(j[2],N) + N*mod(j[1],N)]
+#Y(j1,j2) = Y([j1,j2])
+#G123 = abelian_group([0,N,N])
+#S123 = grade(S,[G123([1,i,j]) for i in 0:N-1 for j in 0:N-1])

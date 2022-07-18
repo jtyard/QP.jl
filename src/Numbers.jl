@@ -26,7 +26,8 @@ R^n = MatrixSpace(R,1,n)
 
 dagger(M) = transpose( map(complex_conjugation(base_ring(M)), M ) )
 
-# However should rewrite this to live in the real cyclotomic field (also which version???)
+# Perhaps rewrite this to live in the real cyclotomic field
+# Returns [m] at q^{1/2} = 2nth root of unity
 qint(n,m) = sum([zetaN(2*n)^(m-1 - 2*i) for i in 0:m-1])
 
 function sicrcf(N::Int)

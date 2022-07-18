@@ -3,9 +3,7 @@ module QP
 using Oscar
 using Caching
 
-# abstract type QuantumSystem end
-
-
+abstract type QuantumSystem end
 
 
 include("Numbers.jl")
@@ -14,7 +12,8 @@ include("Groups.jl")
 include("Vars.jl")
 include("Weil.jl")
 include("Algebras.jl")
-
+include("Schur.jl")
+include("SicPolys.jl")
 
 
 
