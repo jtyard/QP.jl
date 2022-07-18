@@ -6,6 +6,15 @@ Goals / desires
 - Implementation-agnostic (native julia, arb, FLINT, ..., TensorFlow)
 - Mainly Julia/Oscar/Nemo/Hecke otherwise Magma, Sage, Pari
 
+## Current capabilities
+
+- Rings of polynomial functions on matrices over number fields 
+- Useful matrices and tensor products 
+- Qudit generalized Paulis
+- Prime qudit generalized Clifford = Weil representation
+- Constructing and investigating algebraic geometry of SIC-POVMs
+
+
 ## TODO 
 - Generalize Weil to composite $N$
   -- Sort out even case
