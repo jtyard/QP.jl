@@ -1,9 +1,26 @@
 # QP.jl - Quantum Programming
+```julia
+julia> using QP
+julia> using Oscar
+
+
+julia> ZN(3)
+Integers modulo 3
+
+julia> ZN(3)[1 2]
+[1   2]
+
+julia> heis(ZN(3)[1 2])
+[  0   0   -z_3 - 1]
+[z_3   0          0]
+[  0   1          0]
+```
+
 
 - Abstract framework for modeling quantum systems
 - Explicit computing in bases (vector, operator, etc)
 - Implementation-agnostic (native julia, arb, FLINT, ..., TensorFlow)
-- Mainly Julia/Oscar/Nemo/Hecke otherwise Magma, Sage, Pari
+- Julia/Oscar/Nemo/Hecke/ANTIC/GAP/Polymake vs Python/Magma/Sage/Pari
 
 ## Current capabilities
 
@@ -20,6 +37,7 @@
 - Generalize Weil to composite $N$
   - Sort out even case
   - Fix this [Oscar issue](https://github.com/oscar-system/Oscar.jl/issues/649) to implement $\mathrm{SL}(2,\mathbb{Z}/N)$ for all $N$.
+- Schur transform
 
 
 ## Towards arithmetic of quantum circuits
