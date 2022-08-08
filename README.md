@@ -50,9 +50,11 @@ julia> Xij(3)
 The invertible $R$-lattices in a central simple algebra over Frac$(R)$ and connecting 
 $R$-orders form a groupoid.  
 
+Normal ideals have O_L and O_R maximal.
+
 - 2-sided ideal class group
   - `TwoSidedIdealClassGroup(OO)` in Magma
-- Set $\mathrm{Pic}_\ell(\mathcal{O})$ of left-equivalence classes of invertible right ideals. 
+- Set $\mathrm{Pic}_\ell(\mathcal{O})$ of left-equivalence classes of invertible right $\mathcal{O}$ ideals. 
   - `RightIdealClasses(OO)` in Magma
   - Class number $h(\mathcal{O})$ is the number of right ideal classes
 - Number of conjugacy classes, or types of orders
