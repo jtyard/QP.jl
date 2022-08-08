@@ -3,7 +3,7 @@
 # on matrices and projective spaces
 ###############
 
-export MatrixPolynomialRing, VariableMatrix
+export MatrixPolynomialRing, VariableMatrix, MatrixGradedPolynomialRing, QQXgraded
 export QQX, Xij, TrX, TrX2, QQXhom, QQXt
 export QQzw,wj,zj
 
@@ -22,11 +22,22 @@ function VariableMatrix(F,N::Int,X::Union{AbstractString, Char, Symbol} = "X")
     matrix(R,N,N,gens(R))
 end
 
+@cache function MatrixGradedPolynomialRing(F,N::Int,X::Union{AbstractString, Char, Symbol} = "X")
+    GradedPolynomialRing(F,[string(X,"_{",i,",",j,"}") for i in 0:N-1 for j in 0:N-1])[1]
+end
+
 #####
 # "Legacy"
 #####
 # Or should this be cached?
 QQX(N) = MatrixPolynomialRing(QQ,N)
+
+QQXgraded(N) = MatrixGradedPolynomialRing(QQ,N)
+
+# Not sure what Oscar can do with these at the moment (i.e. with Proj). 
+@cache function QQzw(N::Int)
+    GradedPolynomialRing(QQ,vcat([string("z",i) for i in 0:N-1],[string("w",i) for i in 0:N-1]))[1]
+end
 
 # Okay for now but a more general definition allowing other names and instances ultimately needed
 Xij(i::Union{Int,nmod},j::Union{Int,nmod},N::Int) = gens(QQX(N))[1 + (Int(j) % N) + N*(Int(i) % N)]
