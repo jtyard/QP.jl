@@ -47,14 +47,28 @@ julia> Xij(3)
 
 
 ## Towards arithmetic of quantum circuits
-The invertible $R$-lattices in a central simple algebra over Frac$(R)$ and connecting 
-$R$-orders form a groupoid.  
+Let $R$ be an integral domain and $B$ a central simple algebra over Frac$(R)$.  
+- An $R$-lattice is a finitely generated torsion-free $R$-module.
+- A fractional $R$-ideal of $B$ is a full-rank $R$-sublattice.
+Each fractional $R$-ideal $I$ is an $O_L(I)-O_R(I)$-bimodule.  Proper products of fractional ideals have matching left/right orders).
+- An invertible $R$-ideal $I$ of $B$ is a fractional $R$-ideal $I$ such that there exists a fractional $R$-ideal $J$ with $IJ$  
+
+The invertible fractional ideals form a groupoid.
+
+- An normal $R$-ideal is a fractional $R$-ideal whose left/right orders are maximal.
+
+The normal ideals form the Brandt groupoid.
+
+- An integral $R$-ideal is a normal ideal contained in its left/right orders.
+
+ 
+The invertible $R$-ideals in a central simple algebra over Frac$(R)$ form a groupoid under proper products (meaning the left and right orders coincide).  The Brandt groupoid consists of the maximal orders 
 
 Normal ideals have O_L and O_R maximal.
 
 - 2-sided ideal class group
   - `TwoSidedIdealClassGroup(OO)` in Magma
-- Set $\mathrm{Pic}_\ell(\mathcal{O})$ of left-equivalence classes of invertible right $\mathcal{O}$ ideals. 
+- Set $\mathrm{Pic}_\ell(\mathcal{O})$ of left-equivalence classes of invertible right $\mathcal{O}$-ideals. 
   - `RightIdealClasses(OO)` in Magma
   - Class number $h(\mathcal{O})$ is the number of right ideal classes
 - Number of conjugacy classes, or types of orders
