@@ -80,7 +80,7 @@ The main difficult tasks are the following:
 - Compute representatives for the 2-sided ideal class group 
   - `TwoSidedIdealClassGroup(O)` in Magma
   - Extends the class group of the base maximal order by square roots of ramified primes
-- Combining the previous two (KV 2.10) lets us compute representatives `[J*I(OO,O) : OO in ConjugacyClasses(O), J in TwoSidedIdealClassGroup(OO)]` for the set $\mathrm{Pic}_\ell(O)$ of left-equivalence classes of invertible right $O$-ideals. 
+- Combining the previous two (KV 2.10) computes representatives `[J*I(OO,O) : OO in ConjugacyClasses(O), J in TwoSidedIdealClassGroup(OO)]` for the set $\mathrm{Pic}_\ell(O)$ of left-equivalence classes of invertible right $O$-ideals. 
   - `RightIdealClasses(O)` in Magma
   - Cardinality is the class number
 
