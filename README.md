@@ -76,12 +76,12 @@ For maximal or Eichler quaternion orders, need  the following basic operations (
 
 The main difficult tasks are the following:
 - Compute representatives for the conjugacy classes = types = isomorphism classes of orders
-  - `ConjugacyClasses(OO)` in Magma
+  - `ConjugacyClasses(O)` in Magma
 - Compute representatives for the 2-sided ideal class group 
-  - `TwoSidedIdealClassGroup(OO)` in Magma
+  - `TwoSidedIdealClassGroup(O)` in Magma
   - Extends the class group of the base maximal order by square roots of ramified primes
-- Combining the previous two (KV 2.10) lets us compute representatives `[J*I(O,OO) : O in ConjugacyClasses(OO), J in TwoSidedIdealClassGroup(O)]` for the set $\mathrm{Pic}_\ell(\mathcal{O})$ of left-equivalence classes of invertible right $\mathcal{O}$-ideals. 
-  - `RightIdealClasses(OO)` in Magma
+- Combining the previous two (KV 2.10) lets us compute representatives `[J*I(OO,O) : OO in ConjugacyClasses(O), J in TwoSidedIdealClassGroup(OO)]` for the set $\mathrm{Pic}_\ell(O)$ of left-equivalence classes of invertible right $O$-ideals. 
+  - `RightIdealClasses(O)` in Magma
   - Cardinality is the class number
 
 
