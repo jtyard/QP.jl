@@ -29,6 +29,7 @@ end function;
 
 // Strange that Left/Right classes don't work for for n geq 5 because 
 // because right_ideal_classes = 2_sided_ideal_classes x conjugacy_classes
+// i.e. conjugacy_classes = right_ideal_classes
 
 // n:=3;
 //print allinvs(OL);
