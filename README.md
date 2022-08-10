@@ -53,7 +53,8 @@ a central simple algebra over $\mathrm{Frac}(R)$.
 - A fractional $R$-ideal of $B$ is a full-rank $R$-sublattice.
 Each fractional $R$-ideal $I$ is an $O_L(I)-O_R(I)$-bimodule.  Proper products of fractional ideals have matching left/right orders).  Connected orders are isomorphic = conjugate iff they are connected by a principal ideal. So the conjugacy classes of orders are the isomorphism classes.
 
-- An invertible $R$-ideal $I$ of $B$ is a fractional $R$-ideal $I$ such that there exists a fractional $R$-ideal $J$ with $IJ$  
+- An invertible  $\mathcal{O}$-ideal 
+$I$ of $B$ is a fractional $R$-ideal $I$ such that there exists a fractional $R$-ideal $J$ with $IJ$  
 
 The invertible fractional ideals form a groupoid.
 
