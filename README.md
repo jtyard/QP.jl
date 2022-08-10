@@ -50,7 +50,8 @@ julia> Xij(3)
 Let $R$ be an integral domain and $B$ a central simple algebra over Frac$(R)$.  
 - An $R$-lattice is a finitely generated torsion-free $R$-module.
 - A fractional $R$-ideal of $B$ is a full-rank $R$-sublattice.
-Each fractional $R$-ideal $I$ is an $O_L(I)-O_R(I)$-bimodule.  Proper products of fractional ideals have matching left/right orders).
+Each fractional $R$-ideal $I$ is an $O_L(I)-O_R(I)$-bimodule.  Proper products of fractional ideals have matching left/right orders).  Connected orders are isomorphic = conjugate iff they are connected by a principal ideal. So the conjugacy classes of orders are the isomorphism classes.
+
 - An invertible $R$-ideal $I$ of $B$ is a fractional $R$-ideal $I$ such that there exists a fractional $R$-ideal $J$ with $IJ$  
 
 The invertible fractional ideals form a groupoid.
@@ -66,13 +67,25 @@ The invertible $R$-ideals in a central simple algebra over Frac$(R)$ form a grou
 
 Normal ideals have O_L and O_R maximal.
 
-- 2-sided ideal class group
+Need to be able to do the following basic operations (see Kirchmer & Voight - Algorithmic enumeration of ideal classes for quaternion orders):
+
+- Check isomorphism of fractional ideals: `is_isomorphic` (Oscar) `IsIsomorphic` (Magma) reduces to `is_principal` / `IsPrincipal`
+- Compute connecting fractional ideals `I(O,OO)` such that left ideal is O and right ideal is OO.
+
+The main difficult tasks are the following:
+- Compute representatives for the conjugacy classes = types = isomorphism classes of orders
+  - `ConjugacyClasses(OO)` in Magma
+- Compute representatives for the 2-sided ideal class group 
   - `TwoSidedIdealClassGroup(OO)` in Magma
-- Set $\mathrm{Pic}_\ell(\mathcal{O})$ of left-equivalence classes of invertible right $\mathcal{O}$-ideals. 
+  - Extends the class group of the base maximal order by square roots of ramified primes
+- Combining the previous two (KV 2.10) lets us compute representatives `[J*I(O,OO) : O in ConjugacyClasses(OO), J in TwoSidedIdealClassGroup(O)]` for the set $\mathrm{Pic}_\ell(\mathcal{O})$ of left-equivalence classes of invertible right $\mathcal{O}$-ideals. 
   - `RightIdealClasses(OO)` in Magma
-  - Class number $h(\mathcal{O})$ is the number of right ideal classes
-- Number of conjugacy classes, or types of orders
-  - `#ConjugacyClasses(OO)` in Magma
+  - Cardinality is the class number
+
+
+
+
+
 - Hecke does one split prime.  Can we use `PolyMake.jl` for totally positive and more general? 
 
 
