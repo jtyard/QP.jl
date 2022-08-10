@@ -47,7 +47,8 @@ julia> Xij(3)
 
 
 ## Towards arithmetic of quantum circuits
-Let $R$ be an integral domain and $B$ a central simple algebra over Frac$(R)$.  
+Let $R$ be an integral domain and $B$ 
+a central simple algebra over Frac$(R)$.  
 - An $R$-lattice is a finitely generated torsion-free $R$-module.
 - A fractional $R$-ideal of $B$ is a full-rank $R$-sublattice.
 Each fractional $R$-ideal $I$ is an $O_L(I)-O_R(I)$-bimodule.  Proper products of fractional ideals have matching left/right orders).  Connected orders are isomorphic = conjugate iff they are connected by a principal ideal. So the conjugacy classes of orders are the isomorphism classes.
