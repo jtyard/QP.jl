@@ -51,7 +51,7 @@ Let $R$ be an integral domain and $B$
 a central simple algebra over $\mathrm{Frac}(R)$.  
 - An $R$-lattice is a finitely generated torsion-free $R$-module.
 - A fractional $R$-ideal of $B$ is a full-rank $R$-sublattice.
-Each fractional $R$-ideal $I$ is an $O_L(I)-O_R(I)$-bimodule, a left fractional `O_L(I)` ideal and a right fractional `O_R(I)`-ideal.  Proper products of fractional ideals by definition have matching left/right orders) and define a relation on orders.  Connected orders are isomorphic = conjugate iff they are connected by a principal ideal. So the conjugacy classes of orders are the isomorphism classes.
+Each fractional $R$-ideal $I$ is an $O_L(I)-O_R(I)$-bimodule, a left fractional $O_L(I)$ ideal and a right fractional $O_R(I)$-ideal.  Proper products of fractional ideals by definition have matching left/right orders) and define a relation on orders.  Connected orders are isomorphic = conjugate iff they are connected by a principal ideal. So the conjugacy classes of orders are the isomorphism classes.
 
 - Invertible ideals are fractional ideals with left (therefore right) inverses J_L I = O_R(I), I J_R = O_L(I).
 
@@ -66,7 +66,7 @@ The normal ideals form the Brandt groupoid.
  
 The invertible $R$-ideals in a central simple algebra over Frac$(R)$ form a groupoid under proper products (meaning the left and right orders coincide).  The Brandt groupoid consists of the maximal orders 
 
-Normal ideals have O_L and O_R maximal.
+Normal ideals have maximal $O_L$ and $O_R$.
 
 Need to be able to do the following basic operations (see Kirchmer & Voight - Algorithmic enumeration of ideal classes for quaternion orders):
 
