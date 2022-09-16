@@ -12,9 +12,11 @@ include("Base/ElMats.jl")
 include("Base/Groups.jl")
 include("Base/Algebras.jl")
 
+# Todo: Tensor categories
+include("Base/Cats.jl")
+
 # Heisenberg groups for all Z/N and Weil for Z/p
 include("Clif/Weil.jl")
-
 
 include("Sic/Sic.jl")
 
