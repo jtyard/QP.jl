@@ -1,5 +1,12 @@
 # 
-N = 5; C12, z12 = cyclotomic_field(12); I = z12^3; z3 = z12^4; w3 = 1+2*z3; s3 = I*w3;
+N = 5
+
+C12, z12 = cyclotomic_field(12); 
+
+I = z12^3; 
+z3 = z12^4;
+w3 = 1+2*z3;
+s3 = I*w3;
 
 #s3 := Sqrt(F! 3);
 #I := Sqrt(F!-1);
@@ -15,6 +22,9 @@ a = -g2//4; b = -g3//4;
 
 E = EllipticCurve([a, b]);
 
-"Computing minimal model";
-Emin := MinimalModel(E);
-jInvariant(E);
+#"Computing minimal model";
+# Oops Magma does this right
+# Emin = MinimalModel(E);
+
+j_invariant(E)
+#54000
