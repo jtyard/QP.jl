@@ -36,6 +36,14 @@ julia> Xij(3)
 - Projective linear groups 
 - Investigating properties of SIC-POVMs 
 
+## Class fields
+MapClassGrp : quotient of the class group -> ideals 
+MapRayClassGrp : quotient of a ray class group -> ideals prime to the conductor
+ClassField 
+ClassField_pp
+
+
+Given ray class field like `rcf = ray_class_field(5*OK,inf)` and the corresponding relative number field `A = number_field(rcf)` (henceforth is accessible via `rcf.A`), how do I compute the Artin map on ideals and real places? `automorphism_group(rcf)` gives me a map from a `GrpGen` to the set of automorphisms of `A` fixing the base, and `inv(rcf.quotientmap)` 
 ## TODO 
 - Group actions
 - Projective schemes
@@ -45,16 +53,14 @@ julia> Xij(3)
   $\mathrm{SL}(2,\mathbb{Z}/N)$ for all $N$.
 
 
-
 ## Towards arithmetic of quantum circuits
-Let $R$ be an integral domain and $B$ 
-a central simple algebra over $\mathrm{Frac}(R)$.  
+Let $R$ be an integral domain and $B$ a central simple algebra over $\mathrm{Frac}(R)$.  
 - An $R$-lattice is a finitely generated torsion-free $R$-module.
 - A fractional $R$-ideal of $B$ is a full-rank $R$-sublattice.
 Each fractional $R$-ideal $I$ is an $O_L(I)-O_R(I)$-bimodule, a left fractional $O_L(I)$ ideal and a right fractional $O_R(I)$-ideal.  
 - Proper products of fractional ideals by definition have matching left/right orders) and define a relation on orders.  Connected orders are isomorphic = conjugate iff they are connected by a principal ideal. So the conjugacy classes of orders are the isomorphism classes.
 
-- Invertible ideals are fractional ideals with left (therefore right) inverses $J_L I = O_R(I)$, $I J_R = O_L(I)$.
+- Invertible ideals are fractional ideals $I$ with left $I_L$ (therefore right $I_R$) inverses $J_L I = O_R(I)$, $I J_R = O_L(I)$.
 
 The invertible fractional ideals form a groupoid.
 
@@ -67,26 +73,24 @@ The normal ideals form the Brandt groupoid.
  The Brandt groupoid consists of the normal ideals, which have maximal O_L and O_R.
 
 
-For maximal or Eichler quaternion orders, need  the following basic operations (see Kirchmer & Voight - Algorithmic enumeration of ideal classes for quaternion orders):
+We need the following basic operations to compute with maximal or Eichler quaternion orders (see Kirchmer & Voight - Algorithmic enumeration of ideal classes for quaternion orders):
 
 - Check isomorphism of fractional ideals: `is_isomorphic` (Oscar) `IsIsomorphic` (Magma), reduces to `is_principal` / `IsPrincipal`
   - Indefinite case: check image in ray class group mod the infinite ramified primes of $B$. 
   - Definite case: Solve shortest lattice vector problem  
-- Compute connecting fractional ideals `I(O,OO)` such that left ideal is O and right ideal is OO.
+- Compute connecting fractional ideals `I(OO,O)` such that left ideal is OO and right ideal is O.
 
 The main difficult tasks are the following:
 - Compute representatives for the conjugacy classes = types = isomorphism classes of orders
   - `ConjugacyClasses(O)` in Magma
 - Compute representatives for the 2-sided ideal class group 
-  - `TwoSidedIdealClassGroup(O)` in Magma
   - Extends the class group of the base maximal order by square roots of ramified primes
-- Combining the previous two (KV 2.10) computes representatives `[J*I(OO,O) : OO in ConjugacyClasses(O), J in TwoSidedIdealClassGroup(OO)]` for the set $\mathrm{Pic}_\ell(O)$ of left-equivalence classes of invertible right $O$-ideals. 
+  - `TwoSidedIdealClassGroup(O)` in Magma
+- Combining the previous two (KV 2.10) computes representatives 
+  `[J*I(OO,O) : OO in ConjugacyClasses(O), J in TwoSidedIdealClassGroup(OO)]` 
+  for the set $\mathrm{Pic}_\ell(O)$ of left-equivalence classes of invertible right $O$-ideals. 
   - `RightIdealClasses(O)` in Magma
   - Cardinality is the class number
-
-
-
-
 
 - Hecke does one split prime.  Can we use `PolyMake.jl` for totally positive and more general? 
 
