@@ -693,7 +693,7 @@ version = "1.4.1"
 
 [[deps.Oscar]]
 deps = ["AbstractAlgebra", "DocStringExtensions", "GAP", "Hecke", "JSON", "Markdown", "Nemo", "Pkg", "Polymake", "Preferences", "Random", "RandomExtensions", "RecipesBase", "Singular", "TOPCOM_jll", "Test", "UUIDs", "cohomCalg_jll", "msolve_jll"]
-git-tree-sha1 = "0b127546fd5068de5d161c9ace299cbeb5b8c8b3"
+path = "/home/jyard/.julia/dev/Oscar"
 uuid = "f1435218-dba5-11e9-1e4d-f1a5fab5fc13"
 version = "0.10.2"
 
@@ -861,9 +861,9 @@ version = "1.1.0"
 
 [[deps.Singular]]
 deps = ["AbstractAlgebra", "BinaryWrappers", "CxxWrap", "LinearAlgebra", "Markdown", "Nemo", "Pkg", "Random", "RandomExtensions", "Singular_jll", "Statistics", "lib4ti2_jll", "libsingular_julia_jll"]
-git-tree-sha1 = "52930558f56f4c73e9389ee37a12d746f0c08667"
+git-tree-sha1 = "f2b22c728d93b30d2724d5f717c83e33306007b6"
 uuid = "bcd08a7b-43d2-5ff7-b6d4-c458787f915c"
-version = "0.12.0"
+version = "0.13.0"
 
 [[deps.Singular_jll]]
 deps = ["Artifacts", "FLINT_jll", "GMP_jll", "JLLWrappers", "Libdl", "MPFR_jll", "Pkg", "cddlib_jll"]

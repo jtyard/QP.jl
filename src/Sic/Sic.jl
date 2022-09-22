@@ -10,7 +10,7 @@ export Ih, Ih2, Ihm, Ihp, Ic, Icc, Itr0, IT
 
 export my_real_embeddings, my_quadratic_field, quad_embedding, fundamental_unit, quadratic_order
 
-export SICdata, SICdata_nf
+export SicData
 
 
 # Making new rings for the overlaps - maybe use routines from Vars.jl instead? 
@@ -89,7 +89,7 @@ function sicrcf(N::Int)
     K, _ = NumberField(x^2 - D, "s")
     OK = maximal_order(K)
     _,ph = ray_class_group((isodd(N) ? N : 2*N)*OK,infinite_places(K))
-    number_field(ray_class_field(ph),using_stark_units = true)
+    number_field(ray_class_field(ph))
 end
 
 # Returns automorphism of F corresponding to place inf of K
@@ -97,7 +97,7 @@ function complex_conjugation_from_inf(F,inf)
    automorphism_group(F)
 end
 
-mutable struct SICdata
+mutable struct SicData
     d::fmpz
     D::fmpz    
     D0::fmpz
@@ -110,7 +110,7 @@ mutable struct SICdata
     b::NumFieldElem # or NumFieldOrdElem?
     rcf::ClassField
     #ring_class_field::ClassField
-    function SICdata(d::Int)
+    function SicData(d::Int;build_nf=false)
         D = ZZ((d-3)*(d+1))
         D0 = fundamental_discriminant(D)
         f = ZZ(sqrt(D//D0))
@@ -121,15 +121,12 @@ mutable struct SICdata
         b = (D-1 + sqrt(K(D)))//2
         Ob = quadratic_order(b)
         rcf = ray_class_field((isodd(d) ? d : 2*d)*OK,infinite_places(K))
+        if build_nf
+            number_field(rcf)
+        end
         #F = number_field(rcf,using_stark_units = true)
         new(d,D,D0,f,K,OK,uf,OD,Ob,b,rcf)
     end
-end
-
-function SICdata_nf(d::Int)
-    S = SICdata(d)
-    number_field(S.rcf)
-    return S
 end
 
 X = Xij
@@ -164,6 +161,7 @@ function hm(j::nmod_mat)
     ((N+1)//2)*(XX(j) - XX(ZN(N)[j[2] j[1]])) - ((j[1]==0 ? 1 : 0) + (j[2]==0 ? 1 : 0))*(TrX(N)^2 - TrX2(N))*(1//2)
 end
 hm(j1,j2,N::Int) = hm(ZN(N)[j1 j2])
+
 
 ############
 # Useful ideals

@@ -36,24 +36,31 @@ julia> Xij(3)
 - Projective linear groups 
 - Investigating properties of SIC-POVMs 
 
-## Class fields
-MapClassGrp : quotient of the class group -> ideals 
-MapRayClassGrp : quotient of a ray class group -> ideals prime to the conductor
-ClassField 
-ClassField_pp
+## SIC-POVMs
+- `SicData(d)` (or `SicData(d,build_nf=true)` to build the number field)
 
+
+
+## Class fields
+- http://www.thofma.com/Hecke.jl/v0.6.1/class_fields/intro.html
+- Relative automorphism generators from  `Hecfe.automorphism_groupQQ`
+- Things go wrong in computing the full automorphism group in many cases e.g. `ray_class_field(5*OK,infinite_places(K))` for `K = quadratic_field(3)` runs forever.  Problem seems to be with the 2-parts.
+- `MapClassGrp` : {quotient of the class group} -> {ideals} 
+- `MapRayClassGrp` : {quotient of a ray class group} -> {ideals prime to the conductor}
+- `ClassField`
+- `ClassField_pp` Cyclic class field of prime-power degree
 
 Given ray class field like `rcf = ray_class_field(5*OK,inf)` and the corresponding relative number field `A = number_field(rcf)` (henceforth is accessible via `rcf.A`), how do I compute the Artin map on ideals and real places? `automorphism_group(rcf)` gives me a map from a `GrpGen` to the set of automorphisms of `A` fixing the base, and `inv(rcf.quotientmap)` 
 ## TODO 
 - Group actions
-- Projective schemes
+- Characteristic and Wigner functions
 - Generalize Weil to composite $N$
   - Sort out even case
   - Fix this [Oscar issue](https://github.com/oscar-system/Oscar.jl/issues/649) to implement 
   $\mathrm{SL}(2,\mathbb{Z}/N)$ for all $N$.
+- Projective schemes
 
-
-## Towards arithmetic of quantum circuits
+### Towards arithmetic of quantum circuits
 Let $R$ be an integral domain and $B$ a central simple algebra over $\mathrm{Frac}(R)$.  
 - An $R$-lattice is a finitely generated torsion-free $R$-module.
 - A fractional $R$-ideal of $B$ is a full-rank $R$-sublattice.

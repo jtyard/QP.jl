@@ -1,11 +1,10 @@
 using QP 
 using Oscar
 
-set_verbose_level(:ClassField, 2)
-
+set_verbose_level(:ClassField, 1)
 
 Z5 = ZN(5)
-S5 = SICdata_nf(5)
+S5 = SicData(5,build_nf=true)
 F = S5.rcf.A
 #F = number_field(S.rcf,using_stark_units = true)
 
@@ -39,6 +38,16 @@ Phi = phi*transpose(map(c,phi)); Phi = trace(Phi)^-1 * Phi
 #phi = Matrix(d,1,philist);
 
 C,_ = cyclotomic_field(5)
-CtoF = hom(C,F,zetaN(5,F))
+C_to_F = hom(C,F,zetaN(5,F))
 
-overlaps = [[abs2c(trace(map(CtoF,heis(Z5[i j]))*Phi)) for j in 0:4] for i in 0:4]
+overlaps = [[trace(map(C_to_F,heis(Z5[i j]))*Phi) for j in 0:4] for i in 0:4]
+
+map2(f,a) = map(x->map(f,x),a) # so map2(f,[[ ]]) = [[ f(..) ]]
+display(map2(abs2c,overlaps))
+println()
+display([[evaluate(h(Z5[i j]),vec(Phi)) for j in 0:4] for i in 0:4])
+
+Fs, Fs_to_F = absolute_simple_field(F)
+Fss, Fss_to_Fs = simplify(Fs)
+C60,z60 = cyclotomic_field(60)
+C60_to_Fss = hom(C60,Fss,zetaN(60,Fss))
