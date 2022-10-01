@@ -41,7 +41,7 @@ z4 = z60^15
 z5 = z60^12
 C60_to_Fss = hom(C60,Fss,zetaN(60,Fss))
 Frel, Frel_to_Fss = relative_simple_extension(Fss,C60)
-d = discriminant(Frel) 
+e = discriminant(Frel) 
 Cgal, Csig = automorphism_group(C60)
 possible_sig2 = findall([map(Csig(g),[z3,z4,z5]) == [z3,z4,z5^2] for g in Cgal])
 possible_sig3 = findall([map(Csig(g),[z3,z4,z5]) == [z3,z4,z5^3] for g in Cgal])
@@ -54,6 +54,6 @@ sig4 = Csig(Cgal[possible_sig4[1]])
 tau3 = Csig(Cgal[possible_tau3[1]])
 tau4 = Csig(Cgal[possible_tau4[1]])
 
-e = z60^-2*d; e*sig4(e)*sig2(e)*sig3(e)
+e*sig4(e)*sig2(e)*sig3(e)
 # After all this I can finally say that F = Q(z60,sqrt(e)) for e = -z_60^14 + z_60^10 + z_60^8 - z_60^6 - 2*z_60^4 + 1
 # Note that norm_Q(z12)(e) = 5.
