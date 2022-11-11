@@ -11,6 +11,27 @@ j = Zd[rand(0:N-1); rand(0:N-1)]; weil(s)*heis(j)*weil(s)^-1 == heis(s*j)
 j = Zd[rand(0:N-1); rand(0:N-1)]; weil(t)*heis(j)*weil(t)^-1 == heis(t*j)
 
 
+S = SicData(19)
+K = S.K
+OK = S.OK
+s = OK(sqrt(K(5)))
+
+#s = sqrt(OK(2))
+
+I = ideal(OK,1+2*s) # (for d=19 example)
+#I = ideal(OK,2+s)
+#I = ideal(OK,7)
+rcf0 = ray_class_field(I)
+rcf1 = ray_class_field(I,[real_places(K)[1]])
+rcf2 = ray_class_field(I,[real_places(K)[2]])
+rcf = ray_class_field(I,real_places(K))
+
+
+
+#F = number_field(rcf)
+#A = Hecke.rel_auto(rcf)
+
+
 #@time Isat = saturation(I,Rp)
 #hilbert_series_reduced(quo(R,I)[1])
 

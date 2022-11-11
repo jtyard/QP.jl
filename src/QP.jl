@@ -1,27 +1,33 @@
 module QP
 
 using Oscar
-using Caching
-
-abstract type QuantumSystem end
-
+using Memoize
 # 
 include("Base/Numbers.jl")
-include("Base/Vars.jl")
+include("Base/Polys.jl")
 include("Base/ElMats.jl")
 include("Base/Groups.jl")
 include("Base/Algebras.jl")
 
-# Todo: Tensor categories
-include("Base/Cats.jl")
-
 # Heisenberg groups for all Z/N and Weil for Z/p
 include("Clif/Weil.jl")
 
+# SIC-POVMs
 include("Sic/Sic.jl")
+# Quadratic number fields and orders
+include("Sic/Quad.jl")
+# Class fields
 
-# Schur transform (someday)
-include("Schur/Schur.jl")
+
+
+# Schur transform (eventually)
+include("Schur/SU2.jl")
+
+
+# Todo: Tensor categories
+include("Base/Cats.jl")
+#include("Base/Types.jl")
+
 
 
 end # module

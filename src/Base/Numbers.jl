@@ -1,19 +1,26 @@
 # Useful rings, fields and elements
 using Oscar
 
-export ZN, zetaN, dagger, primes, myorder
+export ZN, zetaN, dagger, complex_conjugate, primes, myorder, Z2, Z3, Z4, Z5, Z6, Z7, Z8
 
 #################
 # Ring   Element type
 # ZZ     fmpz 
 # QQ     fmpq
-# ZN(N)  nmod
+# ZN(N)  nmod 
 #
 # Note that characteristic(base_ring(___)) works for GF(p)[ ] and ResidueClassRing(ZZ,4)
 #################
 
 Base.Int(a::nmod) = Int(ZZ(a))
 ZN(N) = ResidueRing(ZZ,N) 
+Z2 = ZN(2)
+Z3 = ZN(3)
+Z4 = ZN(4)
+Z5 = ZN(5)
+Z6 = ZN(6)
+Z7 = ZN(7)
+Z8 = ZN(8)
 zetaN(N) = cyclotomic_field(N)[2]
 
 roots_of_unity(F,n) = roots(PolynomialRing(F)[2]^n-1)
@@ -31,6 +38,7 @@ R^n = MatrixSpace(R,1,n)
 
 dagger(M) = transpose( map(complex_conjugation(base_ring(M)), M ) )
 
+complex_conjugate(x) = complex_conjugation(parent(x))(x)
 
 
 import Oscar.primes
@@ -50,3 +58,4 @@ function myorder(a)
     end
     return Inf
 end 
+

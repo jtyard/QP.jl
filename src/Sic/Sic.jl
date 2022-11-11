@@ -8,7 +8,6 @@ export minors, Im, QQXp
 export XX, h, h2, hp, hm
 export Ih, Ih2, Ihm, Ihp, Ic, Icc, Itr0, IT
 
-export my_real_embeddings, my_quadratic_field, quad_embedding, fundamental_unit, quadratic_order
 
 export SicData
 
@@ -26,60 +25,7 @@ export SicData
 
 
 
-#######################
-# Quadratic number fields  
-#########################
 
-# Real embeddings should be actually real
-# cf https://github.com/thofma/Hecke.jl/issues/491
-my_real_embeddings(K::NumField) = [real ∘ e for e in real_embeddings(K)]
-
-# real embeddings of quadratic_field(m) have tiny imaginary parts.  Doing this instead.
-function my_quadratic_field(m::Union{fmpz,Int})
-    _,x = PolynomialRing(QQ)
-    NumberField(x^2-m,'s')[1]
-end
-
-# The quadratic order of discriminant D
-function quadratic_order(D::Union{fmpz,Int})
-    @assert mod(D,4) in [0,1] string(D) * " ≢ 0,1 mod 4}"
-    K = my_quadratic_field(fundamental_discriminant(D))
-    NfAbsOrd([K(1), (K(D) + sqrt(K(D)))//2])
-end
-
-# The quadratic order of discriminant D
-function quadratic_order(b::NumFieldElem)
-    K = parent(b)
-    @assert degree(K) == 2 "Ambient field of " * string(b) * " must be quadratic"
-    @assert degree(b) == 2 string(b) * " must be quadratic"
-    NfAbsOrd([K(1), b])
-end
-
-# Choose the embdding making the generator positive 
-function quad_embedding(K::NumField) 
-    embs = my_real_embeddings(K)
-    embs[indexin(1,[e(gen(K)) > 0 for e in embs])[1]]
-end
-
-# Fundamental unit is smallest unit > 1 
-function fundamental_unit(OK::NumFieldOrd) 
-    u = unit_group(OK)[2](unit_group(OK)[1]([0,1]))
-    K = OK.nf
-    e = quad_embedding(K)
-    if e(K(u)) < 0
-        u = -u
-    end
-    if e(K(u)) < 1
-        u = u^-1
-    end
-    return u
-end
-
-# Fundamental unit of the maximal order
-fundamental_unit(K::NumField) = fundamental_unit(maximal_order(K))
-
-# Fundamental unit of the quadratic order.
-fundament_unit(D::Union{fmpz,Int}) = fundamental_unit(quadratic_order(D))
 
 
 # Not actually used anywhere, subsumed by SICdata
@@ -167,18 +113,18 @@ hm(j1,j2,N::Int) = hm(ZN(N)[j1 j2])
 # Useful ideals
 ############
 
-Ih(N::Int) = ideal(QQX(N),[h(j1,j2,N) for j1 in 0:N-1 for j2 in j1:N-1])
-Ih2(N::Int) = ideal(QQX(N),[h2(j1,j2,N) for j1 in 0:N-1 for j2 in j1:N-1])
-Ihp(N::Int) = ideal(QQX(N),[hp(j1,j2,N) for j1 in 0:N-1 for j2 in j1:N-1])
-Ihm(N::Int) = ideal(QQX(N),[hm(j1,j2,N) for j1 in 0:N-1 for j2 in j1:N-1])
+Ih(N::Int, graded = false) = ideal(QQX(N, graded = graded),[h(j1,j2,N) for j1 in 0:N-1 for j2 in j1:N-1])
+Ih2(N::Int, graded = false) = ideal(QQX(N, graded = graded),[h2(j1,j2,N) for j1 in 0:N-1 for j2 in j1:N-1])
+Ihp(N::Int, graded = false) = ideal(QQX(N, graded = graded),[hp(j1,j2,N) for j1 in 0:N-1 for j2 in j1:N-1])
+Ihm(N::Int, graded = false) = ideal(QQX(N, graded = graded),[hm(j1,j2,N) for j1 in 0:N-1 for j2 in j1:N-1])
 
-Im(N::Int) = ideal(QQX(N),minors(N))
+Im(N::Int, graded = false) = ideal(QQX(N, graded = graded),minors(N))
 
-Ic(N::Int) = ideal(QQX(N), [Xij(j1,j2,N) - Xij(j2,j1,N) for j1 in 0:N-1 for j2 in 0:N-1] )
-Icc(N::Int) = ideal(QQX(N), [Xij(j1,j2,N) - Xij(-j2,-j1,N) for j1 in 0:N-1 for j2 in 0:N-1] )
+Ic(N::Int, graded = false) = ideal(QQX(N, graded = graded), [Xij(j1,j2,N) - Xij(j2,j1,N) for j1 in 0:N-1 for j2 in 0:N-1] )
+Icc(N::Int, graded = false) = ideal(QQX(N, graded = graded), [Xij(j1,j2,N) - Xij(-j2,-j1,N) for j1 in 0:N-1 for j2 in 0:N-1] )
 #Itr1(N) = ideal([TrX(N) - 1])
-Itr0(N::Int) = ideal(QQX(N),[TrX(N)])
-IT(a,N::Int) = ideal(QQX(N), [Xij(j1,j2) - Xij(a*j1,a*j2) for j1 in 0:N-1 for j2 in 0:N-1] )
+Itr0(N::Int, graded = false) = ideal(QQX(N, graded = graded),[TrX(N)])
+IT(a,N::Int, graded = false) = ideal(QQX(N, graded = graded), [Xij(j1,j2) - Xij(a*j1,a*j2) for j1 in 0:N-1 for j2 in 0:N-1] )
 
 # duh Itr0(N) = R(X_{0,0} + X_{1,1} + ⋯ ) subset RXp(N) = R({X_{i,j}})
 
