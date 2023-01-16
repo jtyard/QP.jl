@@ -44,13 +44,13 @@ julia> Xij(3)
 ## Class fields
 - http://www.thofma.com/Hecke.jl/v0.6.1/class_fields/intro.html
 - Relative automorphism generators from  `Hecfe.automorphism_groupQQ`
-- Things go wrong in computing the full automorphism group in many cases e.g. `ray_class_field(5*OK,infinite_places(K))` for `K = quadratic_field(3)` runs forever.  Problem seems to be with the 2-parts.
+- Things used to go wrong in computing the full automorphism group in many cases e.g. `ray_class_field(5*OK,infinite_places(K))` for `K = quadratic_field(3)` runs forever.  Seems to be fixed now.
 - `MapClassGrp` : {quotient of the class group} -> {ideals} 
 - `MapRayClassGrp` : {quotient of a ray class group} -> {ideals prime to the conductor}
 - `ClassField`
 - `ClassField_pp` Cyclic class field of prime-power degree
 
-Given ray class field like `rcf = ray_class_field(5*OK,inf)` and the corresponding relative number field `A = number_field(rcf)` (henceforth is accessible via `rcf.A`), how do I compute the Artin map on ideals and real places? `automorphism_group(rcf)` gives me a map from a `GrpGen` to the set of automorphisms of `A` fixing the base, and `inv(rcf.quotientmap)` 
+Given ray class field like `rcf = ray_class_field(5*OK,inf)` and the corresponding relative number field `A = number_field(rcf)` (henceforth is accessible via `rcf.A`), how do I compute the Artin map on ideals and real places? `automorphism_group(rcf)` gives me a map from a `GrpGen` to the set of automorphisms of `A` fixing the base, and `inv(rcf.quotientmap)` (this was fixed and now `artin_map` and `complex_conjugation(F,infplace)` work)
 ## TODO 
 - Group actions
 - Characteristic and Wigner functions
@@ -58,7 +58,7 @@ Given ray class field like `rcf = ray_class_field(5*OK,inf)` and the correspondi
   - Sort out even case
   - Fix this [Oscar issue](https://github.com/oscar-system/Oscar.jl/issues/649) to implement 
   $\mathrm{SL}(2,\mathbb{Z}/N)$ for all $N$.
-- Projective schemes
+- Projective schemes - much more development on this by now.
 
 ### Towards arithmetic of quantum circuits
 Let $R$ be an integral domain and $B$ a central simple algebra over $\mathrm{Frac}(R)$.  
