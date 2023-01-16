@@ -2,9 +2,11 @@
 # Generalized Paulis and Heisenberg group
 ###############
 
-export gpX, gpZ, heis, heis2, heiscocycle, heispairing, gauss_sum, weil_w0, weil_N, weil_T, weil
+export gpX, gpZ, heis, heis2, heiscocycle, heispairing, gauss_sum, weil_w0, weil_N, weil_T, weil_U
 
 export heisAAZ, heisQ
+
+export ABN, weil_overlaps, weil_ad, weil_zw
 
 # generalized Pauli X 
 function gpX(N::Int)
@@ -72,8 +74,7 @@ function heisQ(j::nmod_mat)
 end
 
 ###############
-# Weil representation 
-# So far it only works for prime N 
+# Unitary lifting of Weil representation of SL(2,Z/N) for prime N
 ###############
 
 function gauss_sum(a::nmod)
@@ -108,9 +109,13 @@ function weil_T(a::nmod)
     jacobi_symbol(a,N)*M
 end
 
+
+
+
 # Accepts a matrix in SL(2,GF(p)), with p prime, and returns a p x p matrix over the pth cyclotomic field
-function weil(g::nmod_mat)
+function weil_U(g::nmod_mat)
     N = Int(characteristic(base_ring(g)))
+    @assert is_prime(N)
     a = g[1,1]
     b = g[1,2]
     c = g[2,1]
@@ -122,3 +127,181 @@ function weil(g::nmod_mat)
         return weil_T(a)*weil_N(b*a^-1)
     end
 end
+
+weil_U(g::MatrixGroupElem{nmod, nmod_mat}) = weil_U(g.elm)
+
+
+## 
+
+function ABN(N; type = 0)
+    X = gpX(N)
+    Z = gpZ(N)
+    O = 0*X
+    if type == 0
+        A = X
+        B = Z
+    elseif type == 1
+        A = [O X; -X O]
+        B = [O Z; -Z O]
+    elseif type == 2 
+        A = [X O; O X]
+        B = [Z O; O Z]
+    elseif type == 3
+        A = [O X; X O]
+        B = [O Z; Z O]
+    end
+    matrix_group([A,B])
+end
+
+###
+# U(1)_k has anyons <zeta_N,-1>.
+# For even k is a TQFT with anyon group Z/k
+# For odd k is a spin TQFT with anyons Z/2k  
+# The fermion k = ψ generates a Z/2 1-form symmetry 
+###
+
+
+# Given mxn U, return the mn x mn matrix for X ↦ UXU^-1 in the X11 ... X1n ... X2n ... Xmn basis.  
+
+function adj(U)
+
+end
+    
+
+###
+# Adjoint action X -> U X U^-1 in Aut_0(B) specified by 
+# (Z/N)^2 ⋊ SL(2,Z/N) (odd N) and (Z/N)^2 ⋊ SL(2,Z/2N) (even N)
+###
+function weil_ad_vec(g::nmod_mat) 
+    n = Int(characteristic(base_ring(g)))
+    if iseven(n)
+        N = Int(n//2)
+        error("Not implented")
+    else
+        N = n
+        F,z_N = cyclotomic_field(N)
+        U = zero_matrix(QQ,N^2,N^2)
+        for j1 in 0:N-1
+            for j2 in 0:N-1
+                j = ZN(N)[j1; j2]
+                k = g + j
+                #println(j1,j2) 
+                k1, k2 = Int(k[1]), Int(k[2])
+                U[1 + k1*N + k2, 1 + j1*N + j2] = 1
+            end
+        end
+    end
+    U
+end
+
+function weil_ad_mat(g::nmod_mat) 
+    n = Int(characteristic(base_ring(g)))
+    if iseven(n)
+        N = Int(n//2)
+        error("Not implented")
+    else
+        N = n
+        F,z_N = cyclotomic_field(N)
+        U = zero_matrix(QQ,N^2,N^2)
+        for j1 in 0:N-1
+            for j2 in 0:N-1
+                j = ZN(N)[j1; j2]
+                k = g*j
+                #println(j1,j2) 
+                k1, k2 = Int(k[1]), Int(k[2])
+                U[1 + k1*N + k2, 1 + j1*N + j2] = 1
+            end
+        end
+    end
+    U
+end
+
+function weil_ad(g::nmod_mat) 
+    rc = nrows(g), ncols(g)
+    if rc == (2,2) 
+        return weil_ad_mat(g)
+    elseif rc == (2,1) 
+        return weil_ad_vec(g)
+    elseif rc == (1,2)
+        return weil_ad_vec(transpose(g))
+    end
+    error("Expects a matrix or a vector.")
+
+end
+
+weil_ad(g::MatrixGroupElem{nmod, nmod_mat}) = weil_ad(g.elm)
+
+###
+# Acts on the overlaps alpha_j(X) by (signed when N is even) permutation matrices.
+# Specified by (Z/N)^2 ⋊ SL(2,Z/N) (odd N) and (Z/N)^2 ⋊ SL(2,Z/2N) (even N)
+###
+
+function weil_overlaps_vec(g::nmod_mat) 
+    n = Int(characteristic(base_ring(g)))
+    if iseven(n)
+        N = Int(n//2)
+        error("Not implented")
+    else
+        N = n
+        F,z_N = cyclotomic_field(N)
+        U = zero_matrix(QQ,N^2,N^2)
+        for j1 in 0:N-1
+            for j2 in 0:N-1
+                j = ZN(N)[j1; j2]
+                k = g + j
+                #println(j1,j2) 
+                k1, k2 = Int(k[1]), Int(k[2])
+                U[1 + k1*N + k2, 1 + j1*N + j2] = 1
+            end
+        end
+    end
+    U
+end
+
+
+
+function weil_overlaps_mat(g::nmod_mat) 
+    n = Int(characteristic(base_ring(g)))
+    if iseven(n)
+        N = Int(n//2)
+        error("Not implented")
+    else
+        N = n
+        F,z_N = cyclotomic_field(N)
+        U = zero_matrix(QQ,N^2,N^2)
+        for j1 in 0:N-1
+            for j2 in 0:N-1
+                j = ZN(N)[j1; j2]
+                k = g*j
+                #println(j1,j2) 
+                k1, k2 = Int(k[1]), Int(k[2])
+                U[1 + k1*N + k2, 1 + j1*N + j2] = 1
+            end
+        end
+    end
+    U
+end
+
+
+function weil_overlaps(g::nmod_mat) 
+    rc = nrows(g), ncols(g)
+    if rc == (2,2) 
+        return weil_overlaps_mat(g)
+    elseif rc == (2,1) 
+        return weil_overlaps_vec(g)
+    elseif rc == (1,2)
+        return weil_overlaps_vec(transpose(g))
+    end
+    error("Expects a matrix or a vector.")
+
+end
+
+# Works with elements of SL(2,ZN(N)) too
+weil_overlaps(g::MatrixGroupElem{nmod, nmod_mat}) = weil_overlaps(g.elm)
+
+# G = SL(2,Z3); g1 = rand(G); g2 = rand(G); weil_ad(g1)*weil_ad(g2) == weil_ad(g1*g2)
+
+# g = rand(G); j = rand(Z3^2); weil_ad(g)*weil_ad(j)*weil_ad(g^-1) == weil_ad(g*j)
+
+# weil_U(g)*heis(j)*weil_U(g^-1) == heis(g*j)
+

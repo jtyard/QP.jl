@@ -1,7 +1,8 @@
 module QP
 
 using Oscar
-using Memoize
+
+
 # 
 include("Base/Numbers.jl")
 include("Base/Polys.jl")
@@ -18,14 +19,12 @@ include("Sic/Sic.jl")
 include("Sic/Quad.jl")
 # Class fields
 
-
-
 # Schur transform (eventually)
 include("Schur/SU2.jl")
 
 
 # Todo: Tensor categories
-include("Base/Cats.jl")
+#include("Base/Cats.jl")
 #include("Base/Types.jl")
 
 

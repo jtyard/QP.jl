@@ -16,7 +16,8 @@ Eij(ij::nmod_mat) = Eij(ij[1], ij[2], Int(characteristic(base_ring(ij))))
 Eij(N::Int) = [[Eij(i,j,N) for j in 0:N-1] for i in 0:N-1]
 
 # Unit vectors 
-qudit_bra(i::Union{Int,nmod},N::Int) = matrix(ZZ,[[a==mod(i,N) for a in 0:N-1]])
+#qudit_bra(i::Union{Int,nmod},N::Int) = matrix(ZZ,[[a==mod(i,N) for a in 0:N-1]])
+qudit_bra(i::Union{Int,nmod},N::Int) = Vector{fmpz}([a==mod(i,N) for a in 0:N-1])
 qudit_ket(i::Union{Int,nmod},N::Int) = transpose(qudit_bra(i,N))
 
 # Tensor products

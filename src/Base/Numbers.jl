@@ -1,11 +1,15 @@
 # Useful rings, fields and elements
-using Oscar
+using Oscar, Memoize
 
-export ZN, zetaN, dagger, complex_conjugate, primes, myorder, Z2, Z3, Z4, Z5, Z6, Z7, Z8
+export Z2, Z3, Z4, Z5, Z6, Z7, Z8, ZN
+
+export zetaN, dagger, complex_conjugate, primes, myorder
+
+export roots_of_unity, primitive_roots_of_unity
 
 #################
 # Ring   Element type
-# ZZ     fmpz 
+# ZZ     fmpz
 # QQ     fmpq
 # ZN(N)  nmod 
 #
@@ -13,7 +17,9 @@ export ZN, zetaN, dagger, complex_conjugate, primes, myorder, Z2, Z3, Z4, Z5, Z6
 #################
 
 Base.Int(a::nmod) = Int(ZZ(a))
-ZN(N) = ResidueRing(ZZ,N) 
+
+# Caching works unexpectedly - `@memoize` ensures that e.g. Z2 == ZN(2) always, which was broken for `using QP`
+@memoize ZN(N) = ResidueRing(ZZ,N) 
 Z2 = ZN(2)
 Z3 = ZN(3)
 Z4 = ZN(4)
@@ -30,7 +36,7 @@ zetaN(n,F) = primitive_roots_of_unity(F,n)[1]
 
 # Create row vectors over R (or do I want column vectors??)
 import Base.^
-R^n = MatrixSpace(R,1,n)
+R^n = MatrixSpace(R,n,1)
 
 # note that rand(R^n) actually works
 
@@ -43,10 +49,11 @@ complex_conjugate(x) = complex_conjugation(parent(x))(x)
 
 import Oscar.primes
 
-primes(N::Int) = [n for n in 2:N if is_prime(n)]
+primes(N::Int) = collect(PrimesSet(2,N))
 
-primes(M::Int,N::Int) = [n for n in M:N if is_prime(n)]/9
+primes(M::Int,N::Int) = collect(PrimesSet(M,N))
 
+# quick and dirty in case order(a) doesn't work 
 function myorder(a)
     aa = a
     id = a^0

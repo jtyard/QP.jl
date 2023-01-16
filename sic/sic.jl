@@ -1,9 +1,22 @@
+# Eventually put the relevant structures into SicData.  Seems to kind of work..
+
 using Oscar
 using QP
 
-# basic definitions for a few small dimensions
-Z2 = ZN(2); Z3 = ZN(3); Z4 = ZN(4); Z5 = ZN(5); Z6 = ZN(6); Z7 = ZN(7); Z8 = ZN(8);
 
+N = 4;
 
+R = QQX(N,graded=true)
+Zd = ZN(N)
+Z2d = ZN(2*N)
+I = Ih(N,graded=true) + Im(N,graded=true) 
 
+S = ProjectiveScheme(R,I)
+aff = affine_cone(S)
+println(dim(aff)-1)
 
+G = SL(2,ZN(N))
+V = FreeModule(ZN(N),2)
+
+g = rand(G)
+v = rand(V)

@@ -6,9 +6,6 @@ using QP
 # Okay so absolute_automorphism_group fails if the field is not Galois over QQ - that's the issue.
 # But what other problems do we have 
 
-
-
-
 set_verbose_level(:ClassField, 1)
 
 function ab_aut(d)
@@ -18,11 +15,26 @@ function ab_aut(d)
     absolute_automorphism_group(rcf)
 end
 
-K = quadratic_field(3*5*2)[1]
+
+# In d=16, 32:  Extending auto pp ...ERROR: AssertionError: length(rels) <= 2 
+# In d=27:  Extending auto pp ...ERROR: input wrong
+
+# D = 3, d = 27 breaks it too.
+D = 7
+m = 125
+K = quadratic_field(D)[1]
 OK = maximal_order(K)
-rcf = ray_class_field(27*OK, real_places(K))
+rcf = ray_class_field(m*OK)
+F = number_field(rcf)
 absolute_automorphism_group(rcf)
 
+# D = 3, m = 32: Extending automorphismsExtending auto pp ...ERROR: LoadError: input wrong
+# D = 5, m = 32: Extending automorphismsExtending auto pp ...ERROR: LoadError: AssertionError: fl
+# D = 7, m = 32: Extending automorphismsExtending auto pp ...ERROR: LoadError: AssertionError: length(rels) <= 2
+# D = 11, m = 32: Extending automorphismsExtending auto pp ...ERROR: LoadError: AssertionError: length(rels) <= 2
+# D = 13, m = 32: Extending automorphismsExtending auto pp ...ERROR: LoadError: AssertionError: fl
+
+# Also, 
 
 # Without infinite places, fails for d = 16,20 but d=27 runs forever.
 

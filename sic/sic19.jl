@@ -2,7 +2,7 @@
 
 
 # 
-N=7; Zd = ZN(N); s = Zd[0 -1; 1 0]; t = Zd[1 1; 0 1]; X = gpX(N); Z = gpZ(N);
+N=19; Zd = ZN(N); s = Zd[0 -1; 1 0]; t = Zd[1 1; 0 1]; X = gpX(N); Z = gpZ(N);
 
 j = Zd[rand(0:N-1); rand(0:N-1)]; k = Zd[rand(0:N-1); rand(0:N-1)]; heis(j)*heis(k) ==  heis(j+k)*heiscocycle(j,k)
 heis(j)*heis(k)*heis(-j)heis(-k) == heispairing(j,k)*weil_U(Zd[1 0;0 1])
@@ -14,10 +14,12 @@ j = Zd[rand(0:N-1); rand(0:N-1)]; weil_U(t)*heis(j)*weil_U(t)^-1 == heis(t*j)
 S = SicData(19)
 K = S.K
 OK = S.OK
+s = OK(sqrt(K(5)))
 
-s = sqrt(OK(2))
+#s = sqrt(OK(2))
 
-I = ideal(OK,2+s)
+I = ideal(OK,1+2*s) # (for d=19 example)
+#I = ideal(OK,2+s)
 #I = ideal(OK,7)
 rcf0 = ray_class_field(I)
 rcf1 = ray_class_field(I,[real_places(K)[1]])

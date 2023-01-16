@@ -18,10 +18,12 @@ r1=sqrt(1//2*w5+5//2)
 r2=sqrt((-1//8*w3+1//8*w5+3//8)*r1+1//8*w3*w5+5//8*w3+1//16*w5-5//16)
 
 # Find a complex conjugation 
-gal, sig = automorphism_group(S5.rcf.A)
-possible_c = findall([map(sig(g),[I,w3,w5,r1,r2]) == [-I,w3,w5,r1,r2] for g in gal])
-println("Better only be one choice in this list " * string(possible_c))
-c = sig(gal[possible_c[1]])
+#gal, sig = automorphism_group(S5.rcf.A)
+#possible_c = findall([map(sig(g),[I,w3,w5,r1,r2]) == [-I,w3,w5,r1,r2] for g in gal])
+#println("Better only be one choice in this list " * string(possible_c))
+#c = sig(gal[possible_c[1]])
+gal, sig = automorphism_group(S5.rcf)
+c = complex_conjugation(S5.rcf, S5.inf[1])
 abs2c(x) = x*c(x)
 
 # The fiducial vector
@@ -40,14 +42,16 @@ Phi = phi*transpose(map(c,phi)); Phi = trace(Phi)^-1 * Phi
 C,_ = cyclotomic_field(5)
 C_to_F = hom(C,F,zetaN(5,F))
 
-# compute the overlaps
-overlaps = [[trace(map(C_to_F,heis(Z5[i j]))*Phi) for j in 0:4] for i in 0:4]
+is_fiducial(Phi)
 
-#and check that they all equal 1/(d+1)
-map2(f,a) = map(x->map(f,x),a) # so map2(f,[[ ]]) = [[ f(..) ]]
-display(map2(abs2c,overlaps))
-
-#Check that the fiducial satisfies the harmonic polyomial equations directly
-println()
-display([[evaluate(h(Z5[i j]),vec(Phi)) for j in 0:4] for i in 0:4])
+## compute the overlaps
+#overlaps = [[trace(map(C_to_F,heis(Z5[i j]))*Phi) for j in 0:4] for i in 0:4]
+#
+##and check that they all equal 1/(d+1)
+#map2(f,a) = map(x->map(f,x),a) # so map2(f,[[ ]]) = [[ f(..) ]]
+#display(map2(abs2c,overlaps))
+#
+##Check that the fiducial satisfies the harmonic polyomial equations directly
+#println()
+#display([[evaluate(h(Z5[i j]),vec(Phi)) for j in 0:4] for i in 0:4])
 

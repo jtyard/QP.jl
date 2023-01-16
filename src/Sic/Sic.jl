@@ -2,14 +2,17 @@ using Oscar
 #using Caching
 
 
+export SicData
+
 # These are all terrible names to be global in QP.jl
 # ultimately will move them out of global after things are working
 export minors, Im, QQXp
 export XX, h, h2, hp, hm
-export Ih, Ih2, Ihm, Ihp, Ic, Icc, Itr0, IT
+export Ih, Ih2, Im, Ihm, Ihp, Ic, Icc, Itr0, Itr1, IT
+
+export is_fiducial
 
 
-export SicData
 
 
 # Making new rings for the overlaps - maybe use routines from Vars.jl instead? 
@@ -19,29 +22,7 @@ export SicData
 #
 #aij(j::nmod_mat) = tr(Aij(Int(characteristic(base_ring(j))))*heis(j))
 
-
-
-
-
-
-
-
-
-
 # Not actually used anywhere, subsumed by SICdata
-function sicrcf(N::Int)
-    D = (N-3)*(N+1)
-    _,x = PolynomialRing(QQ)
-    K, _ = NumberField(x^2 - D, "s")
-    OK = maximal_order(K)
-    _,ph = ray_class_group((isodd(N) ? N : 2*N)*OK,infinite_places(K))
-    number_field(ray_class_field(ph))
-end
-
-# Returns automorphism of F corresponding to place inf of K
-function complex_conjugation_from_inf(F,inf)
-   automorphism_group(F)
-end
 
 mutable struct SicData
     d::fmpz
@@ -49,11 +30,12 @@ mutable struct SicData
     D0::fmpz
     f::fmpz
     K::NumField
+    inf::Vector{InfPlc}
     OK::NumFieldOrd # the maximal order Z[uf]
     uf::NumFieldOrdElem #or NumFieldElem?
     OD::NumFieldOrd # the minimal order Z[b]
     Ob::NumFieldOrd # the minimal order Z[b]
-    b::NumFieldElem # or NumFieldOrdElem?
+    b::NumFieldOrdElem # or NumFieldOrdElem?
     rcf::ClassField
     #ring_class_field::ClassField
     function SicData(d::Int;build_nf=false)
@@ -61,17 +43,19 @@ mutable struct SicData
         D0 = fundamental_discriminant(D)
         f = ZZ(sqrt(D//D0))
         K = my_quadratic_field(D0)
+        inf = real_places(K)
         OK = maximal_order(K)
         uf = fundamental_unit(OK)
         OD = quadratic_order(D)
-        b = (D-1 + sqrt(K(D)))//2
-        Ob = quadratic_order(b)
+        bb = (D-1 + sqrt(K(D)))//2
+        Ob = quadratic_order(bb)
+        b = Ob(bb)
         rcf = ray_class_field((isodd(d) ? d : 2*d)*OK,infinite_places(K))
         if build_nf
             number_field(rcf)
         end
         #F = number_field(rcf,using_stark_units = true)
-        new(d,D,D0,f,K,OK,uf,OD,Ob,b,rcf)
+        new(d,D,D0,f,K,inf,OK,uf,OD,Ob,b,rcf)
     end
 end
 
@@ -113,21 +97,34 @@ hm(j1,j2,N::Int) = hm(ZN(N)[j1 j2])
 # Useful ideals
 ############
 
-Ih(N::Int, graded = false) = ideal(QQX(N, graded = graded),[h(j1,j2,N) for j1 in 0:N-1 for j2 in j1:N-1])
-Ih2(N::Int, graded = false) = ideal(QQX(N, graded = graded),[h2(j1,j2,N) for j1 in 0:N-1 for j2 in j1:N-1])
-Ihp(N::Int, graded = false) = ideal(QQX(N, graded = graded),[hp(j1,j2,N) for j1 in 0:N-1 for j2 in j1:N-1])
-Ihm(N::Int, graded = false) = ideal(QQX(N, graded = graded),[hm(j1,j2,N) for j1 in 0:N-1 for j2 in j1:N-1])
+Ih(N::Int; graded = false) = ideal(QQX(N, graded = graded),[h(j1,j2,N) for j1 in 0:N-1 for j2 in j1:N-1])
+Ih2(N::Int; graded = false) = ideal(QQX(N, graded = graded),[h2(j1,j2,N) for j1 in 0:N-1 for j2 in j1:N-1])
+Ihp(N::Int; graded = false) = ideal(QQX(N, graded = graded),[hp(j1,j2,N) for j1 in 0:N-1 for j2 in j1:N-1])
+Ihm(N::Int; graded = false) = ideal(QQX(N, graded = graded),[hm(j1,j2,N) for j1 in 0:N-1 for j2 in j1:N-1])
 
-Im(N::Int, graded = false) = ideal(QQX(N, graded = graded),minors(N))
+Im(N::Int; graded = false) = ideal(QQX(N, graded = graded),minors(N))
 
-Ic(N::Int, graded = false) = ideal(QQX(N, graded = graded), [Xij(j1,j2,N) - Xij(j2,j1,N) for j1 in 0:N-1 for j2 in 0:N-1] )
-Icc(N::Int, graded = false) = ideal(QQX(N, graded = graded), [Xij(j1,j2,N) - Xij(-j2,-j1,N) for j1 in 0:N-1 for j2 in 0:N-1] )
-#Itr1(N) = ideal([TrX(N) - 1])
-Itr0(N::Int, graded = false) = ideal(QQX(N, graded = graded),[TrX(N)])
-IT(a,N::Int, graded = false) = ideal(QQX(N, graded = graded), [Xij(j1,j2) - Xij(a*j1,a*j2) for j1 in 0:N-1 for j2 in 0:N-1] )
+Ic(N::Int; graded = false) = ideal(QQX(N, graded = graded), [Xij(j1,j2,N) - Xij(j2,j1,N) for j1 in 0:N-1 for j2 in 0:N-1 if j1 < j2] )
+Icc(N::Int; graded = false) = ideal(QQX(N, graded = graded), [Xij(j1,j2,N) - Xij(-j2,-j1,N) for j1 in 0:N-1 for j2 in 0:N-1] )
+Itr1(N) = ideal([TrX(N) - 1])
+Itr0(N::Int; graded = false) = ideal(QQX(N, graded = graded),[TrX(N)])
+IT(a,N::Int; graded = false) = ideal(QQX(N, graded = graded), [Xij(j1,j2,N) - Xij(ZN(N)(a)*j1,ZN(N)(a)*j2,N) for j1 in 0:N-1 for j2 in 0:N-1] )
 
 # duh Itr0(N) = R(X_{0,0} + X_{1,1} + ⋯ ) subset RXp(N) = R({X_{i,j}})
 
 
 
-
+function is_fiducial(Phi::AbstractAlgebra.Generic.MatSpaceElem) 
+    N = ncols(Phi)
+    F = base_ring(Phi)
+    for j in 0:N-1
+        for i in 0:N-1
+            if evaluate(h(ZN(N)[i j]),vec(Phi)) != F(0)
+                return false
+            end
+        end
+    end
+    return true
+end
+                
+            
