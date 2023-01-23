@@ -43,11 +43,11 @@ julia> Xij(3)
 
 ## Class fields
 - http://www.thofma.com/Hecke.jl/v0.6.1/class_fields/intro.html
-- Relative automorphism generators from  `Hecfe.automorphism_groupQQ`
-- Things used to go wrong in computing the full automorphism group in many cases e.g. `ray_class_field(5*OK,infinite_places(K))` for `K = quadratic_field(3)` runs forever.  Seems to be fixed now.
+- Relative automorphism generators from  `Hecke.automorphism_groupQQ`
+- Things used to go wrong in computing the full automorphism group in many cases e.g. `ray_class_field(5*OK,infinite_places(K))` for `K = quadratic_field(3)` runs forever but they were nice enough to fix for all the ray class fields of interest.  Though I haven't checked the ring class fields and probably won't any time soon.
 - `MapClassGrp` : {quotient of the class group} -> {ideals} 
 - `MapRayClassGrp` : {quotient of a ray class group} -> {ideals prime to the conductor}
-- `ClassField`
+- `ClassField` 
 - `ClassField_pp` Cyclic class field of prime-power degree
 
 Given ray class field like `rcf = ray_class_field(5*OK,inf)` and the corresponding relative number field `A = number_field(rcf)` (henceforth is accessible via `rcf.A`), how do I compute the Artin map on ideals and real places? `automorphism_group(rcf)` gives me a map from a `GrpGen` to the set of automorphisms of `A` fixing the base, and `inv(rcf.quotientmap)` (this was fixed and now `artin_map` and `complex_conjugation(F,infplace)` work)

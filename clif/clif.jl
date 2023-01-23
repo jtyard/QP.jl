@@ -1,3 +1,5 @@
+using Oscar
+
 # (Z/2)^4 -> PC_2 -> Sp(4,2) # 720*16 = 11520
 
 # ⟨ζ_8,X_i,Z_i⟩ -> C_2 -> Sp(4,2) # 720*16*8 = 92160
@@ -5,12 +7,26 @@
 println(order(Sp(4,2))) # 720 elements preserving the bilinear form b = [0 1; 1 0]^(⊕ 2)
 
 # more than one q satisfies b = q + q^T (freedom on the diagonal) qij(x0,x1) = i x0 + j x1 + x0 x1
-# O(q00) ≃ O(q01) ≃ O(q10) ≃
+# O(q00) ≃ O(q01) ≃ O(q10) ≃ Z/3
 
-q00 = GF(2)[0 1; 0 0]
-q11 = GF(2)[1 1; 0 1]
+# What are the right types for finite fields?
+# gfp_mat, gfp_elem from GF(2)
+# fq_nmod_mat, fq_nmod from GF(2,1)
+
+gf2 = GF(2,1)
+q00 = gf2[0 1; 0 0]
+q11 = gf2[1 1; 0 1]
 o = 0*q00
-q = [q11 o; o q11]
+q = [q00 o; o q00]
+b = invariant_bilinear_forms(Sp(4,2))[1]
+
+println(length([g for g in Sp(2,2) if quadratic_form(q11) == quadratic_form(q11)^g]))
+println(length([g for g in Sp(2,2) if quadratic_form(q00) == quadratic_form(q00)^g]))
+
+println(length([g for g in Sp(4,2) if transpose(g.elm)*b*g.elm == b]))
+
+println(length([g for g in Sp(4,2) if quadratic_form( [q00 o; o q00]) == quadratic_form( [q00 o; o q00])^(W*g*transpose(W))]))
+println(length([g for g in Sp(4,2) if quadratic_form( [q00 o; o q11]) == quadratic_form( [q00 o; o q11])^(W*g*transpose(W))]))
 
 
 
