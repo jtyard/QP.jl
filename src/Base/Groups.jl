@@ -2,7 +2,7 @@
 
 export eye
 
-export PSL,PGL, abelian_2cocycle, abelian_2cocycle_mat
+export PSL,PGL, abelian_2cocycle, abelian_2cocycle_mat, affine_group
 #export PGL, PSL, eye
 
 #Given projective representation f : G -> matrices, return the corresponding normalized 2-cocycle
@@ -32,4 +32,17 @@ function PSL(n,N)
     quo(G,H)[1]
 end
 
+function affine_group(G::MatrixGroup)
+    n = degree(G)
+    F = base_ring(G)
+    linear_gens = [ [zero_matrix(F,1,n+1); zero_matrix(F,n,1) g.elm] for g in gens(G)]
+    for i in 1:length(linear_gens)
+        linear_gens[i][1,1] = F(1)
+    end
+    affine_gens = [identity_matrix(F,n+1) for i in 1:n]
+    for i in 1:n
+        affine_gens[i][i+1,1] = F(1)
+    end
+    return matrix_group(vcat(linear_gens,affine_gens))
+end
 
