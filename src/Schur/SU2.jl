@@ -1,4 +1,5 @@
 # q-deformed Schur transform for Uq(sl_2) at roots of unity.
+# Experimental - not much useful here
 
 # First need to define maps V(2j-1) -> V(2j) ⊗ V(1)
 

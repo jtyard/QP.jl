@@ -1,6 +1,9 @@
 ###############
 # Polynomial rings and their generators in some convenient forms for computing with polynomial functions 
 # on matrices and projective spaces
+#
+# In the future it may be better to start with a ProjectiveSpace or ProjectiveScheme etc and inherit 
+# polynomials / graded polynomials from there.
 ###############
 
 using Oscar

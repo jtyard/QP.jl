@@ -8,10 +8,13 @@ julia> using Oscar
 julia> ZN(3)
 Integers modulo 3
 
-julia> ZN(3)[4 2]
+julia> Z3
+Integers modulo 3
+
+julia> Z3[4 2]
 [1   2]
 
-julia> heis(ZN(3)[4 2])
+julia> heis(Z3[4 2])
 [  0   0   -z_3 - 1]
 [z_3   0          0]
 [  0   1          0]

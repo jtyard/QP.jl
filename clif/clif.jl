@@ -1,5 +1,7 @@
 using Oscar
 
+# Experiments with constructing the 2-qubit Clifford group and its subgroups that stabilize quadratic forms over F_2.
+
 # (Z/2)^4 -> PC_2 -> Sp(4,2) # 720*16 = 11520
 
 # ⟨ζ_8,X_i,Z_i⟩ -> C_2 -> Sp(4,2) # 720*16*8 = 92160

@@ -1,4 +1,5 @@
-# Implements Kopp's "mock zeta functions" = completed indefinite zeta functions
+# Will implement Kopp's "mock zeta functions" = completed indefinite zeta functions 
+# Some of the first julia code I wrote, gave up on getting it to work but maybe look again? 
 using Nemo
 
 setprecision(4096)

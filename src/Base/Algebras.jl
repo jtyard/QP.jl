@@ -3,10 +3,7 @@
 #################
 export quaternion_algebra, Dn, su2levelk, su2levelkD, su2levelkR
 
-# A wrapper that coerces the generators automatically 
-quaternion_algebra(K,a,b) = Hecke.AlgQuat(K,K(a),K(b))
-
-# From paper with Vadym for SU(2)_k
+# Some orders from https://arxiv.org/abs/1504.04350 https://arxiv.org/abs/1510.03888 for SU(2)_k
 
 # Is totally positive and sqrt(-Dn(n)) generates Q(zeta_n) 
 Dn(n) = n % 4 == 0 ? 1 : 4-CyclotomicRealSubfield(n)[2]^2

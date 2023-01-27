@@ -164,7 +164,7 @@ end
 # Given mxn U, return the mn x mn matrix for X ↦ UXU^-1 in the X11 ... X1n ... X2n ... Xmn basis.  
 
 function adj(U)
-
+    error("Not implemented")
 end
     
 
@@ -175,7 +175,7 @@ end
 function weil_ad_vec(g::nmod_mat) 
     n = Int(characteristic(base_ring(g)))
     if iseven(n)
-        N = Int(n//2)
+        N = Int(n//2)   
         error("Not implented")
     else
         N = n

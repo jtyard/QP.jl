@@ -2,11 +2,13 @@ using Oscar
 
 export my_real_embeddings, my_quadratic_field, quad_embedding, fundamental_unit, quadratic_order
 
-
-
 #######################
-# Quadratic number fields and orders
+# Useful things for quadratic number fields, orders, etc
+# Add some to Oscar?
 #########################
+
+# A wrapper that coerces the generators automatically - should merge into OSCAR
+quaternion_algebra(K,a,b) = Hecke.AlgQuat(K,K(a),K(b))
 
 # Real embeddings should be actually real
 # cf https://github.com/thofma/Hecke.jl/issues/491

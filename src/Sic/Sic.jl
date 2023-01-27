@@ -1,3 +1,7 @@
+# Definitions relevant to studying SICs.  SicData(d) constructs a number of objects relevant to SICs in dimension d.  SicData(d,build_nf=true) will also construct the ray class field. 
+# Harmonic invariant polynomials labeled by elements of (Z/d)^2
+
+
 using Oscar
 #using Caching
 
@@ -11,8 +15,6 @@ export XX, h, h2, hp, hm
 export Ih, Ih2, Im, Ihm, Ihp, Ic, Icc, Itr0, Itr1, IT
 
 export is_fiducial
-
-
 
 
 # Making new rings for the overlaps - maybe use routines from Vars.jl instead? 

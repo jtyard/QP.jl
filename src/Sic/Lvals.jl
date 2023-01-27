@@ -1,4 +1,4 @@
-#d=31
+#First julia code I ever wrote, wraps pari to get special values of L-functions relevant for Stark units.  Much more stable pure julia options already in Oscar
 using PyCall
 
 # 7*, 13, 19*, 31, 37, 43, 61, 67*, 73, 79, 97, 103*, 109, 127, 139, 151, 157, 163, 181, 193, 199*,...

@@ -1,4 +1,5 @@
 # Groups
+# Some useful / experimental routines for working with groups. 
 
 export eye
 
