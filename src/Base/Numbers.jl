@@ -3,7 +3,7 @@ using Oscar, Memoize
 
 export Z2, Z3, Z4, Z5, Z6, Z7, Z8, ZN
 
-export zetaN, dagger, complex_conjugate, primes, myorder
+export zetaN, qint, dagger, complex_conjugate, primes, myorder
 
 export roots_of_unity, primitive_roots_of_unity
 
@@ -33,6 +33,21 @@ roots_of_unity(F,n) = roots(PolynomialRing(F)[2]^n-1)
 primitive_roots_of_unity(F,n) = roots(PolynomialRing(F)[1](collect(coefficients(cyclotomic_field(n)[1].pol))))
 
 zetaN(n,F) = primitive_roots_of_unity(F,n)[1]
+
+# Maybe rewrite this to live in the real cyclotomic field
+# Returns [m] at q^{1/2} = 2nth root of unity
+function qint(n,m) 
+    if m==0 
+        return 0
+    end
+    q = iseven(n) ? zetaN(2*n)  : -zetaN(n)
+    sum([q^(m-1 - 2*i) for i in 0:m-1])
+end
+
+# Another approach (used to be in Fmatrix.jl)
+#_, q = RationalFunctionField(QQ,"q")
+#qint(n) = sum([q^(n-1 - 2*i) for i in 0:n-1])
+
 
 # Create row vectors over R (or do I want column vectors??)
 import Base.^

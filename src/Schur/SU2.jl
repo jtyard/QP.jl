@@ -1,10 +1,11 @@
+# Experimental - not much useful here yet
+
 # q-deformed Schur transform for Uq(sl_2) at roots of unity.
-# Experimental - not much useful here
 
 # First need to define maps V(2j-1) -> V(2j) ⊗ V(1)
 
 import Base.show
-export Spin, ket,ketjm, UqMod, j_plus_halfs, j_minus_halfs, qint, show
+export Spin, ket,ketjm, UqMod, j_plus_halfs, j_minus_halfs, show
 
 struct Spin
     n::fmpz #units of 1/2 (really hbar omega/ 2) 
@@ -35,23 +36,6 @@ end
 function ketjm(j,m)
     [k == m ? 1 : 0 for k in j:-1:-j]
 end
-
-# Maybe rewrite this to live in the real cyclotomic field
-# Returns [m] at q^{1/2} = 2nth root of unity
-function qint(n,m) 
-    if m==0 
-        return 0
-    end
-    q = iseven(n) ? zetaN(2*n)  : -zetaN(n)
-    sum([q^(m-1 - 2*i) for i in 0:m-1])
-end
-
-# Another approach (used to be in Fmatrix.jl)
-#_, q = RationalFunctionField(QQ,"q")
-#qint(n) = sum([q^(n-1 - 2*i) for i in 0:n-1])
-
-
-
 
 
 struct UqMod

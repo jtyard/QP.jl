@@ -3,20 +3,27 @@ module QP
 using Oscar
 
 
-# 
+# Scalars
 include("Base/Numbers.jl")
-include("Base/Polys.jl")
+
+# Elementary matrices and tensor products
 include("Base/ElMats.jl")
+
+# Polynomial rings
+include("Base/Polys.jl")
+
+# Groups
 include("Base/Groups.jl")
-include("Base/Algebras.jl")
+
+# Quadratic number fields and orders
+include("Base/Quad.jl")
 
 # Heisenberg groups for all Z/N and Weil for Z/p
 include("Clif/Weil.jl")
 
 # SIC-POVMs
 include("Sic/Sic.jl")
-# Quadratic number fields and orders
-include("Sic/Quad.jl")
+
 # Class fields
 
 # Schur transform (eventually)
