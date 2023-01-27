@@ -83,7 +83,7 @@ The normal ideals form the Brandt groupoid.
  The Brandt groupoid consists of the normal ideals, which have maximal O_L and O_R.
 
 
-We need the following basic operations to compute with maximal or Eichler quaternion orders (see Kirchmer & Voight - Algorithmic enumeration of ideal classes for quaternion orders):
+We need the following basic operations to compute with maximal or Eichler quaternion orders (see https://arxiv.org/abs/0808.3833):
 
 - Check isomorphism of fractional ideals: `is_isomorphic` (Oscar) `IsIsomorphic` (Magma), reduces to `is_principal` / `IsPrincipal`
   - Indefinite case: check image in ray class group mod the infinite ramified primes of $B$. 
