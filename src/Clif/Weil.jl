@@ -116,6 +116,7 @@ end
 function weil_U(g::nmod_mat)
     N = Int(characteristic(base_ring(g)))
     @assert is_prime(N)
+    @assert is_odd(N)
     a = g[1,1]
     b = g[1,2]
     c = g[2,1]
