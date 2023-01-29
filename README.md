@@ -35,13 +35,13 @@ julia> Xij(3)
 
 
 ## Current 
-- Julia/Oscar/Nemo/Hecke/ANTIC/GAP/Polymake vs Python/Magma/Sage/Pari
+- Integrated open-source Julia/Oscar/Nemo/Hecke/GAP/Polymake/ANTIC workflow vs Python/Magma/Sage/Pari
 - Rings of polynomial functions on matrices over number fields 
 - Useful matrices and tensor products 
 - Qudit generalized Paulis
 - Prime qudit generalized Clifford = Weil representation
 - Projective linear groups 
-- Investigating properties of SIC-POVMs 
+- Computing properties of SIC-POVMs 
 
 ## SIC-POVMs
 - `SicData(d)` (or `SicData(d,build_nf=true)` to build the number field)
