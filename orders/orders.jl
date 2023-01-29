@@ -3,7 +3,9 @@
 using QP
 using Oscar
 
-#k = 3
+include("su2k.jl")
+
+k = 3
 A = su2levelk(k)
 OA = maximal_order(A)
 OK = base_ring(OA)

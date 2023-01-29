@@ -1,6 +1,6 @@
 using Oscar
 
-export my_real_embeddings, my_quadratic_field, quad_embedding, fundamental_unit, quadratic_order
+export quaternion_algebra, my_real_embeddings, my_quadratic_field, quad_embedding, fundamental_unit, quadratic_order
 
 #######################
 # Useful things for quadratic number fields, orders, etc
