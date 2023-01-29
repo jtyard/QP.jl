@@ -32,13 +32,10 @@ julia> Xij(3)
 [X_{2,0}   X_{2,1}   X_{2,2}]
 ```
 
-- Abstract framework for modeling quantum systems
-- Explicit computing in bases (vector, operator, etc)
-- Implementation-agnostic (native julia, arb, FLINT, ..., TensorFlow)
-- Julia/Oscar/Nemo/Hecke/ANTIC/GAP/Polymake vs Python/Magma/Sage/Pari
+
 
 ## Current 
-
+- Julia/Oscar/Nemo/Hecke/ANTIC/GAP/Polymake vs Python/Magma/Sage/Pari
 - Rings of polynomial functions on matrices over number fields 
 - Useful matrices and tensor products 
 - Qudit generalized Paulis
@@ -119,3 +116,7 @@ The main difficult tasks are the following:
 - Ross-Selinger and extensions
 - Schur transform
 
+## Long-term vision
+- Abstract framework for modeling quantum systems
+- Explicit computing in bases (vector, operator, etc)
+- Implementation-agnostic (native julia, arb, FLINT, ..., TensorFlow)
