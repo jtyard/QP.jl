@@ -37,6 +37,7 @@ julia> Xij(3)
 ## Current 
 - Integrated open-source Julia/Oscar/Nemo/Hecke/GAP/Polymake/ANTIC workflow vs Python/Magma/Sage/Pari
 - Rings of polynomial functions on matrices over number fields 
+- Explicit computing in bases (vector, operator, etc)
 - Useful matrices and tensor products 
 - Qudit generalized Paulis
 - Prime qudit generalized Clifford = Weil representation
@@ -118,5 +119,4 @@ The main difficult tasks are the following:
 
 ## Long-term vision
 - Abstract framework for modeling quantum systems
-- Explicit computing in bases (vector, operator, etc)
 - Implementation-agnostic (native julia, arb, FLINT, ..., TensorFlow)
