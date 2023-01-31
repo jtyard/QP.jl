@@ -1,0 +1,7 @@
+# Basic .gitattributes for a Magma
+
+# Source files
+# Caution: *.m also matches Matlab files.
+# ============
+*.nb             text diff=mathematica
+*.m              text diff=magma
