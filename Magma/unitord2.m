@@ -1,4 +1,4 @@
-// Shit yeah.  This shows that the order of the EC stablizer is EXACTLY equal to the minimum of the orders of uf and -uf mod d.  
+// This shows that the order of the EC stablizer is EXACTLY equal to the minimum of the orders of uf and -uf mod d.  
 // It even gets the d=124 case right, which has an order-30 stabilizer (the first divisible by some prime other than 3 or 5)
 // Also looks like the order mod dd is *always* twice the order mod d (when d is even). Note that this the orders can change mod 2d if d is odd.
 

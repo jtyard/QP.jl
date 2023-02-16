@@ -111,5 +111,5 @@ end function;
 
 //print topoly([Exp(2*a),Exp(-2*a)]);
 
-// Holy shit the negative of my magic unit is a stark unit (duh it should have been positive!) 
+// The negative of my magic unit is a stark unit (duh it should have been positive!) 
 // min poly x^2 - (s + 1)x + 1
