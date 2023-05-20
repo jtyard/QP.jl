@@ -14,7 +14,8 @@ export minors, Im, QQXp
 export XX, h, h2, hp, hm
 export Ih, Ih2, Im, Ihm, Ihp, Ic, Icc, Itr0, Itr1, IT
 
-export is_fiducial
+import Oscar.overlaps
+export is_fiducial, overlaps
 
 
 # Making new rings for the overlaps - maybe use routines from Vars.jl instead? 
@@ -44,7 +45,7 @@ mutable struct SicData
         D = ZZ((d-3)*(d+1))
         D0 = fundamental_discriminant(D)
         f = ZZ(sqrt(D//D0))
-        K = my_quadratic_field(D0)
+        K = quadratic_field(Hecke.squarefree_part(D0))[1]
         inf = real_places(K)
         OK = maximal_order(K)
         uf = fundamental_unit(OK)
@@ -129,4 +130,9 @@ function is_fiducial(Phi::AbstractAlgebra.Generic.MatSpaceElem)
     return true
 end
                 
-            
+function overlaps(Phi::AbstractAlgebra.Generic.MatSpaceElem) 
+    N = ncols(Phi)
+    F = base_ring(Phi)
+    C_to_F = hom(cyclotomic_field(N)[1],F,zetaN(N,F))
+    [[trace(map(C_to_F,heis(Z5[i j]))*Phi) for j in 0:N-1] for i in 0:N-1]
+end

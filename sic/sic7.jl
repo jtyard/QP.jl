@@ -4,14 +4,14 @@
 # 
 N=7; Zd = ZN(N); s = Zd[0 -1; 1 0]; t = Zd[1 1; 0 1]; X = gpX(N); Z = gpZ(N);
 
-j = Zd[rand(0:N-1); rand(0:N-1)]; k = Zd[rand(0:N-1); rand(0:N-1)]; heis(j)*heis(k) ==  heis(j+k)*heiscocycle(j,k)
-heis(j)*heis(k)*heis(-j)heis(-k) == heispairing(j,k)*weil_U(Zd[1 0;0 1])
+#j = Zd[rand(0:N-1); rand(0:N-1)]; k = Zd[rand(0:N-1); rand(0:N-1)]; heis(j)*heis(k) ==  heis(j+k)*heiscocycle(j,k)
+#heis(j)*heis(k)*heis(-j)heis(-k) == heispairing(j,k)*weil_U(Zd[1 0;0 1])
 
-j = Zd[rand(0:N-1); rand(0:N-1)]; weil_U(s)*heis(j)*weil_U(s)^-1 == heis(s*j)
-j = Zd[rand(0:N-1); rand(0:N-1)]; weil_U(t)*heis(j)*weil_U(t)^-1 == heis(t*j)
+#j = Zd[rand(0:N-1); rand(0:N-1)]; weil_U(s)*heis(j)*weil_U(s)^-1 == heis(s*j)
+#j = Zd[rand(0:N-1); rand(0:N-1)]; weil_U(t)*heis(j)*weil_U(t)^-1 == heis(t*j)
 
 
-S = SicData(19)
+S = SicData(7)
 K = S.K
 OK = S.OK
 

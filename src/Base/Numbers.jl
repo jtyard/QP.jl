@@ -57,7 +57,9 @@ R^n = MatrixSpace(R,n,1)
 
 # conjugate_transpose
 
-dagger(M) = transpose( map(complex_conjugation(base_ring(M)), M ) )
+#dagger(M::MatElem,c) = transpose( map(x->map(c,x), M))
+dagger(M::MatElem,c) = transpose(map(c,M))
+dagger(M::MatElem) = dagger(M,complex_conjugation(base_ring(M)))
 
 complex_conjugate(x) = complex_conjugation(parent(x))(x)
 

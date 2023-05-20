@@ -4,9 +4,11 @@ using Oscar
 set_verbose_level(:ClassField, 1)
 
 Z5 = ZN(5)
-S5 = SicData(5,build_nf=true)
-F = S5.rcf.A
-#F = number_field(S.rcf,using_stark_units = true)
+#S5 = SicData(5,build_nf=true)
+#F = S5.rcf.A
+
+S5 = SicData(5)
+F = number_field(S5.rcf,using_stark_units = true)
 
 # Define some constants
 w3 = sqrt(F(3));
@@ -23,7 +25,7 @@ r2=sqrt((-1//8*w3+1//8*w5+3//8)*r1+1//8*w3*w5+5//8*w3+1//16*w5-5//16)
 #println("Better only be one choice in this list " * string(possible_c))
 #c = sig(gal[possible_c[1]])
 gal, sig = automorphism_group(S5.rcf)
-c = complex_conjugation(S5.rcf, S5.inf[1])
+c = complex_conjugation(S5.rcf, S5.inf[2])
 abs2c(x) = x*c(x)
 
 # The fiducial vector

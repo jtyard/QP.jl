@@ -44,7 +44,9 @@ println(is_fiducial(Phi))
 #overlaps = [[trace(map(C_to_F,heis(Z4[i j]))*Phi) for j in 0:3] for i in 0:3]
 #
 ##and check that they all equal 1/(d+1)
-#map2(f,a) = map(x->map(f,x),a) # so map2(f,[[ ]]) = [[ f(..) ]]
+
+map2(f,a) = map(x->map(f,x),a) # so map2(f,[[ ]]) = [[ f(..) ]]
+
 #display(map2(abs2c,overlaps))
 #
 ##Check that the fiducial satisfies the harmonic polyomial equations directly
@@ -59,4 +61,6 @@ I = Im(N,graded=true) + Ih(N,graded=true) + Ic(N,graded=true)
 #Rt = QQXt(N); 
 S = ProjectiveScheme(R,I);
 
-#pd = primary_decomposition(I)
+saturation(I,Rp)
+
+pd = primary_decomposition(I)
