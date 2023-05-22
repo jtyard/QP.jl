@@ -5,26 +5,19 @@ using Oscar
 
 include("su2k.jl")
 
-k = 3
-A = su2levelk(k)
-OA = maximal_order(A)
-OK = base_ring(OA)
-
-D = discriminant(OA)
-
-# julia> is_principal(su2levelkD(4-2))
+# julia> is_principal(su2levelk(4-2).D)
 # (true, 4)
 
-# julia> is_principal(su2levelkD(5-2))
+is_principal(su2levelk(5-2).D)
 # (true, 5)
 
-# julia> is_principal(su2levelkD(6-2))
+# julia> is_principal(su2levelk(6-2).D)
 # (true, 4)
 
-# julia> is_principal(su2levelkD(7-2))
+# julia> is_principal(su2levelk(7-2).D)
 # (true, 1)
 
-# julia> is_principal(su2levelkD(8-2))
+# julia> is_principal(su2levelk(8-2).D)
 # (true, 2)
 
 
