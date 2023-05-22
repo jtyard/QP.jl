@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../.julia/dev"
+		},
+		{
+			"path": "../Research/SIC"
+		}
+	],
+	"settings": {}
+}
