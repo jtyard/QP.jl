@@ -75,21 +75,22 @@ Given ray class field like `rcf = ray_class_field(5*OK,inf)` and the correspondi
 Let $R$ be an integral domain and $B$ a central simple algebra over $\mathrm{Frac}(R)$.  
 - An **$R$-lattice** is a finitely generated torsion-free $R$-module.
 - A **fractional $R$-ideal*** $I$ of $B$ is a full-rank $R$-sublattice.
-  - **Left order** $`O_L(I) = \{ b in B : bI \subset I \}`$
-  - **Right order**  $`O_L(I) = \{ b in B : bI \subset I \}`$
+  - **Left order** $`O_L(I) = \{ b \in B : bI \subset I \}`$
+  - **Right order**  $`O_L(I) = \{ b \in B : bI \subset I \}`$
   - $I$ is an $O_L(I)-O_R(I)$-bimodule, a left fractional $O_L(I)$ 
 ideal and a right fractional $O_R(I)$-ideal.
   - A **proper product** $I_1 I_2 \dotsc I_n$ of fractional ideals with $O_R(I_i) = O_L(I_{i+1})$ for $1 \leq i < n$.
-  - There is a category whose objects are the orders and whose morphisms are the fractional ideals, with composition given by proper products.  Ideals are said to *connect* their left/right orders.
+  - There is a category whose objects are the orders and whose morphisms are the fractional ideals, with composition given by proper products.  Fractional ideals **connect** their left/right orders.
 - Two orders $O$ and $O'$ are isomorphic in this category iff they are conjugate 
-  ($O' = bOb^{-1}$ for some $b \in B^\times$) iff they are connected by a principal ideal. So the isomorphism classes are the conjugacy classes.
+  ($bOb^{-1} = O'$ for some $b \in B^\times$) iff they are connected by a principal ideal $bO = O'b$. So the isomorphism classes are the conjugacy classes.
 - An **invertible ideal** is a fractional ideals $I$ with an *inverse* $I^{-1}$, satisfying 
 $I^{-1}I = O_R(I)$ therefore $I I^{-1} = O_L(I)$.
   - The orders and the invertible ideals form a groupoid.
 
 - A **normal $R$-ideal** is a fractional $R$-ideal with maximal left/right orders.
-  -  The **Brandt groupoid** consists of the normal ideals, which have maximal O_L and O_R.
-  - An **integral $R$-ideal** is a normal ideal $I$ with $I \subset O_L(I) \cap O_R(I)$.
+  - Every normal ideal is invertible.  
+  -  The maximal orders and normal ideals form the **Brandt groupoid**.
+- An **integral $R$-ideal** is a normal ideal $I$ with $I \subset O_L(I) \cap O_R(I)$ though it might make sense to drop the normal requirement.  
 
 
 
