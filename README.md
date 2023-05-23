@@ -80,13 +80,12 @@ Let $R$ be an integral domain and $B$ a central simple algebra over $\mathrm{Fra
   - $I$ is an $O_L(I)-O_R(I)$-bimodule, a left fractional $O_L(I)$ 
 ideal and a right fractional $O_R(I)$-ideal.
   - A **proper product** $I_1 I_2 \cdots I_n$ of fractional ideals has $O_R(I_i) = O_L(I_{i+1})$ for $1 \leq i < n$.
-  - There is a category whose objects are the orders and whose morphisms are the fractional ideals, with composition given by proper products.  Fractional ideals **connect** their left/right orders.
+  - There is a **category** whose objects are the orders and whose morphisms are the fractional ideals, with composition given by proper products.  Fractional ideals **connect** their left/right orders.
 - $O\simeq O'$ iff $bOb^{-1} = O'$ for some $b \in B^\times$ 
 iff they are connected by a principal ideal $bO = O'b$. So the isomorphism classes are the conjugacy classes.
-- An **invertible ideal** is a fractional ideals $I$ with an *inverse* $I^{-1}$, satisfying 
-$I^{-1}I = O_R(I)$ therefore $I I^{-1} = O_L(I)$.
-  - The orders and the invertible ideals form a groupoid.
-
+- An **invertible ideal** is a fractional ideals $I$ with an **inverse** $I^{-1}$, satisfying 
+$I^{-1}I = O_R(I)$ and therefore $I I^{-1} = O_L(I)$.
+  - The orders and the invertible ideals form a groupoid called the **core** of the above category.
 - A **normal $R$-ideal** is a fractional $R$-ideal with maximal left/right orders.
   - Every normal ideal is invertible.  
   -  The maximal orders and normal ideals form the **Brandt groupoid**.
