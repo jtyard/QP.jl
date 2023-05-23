@@ -87,9 +87,10 @@ iff they are connected by a principal ideal $bO = O'b$. So the isomorphism class
 $I^{-1}I = O_R(I)$ and therefore $I I^{-1} = O_L(I)$.
   - The orders and the invertible ideals form a groupoid called the **core** of the above category.
 - A **normal $R$-ideal** is a fractional $R$-ideal with maximal left/right orders.
-  - Every normal ideal is invertible.  
+  - normal $\Rightarrow$ invertible.  
   -  The maximal orders and normal ideals form the **Brandt groupoid**.
-- An **integral $R$-ideal** is a normal ideal $I$ with $I \subset O_L(I) \cap O_R(I)$ though it might make sense to drop the normal requirement.  
+- An **integral $R$-ideal** is a normal ideal $I$ with $I \subset O_L(I) \cap O_R(I)$. How restrictive is the normal condition? 
+- An **Eichler order** is the intersection of two maximal orders.  So each normal ideal as defined above is contained in an Eichler order by definition.
 
 
 
