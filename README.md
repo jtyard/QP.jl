@@ -74,7 +74,7 @@ Given ray class field like `rcf = ray_class_field(5*OK,inf)` and the correspondi
 ### Towards arithmetic of quantum circuits
 Let $R$ be an integral domain and $B$ a central simple algebra over $\mathrm{Frac}(R)$.  
 - An **$R$-lattice** is a finitely generated torsion-free $R$-module.
-- A **fractional $R$-ideal*** $I$ of $B$ is a full-rank $R$-sublattice.
+- A **fractional $R$-ideal** $I$ of $B$ is a full-rank $R$-sublattice.
   - **Left order** $`O_L(I) = \{ b \in B : bI \subset I \}`$
   - **Right order**  $`O_L(I) = \{ b \in B : bI \subset I \}`$
   - $I$ is an $O_L(I)-O_R(I)$-bimodule, a left fractional $O_L(I)$ 
