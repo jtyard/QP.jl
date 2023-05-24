@@ -3,52 +3,59 @@
 using Oscar
 using QP
 
-# Construct the standard rational quaternion algebra with i^2 = j^2 = k^2 = ijk = -1
-A = quaternion_algebra(QQ,-1,-1)
 
-# Lets give the standard quaternions names
-A1, Ai, Aj, Ak = basis(A)
+include("su2k.jl")
 
 # Lipschitz quaternion order 
-L = Order(A,basis(A)) 
-println(discriminant(L))
+function lipschitz_quaternions()
+    # Construct the standard rational quaternion algebra with i^2 = j^2 = k^2 = ijk = -1
+    A = quaternion_algebra(QQ,-1,-1)
+    A1, Ai, Aj, Ak = basis(A)
+    Order(A,basis(A)) 
+end
 
-# Hurwitz quaternion order ∪ ∞
-H = Order(A,[A1, Ai, Aj, A(2)^-1*(1 + Ai + Aj + Ak)])
-println(discriminant(H))
+
+# Hurwitz quaternion order
+function hurwitz_quaternions()
+    A = quaternion_algebra(QQ,-1,-1)
+    A1, Ai, Aj, Ak = basis(A)
+    H = Order(A,[A1, Ai, Aj, A(2)^-1*(1 + Ai + Aj + Ak)])
+end
 
 # Check that H is indeed a maximal order
-OA = MaximalOrder(H) # returns a maximal order containing the argument
-println(OA == H)
 
+println(hurwitz_quaternions() == MaximalOrder(hurwitz_quaternions())
 
 # To build the quaternion order underlying Clifford+T, we need to work over Q(√2)
-# To write √, type \sqrt TAB (in vscode with the julia language extension).  
-# Horray for unicode ⊗ ⊕ α β γ δ ζ
+# "Clifford" quaternion order
+function clifford_quaternions()
+    
+    ZZx, x = PolynomialRing(ZZ, "x")
+    K, s = NumberField(x^2 - 2, "√2") # \sqrt TAB = \sqrt 
 
-ZZx, x = PolynomialRing(ZZ, "x")
-K, s = NumberField(x^2 - 2, "√2")
 
-B = quaternion_algebra(K,-1,-1)
-B1, Bi, Bj, Bk = basis(B)
+    B = quaternion_algebra(K,-1,-1)
+    B1, Bi, Bj, Bk = basis(B)
 
-LOK = Order(B,basis(B))
-println(discriminant(LOK))
+    #write this into lipschitz_quaternions(OK)
+    #LOK = Order(B,basis(B))
+    #println(discriminant(LOK))
 
-HOK = Order(B,[B1, Bi, Bj, (1 + Bi + Bj + Bk)*K(1//2)])  
-println(discriminant(HOK))
+    #HOK = Order(B,[B1, Bi, Bj, (1 + Bi + Bj + Bk)*K(1//2)])  
+    #println(discriminant(HOK))
 
-# HOK is no longer maximal after extending scalars because
-# of my favorite maximal order, which has trivial discriminant
+    # HOK is no longer maximal after extending scalars because
+    # of my favorite maximal order, which has trivial discriminant
 
-# OBwrong = Order(B,[(1//s)*(B1+Bk), (1//s)*(B1+Bi), (1//s)*(B1+Bj), (B1+Bi+Bj+Bk)*K(1//2)])
-# println(discriminant(OBwrong))
-# 
-OB = Order(B,[B1, (1//s)*(B1+Bi), (1//s)*(B1+Bj), (B1+Bi+Bj+Bk)*K(1//2)])
-println(discriminant(OB))
+    # OBwrong = Order(B,[(1//s)*(B1+Bk), (1//s)*(B1+Bi), (1//s)*(B1+Bj), (B1+Bi+Bj+Bk)*K(1//2)])
+    # println(discriminant(OBwrong))
+    # 
 
-# OB == MaximalOrder(OB)
-# ρ = α |0⟩⟨0| ⊗ σ + β |1⟩⟨1| ⊗ ω |Ψ⟩
+    OB = Order(B,[B1, (1//s)*(B1+Bi), (1//s)*(B1+Bj), (B1+Bi+Bj+Bk)*K(1//2)])
+end
+    println(discriminant(OB))
+
+    # OB == MaximalOrder(OB)
 
 bb = [B1, (1//s)*(B1+Bi),(1//s)*(B1+Bj), (B1+Bi+Bj+Bk)*K(1//2), s*B1, B1+Bi, B1+Bj, (B1+Bi+Bj+Bk)*(s//2)]
 bbconj =[B1, (1//s)*(B1-Bi),(1//s)*(B1-Bj), (B1-Bi-Bj-Bk)*K(1//2), s*B1, B1-Bi, B1-Bj, (B1-Bi-Bj-Bk)*(s//2)]
@@ -66,7 +73,7 @@ println(eigvals(G1))
 println(eigvals(G2))
 
 
-
+su2 = su2levelk(3)
 
 
 # Need numerics

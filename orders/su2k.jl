@@ -28,6 +28,22 @@ mutable struct su2levelk
     end
 end
 
+# julia> is_principal(su2levelk(4-2).D)
+# (true, 4)
+
+is_principal(su2levelk(5-2).D)
+# (true, 5)
+
+# julia> is_principal(su2levelk(6-2).D)
+# (true, 4)
+
+# julia> is_principal(su2levelk(7-2).D)
+# (true, 1)
+
+# julia> is_principal(su2levelk(8-2).D)
+# (true, 2)
+
+
 #su2levelkD(k) = discriminant(maximal_order(su2levelk(k)))
 
 #su2levelkR(k) = base_ring(maximal_order(su2levelk(k)))
