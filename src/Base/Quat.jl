@@ -3,33 +3,38 @@
 using Oscar
 using QP
 
+export quaternion_algebra, lipschitz_quaternions, hurwitz_quaternions, clifford_quaternions, su2levelk, toM, toU
 
-include("su2k.jl")
+# A wrapper that coerces the generators automatically - should merge into OSCAR
+quaternion_algebra(K,a,b) = Hecke.AlgQuat(K,K(a),K(b))
+
+#include("su2k.jl")
 
 # Lipschitz quaternion order 
-function lipschitz_quaternions()
+function lipschitz_quaternions(F::Field)
     # Construct the standard rational quaternion algebra with i^2 = j^2 = k^2 = ijk = -1
-    A = quaternion_algebra(QQ,-1,-1)
+    A = quaternion_algebra(F,-1,-1)
     A1, Ai, Aj, Ak = basis(A)
     Order(A,basis(A)) 
 end
 
+lipschitz_quaternions() = lipschitz_quaternions(QQ)
 
 # Hurwitz quaternion order
-function hurwitz_quaternions()
-    A = quaternion_algebra(QQ,-1,-1)
+function hurwitz_quaternions(F::Field)
+    A = quaternion_algebra(F,-1,-1)
     A1, Ai, Aj, Ak = basis(A)
     H = Order(A,[A1, Ai, Aj, A(2)^-1*(1 + Ai + Aj + Ak)])
 end
 
-# Check that H is indeed a maximal order
+hurwitz_quaternions() = hurwitz_quaternions(QQ)
 
-println(hurwitz_quaternions() == MaximalOrder(hurwitz_quaternions())
+# Check that H is indeed a maximal order
+# println(hurwitz_quaternions() == MaximalOrder(hurwitz_quaternions()))
 
 # To build the quaternion order underlying Clifford+T, we need to work over Q(√2)
 # "Clifford" quaternion order
 function clifford_quaternions()
-    
     ZZx, x = PolynomialRing(ZZ, "x")
     K, s = NumberField(x^2 - 2, "√2") # \sqrt TAB = \sqrt 
 
@@ -53,41 +58,12 @@ function clifford_quaternions()
 
     OB = Order(B,[B1, (1//s)*(B1+Bi), (1//s)*(B1+Bj), (B1+Bi+Bj+Bk)*K(1//2)])
 end
-    println(discriminant(OB))
+#println(discriminant(OB))
 
-    # OB == MaximalOrder(OB)
-
-bb = [B1, (1//s)*(B1+Bi),(1//s)*(B1+Bj), (B1+Bi+Bj+Bk)*K(1//2), s*B1, B1+Bi, B1+Bj, (B1+Bi+Bj+Bk)*(s//2)]
-bbconj =[B1, (1//s)*(B1-Bi),(1//s)*(B1-Bj), (B1-Bi-Bj-Bk)*K(1//2), s*B1, B1-Bi, B1-Bj, (B1-Bi-Bj-Bk)*(s//2)]
-bbconjprime =[B1, -(1//s)*(B1-Bi),-(1//s)*(B1-Bj), (B1-Bi-Bj-Bk)*K(1//2), -s*B1, B1-Bi, B1-Bj, -(B1-Bi-Bj-Bk)*(s//2)]
-bbprime =[B1, -(1//s)*(B1+Bi),-(1//s)*(B1+Bj), (B1+Bi+Bj+Bk)*K(1//2), -s*B1, B1+Bi, B1+Bj, -(B1+Bi+Bj+Bk)*(s//2)]
-
-G1 = matrix([[trace(trace(a*b)//(8+4*s)) for b in bb] for a in bb])
-G2 = matrix([[trace(trace(a*b)//(8+4*s)) for b in bbconj] for a in bb])
-
-
-
-println(det(G1))
-println(det(G2))
-println(eigvals(G1))
-println(eigvals(G2))
+# OB == MaximalOrder(OB)
 
 
 su2 = su2levelk(3)
-
-
-# Need numerics
-
-RRR() = ArbField(precision(BigFloat))
-CCC() = AcbField(precision(BigFloat))
-ii = onei(CCC())
-
-RR = RRR()
-CC(x) = CCC()(x) 
-CC(M::Array) = map(x->CC(x),M)
-
-eigvals(matrix([[CC(trace(trace(a*b)//(8+4*s))) for b in bb] for a in bbconj]))
-
 
 
 # assuming splitting at K(i)
@@ -117,6 +93,32 @@ function toU(q)
     MM
 end
 
+# Some orders from https://arxiv.org/abs/1504.04350 (Section 4) and https://arxiv.org/abs/1510.03888 for SU(2)_k
 
+# Dn(n) is totally positive and sqrt(-Dn(n)) generates Q(zeta_n):
+#Dn(n) = n % 4 == 0 ? 1 : 4-CyclotomicRealSubfield(n)[2]^2
+
+# q = zeta_{k+2}, q^{1/2} = zeta_{2k + 4}
+
+mutable struct su2levelk
+    K::AnticNumberField
+    qq::nf_elem # 2nth root of unity
+    Dn::nf_elem # Dn(n) is totally positive and sqrt(-Dn(n)) generates Q(zeta_n):
+    OK::NfOrd
+    A::Hecke.AlgQuat # The quaternion algebra (K, -[3]_q,-D_n)
+    OA::Hecke.AlgAssRelOrd 
+    D::NfOrdIdl
+ 
+    function su2levelk(k::Int) 
+        n = k+2
+        K, qq = CyclotomicRealSubfield(n)
+        Dn = n % 4 == 0 ? 1 : 4-CyclotomicRealSubfield(n)[2]^2
+        A = quaternion_algebra(K,-1-qq,-Dn) 
+        OK = maximal_order(K)
+        OA = maximal_order(A)
+        D = discriminant(OA)
+        new(K,qq,Dn,OK,A,OA,D)
+    end
+end
 
     
