@@ -5,6 +5,8 @@ using Oscar, QP
 OB = clifford_quaternions()
 B = algebra(OB)
 B1, Bi, Bj, Bk = basis(B)
+K = base_ring(B)
+s = gen(K)
 
 bb = [B1, (1//s)*(B1+Bi),(1//s)*(B1+Bj), (B1+Bi+Bj+Bk)*K(1//2), s*B1, B1+Bi, B1+Bj, (B1+Bi+Bj+Bk)*(s//2)]
 bbconj =[B1, (1//s)*(B1-Bi),(1//s)*(B1-Bj), (B1-Bi-Bj-Bk)*K(1//2), s*B1, B1-Bi, B1-Bj, (B1-Bi-Bj-Bk)*(s//2)]
