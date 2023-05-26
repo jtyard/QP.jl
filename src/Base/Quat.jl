@@ -63,9 +63,6 @@ end
 # OB == MaximalOrder(OB)
 
 
-su2 = su2levelk(3)
-
-
 # assuming splitting at K(i)
 function toM(q)
     K = q.parent.base_ring

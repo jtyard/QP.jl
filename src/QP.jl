@@ -19,6 +19,9 @@ include("Base/Groups.jl")
 # Quadratic number fields and orders
 include("Base/Quad.jl")
 
+# Quaternion algebras and orders 
+include("Base/Quat.jl")
+
 # Heisenberg groups for all Z/N and Weil for Z/p
 include("Clif/Weil.jl")
 
