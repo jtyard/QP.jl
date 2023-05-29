@@ -89,7 +89,7 @@ $I^{-1}I = O_R(I)$ and therefore $I I^{-1} = O_L(I)$.
 - A **normal $R$-ideal** is a fractional $R$-ideal with maximal left/right orders.
   - normal $\Rightarrow$ invertible.  
   -  The maximal orders and normal ideals form the **Brandt groupoid**.
-- An **integral $R$-ideal** is a normal ideal $I$ with $I \subset O_L(I) \cap O_R(I)$. How restrictive is the normal condition? 
+- An **integral $R$-ideal** is a normal ideal $I$ with $I \subset O_L(I) \cap O_R(I)$. Why not just invertible? 
 - An **Eichler order** is the intersection of two maximal orders.  So each normal ideal as defined above is contained in an Eichler order by definition.
 
 
