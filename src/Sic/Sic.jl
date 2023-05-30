@@ -140,8 +140,9 @@ end
 
 function heis_orbit(Phi)
     N = ncols(Phi)
+    NN = (isodd(N) ? N : 2*N)
     F = base_ring(Phi)
-    C_to_F = hom(cyclotomic_field(N)[1],F,zetaN(N,F))
+    C_to_F = hom(cyclotomic_field(NN)[1],F,zetaN(NN,F))
     [map(C_to_F,heis(ZN(N)[i j]))*Phi* map(C_to_F,heis(ZN(N)[i j])^-1) for j in 0:N-1 for i in 0:N-1]
 end
 
