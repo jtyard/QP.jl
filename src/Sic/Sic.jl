@@ -15,7 +15,7 @@ export XX, h, h2, hp, hm
 export Ih, Ih2, Im, Ihm, Ihp, Ic, Icc, Itr0, Itr1, IT
 
 import Oscar.overlaps
-export is_fiducial, overlaps
+export is_fiducial, overlaps, heis_orbit, algebra_from_basis
 
 
 # Making new rings for the overlaps - maybe use routines from Vars.jl instead? 
@@ -134,5 +134,17 @@ function overlaps(Phi::AbstractAlgebra.Generic.MatSpaceElem)
     N = ncols(Phi)
     F = base_ring(Phi)
     C_to_F = hom(cyclotomic_field(N)[1],F,zetaN(N,F))
-    [[trace(map(C_to_F,heis(Z5[i j]))*Phi) for j in 0:N-1] for i in 0:N-1]
+    [[trace(map(C_to_F,heis(ZN(N)[i j]))*Phi) for j in 0:N-1] for i in 0:N-1]
+end
+
+
+function heis_orbit(Phi)
+    N = ncols(Phi)
+    F = base_ring(Phi)
+    C_to_F = hom(cyclotomic_field(N)[1],F,zetaN(N,F))
+    [map(C_to_F,heis(ZN(N)[i j]))*Phi* map(C_to_F,heis(ZN(N)[i j])^-1) for j in 0:N-1 for i in 0:N-1]
+end
+
+function algebra_from_basis(Phi)
+ 
 end
