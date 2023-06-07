@@ -146,6 +146,12 @@ function heis_orbit(Phi)
     [map(C_to_F,heis(ZN(N)[i j]))*Phi* map(C_to_F,heis(ZN(N)[i j])^-1) for j in 0:N-1 for i in 0:N-1]
 end
 
-function algebra_from_basis(Phi)
- 
+function algebra_from_basis(Phis)
+    F = base_ring(Phis[1])
+    matrix_algebra(QQ,F,Phis)
+end
+
+
+function is_split(A::AlgMat)
+    is_split(AlgAss(A)[1])
 end

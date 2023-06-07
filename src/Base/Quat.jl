@@ -37,10 +37,18 @@ hurwitz_quaternions() = hurwitz_quaternions(QQ)
 function clifford_quaternions()
     ZZx, x = PolynomialRing(ZZ, "x")
     K, s = NumberField(x^2 - 2, "√2") # \sqrt TAB = \sqrt 
+    clifford_quaternions(K)
+end
 
+function clifford_quaternions(K::Field)
+    @assert is_square_with_sqrt(K(2))[1]
+    s = sqrt(K(2))
 
     B = quaternion_algebra(K,-1,-1)
     B1, Bi, Bj, Bk = basis(B)
+
+    Order(B,[B1, (1//s)*(B1+Bi), (1//s)*(B1+Bj), (B1+Bi+Bj+Bk)*K(1//2)])
+end
 
     #write this into lipschitz_quaternions(OK)
     #LOK = Order(B,basis(B))
@@ -56,8 +64,7 @@ function clifford_quaternions()
     # println(discriminant(OBwrong))
     # 
 
-    OB = Order(B,[B1, (1//s)*(B1+Bi), (1//s)*(B1+Bj), (B1+Bi+Bj+Bk)*K(1//2)])
-end
+    
 #println(discriminant(OB))
 
 # OB == MaximalOrder(OB)
