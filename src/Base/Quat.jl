@@ -34,6 +34,7 @@ hurwitz_quaternions() = hurwitz_quaternions(QQ)
 
 # To build the quaternion order underlying Clifford+T, we need to work over Q(√2)
 # "Clifford" quaternion order
+
 function clifford_quaternions(K::Field)
     if is_square(K(2))
         F = K
@@ -46,25 +47,17 @@ function clifford_quaternions(K::Field)
     B = quaternion_algebra(F,-1,-1)
     B1, Bi, Bj, Bk = basis(B)
 
-    #write this into lipschitz_quaternions(OK)
-    #LOK = Order(B,basis(B))
-    #println(discriminant(LOK))
+    Order(B,[B1, (1//s)*(B1+Bi), (1//s)*(B1+Bj), (B1+Bi+Bj+Bk)*K(1//2)])
+end
 
-    #HOK = Order(B,[B1, Bi, Bj, (1 + Bi + Bj + Bk)*K(1//2)])  
-    #println(discriminant(HOK))
-
-    # HOK is no longer maximal after extending scalars because
-    # of my favorite maximal order, which has trivial discriminant
+ 
 
     # OBwrong = Order(B,[(1//s)*(B1+Bk), (1//s)*(B1+Bi), (1//s)*(B1+Bj), (B1+Bi+Bj+Bk)*K(1//2)])
     # println(discriminant(OBwrong))
-    # 
 
-    OB = Order(B,[B1, (1//s)*(B1+Bi), (1//s)*(B1+Bj), (B1+Bi+Bj+Bk)*K(1//2)])
-end
 
 clifford_quaternions() = clifford_quaternions(QQ)
-
+    
 #println(discriminant(OB))
 
 # OB == MaximalOrder(OB)
