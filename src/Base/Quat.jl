@@ -34,12 +34,16 @@ hurwitz_quaternions() = hurwitz_quaternions(QQ)
 
 # To build the quaternion order underlying Clifford+T, we need to work over Q(√2)
 # "Clifford" quaternion order
-function clifford_quaternions()
-    ZZx, x = PolynomialRing(ZZ, "x")
-    K, s = NumberField(x^2 - 2, "√2") # \sqrt TAB = \sqrt 
+function clifford_quaternions(K::Field)
+    if is_square(K(2))
+        F = K
+        s = sqrt(K(2))
+    else
+        _, x = PolynomialRing(K, "x")
+        F, s = NumberField(x^2 - 2, "√2") # \sqrt TAB = \sqrt 
+    end
 
-
-    B = quaternion_algebra(K,-1,-1)
+    B = quaternion_algebra(F,-1,-1)
     B1, Bi, Bj, Bk = basis(B)
 
     #write this into lipschitz_quaternions(OK)
@@ -58,6 +62,9 @@ function clifford_quaternions()
 
     OB = Order(B,[B1, (1//s)*(B1+Bi), (1//s)*(B1+Bj), (B1+Bi+Bj+Bk)*K(1//2)])
 end
+
+clifford_quaternions() = clifford_quaternions(QQ)
+
 #println(discriminant(OB))
 
 # OB == MaximalOrder(OB)
