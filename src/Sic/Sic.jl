@@ -15,7 +15,7 @@ export XX, h, h2, hp, hm
 export Ih, Ih2, Im, Ihm, Ihp, Ic, Icc, Itr0, Itr1, IT
 
 import Oscar.overlaps
-export is_fiducial, overlaps, heis_orbit, algebra_from_heis_orbit, fiducial, sic
+export is_fiducial, overlaps, heis_orbit, algebra_from_heis_orbit, algebra_from_basis, fiducial, sic
 
 
 # Making new rings for the overlaps - maybe use routines from Vars.jl instead? 
@@ -146,7 +146,6 @@ function heis_orbit(Phi)
     [map(C_to_F,heis(ZN(N)[i j]))*Phi* map(C_to_F,heis(ZN(N)[i j])^-1) for j in 0:N-1 for i in 0:N-1]
 end
 
-<<<<<<< HEAD
 function algebra_from_heis_orbit(Phi)
     F = base_ring(Phi)
     A = matrix_algebra(QQ,F,heis_orbit(Phi))
@@ -212,7 +211,8 @@ end
 # e.g. fiducial("7b") returns the Scott-Grassl 7b sic
 function fiducial(label::String)
     error("Not implemented")
-=======
+end
+
 function algebra_from_basis(Phis)
     F = base_ring(Phis[1])
     matrix_algebra(QQ,F,Phis)
@@ -221,5 +221,4 @@ end
 
 function is_split(A::AlgMat)
     is_split(AlgAss(A)[1])
->>>>>>> 3513dc5b2f614c400376ecbcf155d2efbd973126
 end
