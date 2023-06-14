@@ -15,7 +15,7 @@ export XX, h, h2, hp, hm
 export Ih, Ih2, Im, Ihm, Ihp, Ic, Icc, Itr0, Itr1, IT
 
 import Oscar.overlaps
-export is_fiducial, overlaps, heis_orbit, algebra_from_basis
+export is_fiducial, overlaps, heis_orbit, algebra_from_heis_orbit, fiducial, sic
 
 
 # Making new rings for the overlaps - maybe use routines from Vars.jl instead? 
@@ -146,6 +146,69 @@ function heis_orbit(Phi)
     [map(C_to_F,heis(ZN(N)[i j]))*Phi* map(C_to_F,heis(ZN(N)[i j])^-1) for j in 0:N-1 for i in 0:N-1]
 end
 
-function algebra_from_basis(Phi)
- 
+function algebra_from_heis_orbit(Phi)
+    F = base_ring(Phi)
+    A = matrix_algebra(QQ,F,heis_orbit(Phi))
+    AA = AlgAss(A)[1]
+    AZ = Hecke._as_algebra_over_center(AA)[1]
+end
+
+# Returns a fiducial in dimension d - todo: return more like SICdata, rcf, complex conjugation?
+function fiducial(d::Int)
+    if d == 2
+        F = cyclotomic_field(12)[1]
+        return (identity_matrix(F,2) + map(F,heis(0,1,2) + heis(1,0,2) + heis(1,1,2))/sqrt(F(3)))/2
+    elseif d == 3
+        F = cyclotomic_field(3)[1]
+        return F[0;1;-1]*F[0 1 -1]
+    elseif d == 5
+
+        S5 = SicData(5)
+        F = number_field(S5.rcf,using_stark_units = true)
+
+        # Define some constants
+        w3 = sqrt(F(3));
+        w5 = sqrt(F(5));
+        w15 = w3*w5;
+        I = sqrt(F(-1));
+
+        r1=sqrt(1//2*w5+5//2)
+        r2=sqrt((-1//8*w3+1//8*w5+3//8)*r1+1//8*w3*w5+5//8*w3+1//16*w5-5//16)
+
+        # Find a complex conjugation 
+        #gal, sig = automorphism_group(S5.rcf.A)
+        #possible_c = findall([map(sig(g),[I,w3,w5,r1,r2]) == [-I,w3,w5,r1,r2] for g in gal])
+        #println("Better only be one choice in this list " * string(possible_c))
+        #c = sig(gal[possible_c[1]])
+        gal, sig = automorphism_group(S5.rcf)
+        c = complex_conjugation(S5.rcf, S5.inf[2])
+        abs2c(x) = x*c(x)
+
+        # The fiducial vector
+        phi = F[16*r1
+            (((8*w3-10*w5-2)*r1+20*w3-16*w5)*r2+((2*w5+2)*r1+(2*w5+10)))*I+((-6*w15-6*w3+8*w5+24)*r1+(-12*w15-20*w3+12*w5+40))*r2+(4*w5-8)*r1-4*w15-4*w5
+            (((16*w3-14*w5+6)*r1+(-2*w15+30*w3-24*w5))*r2+((w15-5*w3+4)*r1-3*w5+5))*I+((2*w15-2*w3+4*w5-12)*r1-2*w5-10)*r2+(w5+3)*r1+3*w15-5*w3-2*w5+10
+            (((-6*w15-6*w3+6*w5+14)*r1+(-8*w15-20*w3+16*w5+20))*r2+((w15+5*w3-2*w5+6)*r1+4*w15-2*w5))*I+((2*w15+2*w3-2*w5-18)*r1+20*w3-12*w5)*r2+(3*w5-1)*r1-2*w15
+            (((-8*w15+12*w3-12*w5+32)*r1+(-10*w15+10*w3-6*w5+30))*r2+((-2*w15+w5+3)*r1+w15+5*w3+3*w5+5))*I+((-4*w3-4)*r1+2*w15-10*w3+2*w5-10)*r2+(-w15+5*w3+2*w5)*r1+3*w15+5*w3+w5+5] 
+
+        # Rank-1 density matrix 
+        Phi = phi*transpose(map(c,phi)); Phi = trace(Phi)^-1 * Phi
+        return Phi
+    else
+        error("Not implemented")
+    end
+end
+
+# e.g. fiducial("7b") returns the Scott-Grassl 7b fiducial
+function fiducial(label::String)
+    error("Not implemented")
+end
+
+function sic(d::Int)
+    heis_orbit(fiducial(d))
+end
+
+# e.g. fiducial("7b") returns the Scott-Grassl 7b sic
+function fiducial(label::String)
+    error("Not implemented")
 end
