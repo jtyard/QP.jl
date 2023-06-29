@@ -74,15 +74,20 @@ Some julia tips can be found [here](julia)
 
 
 ## Class fields
-- http://www.thofma.com/Hecke.jl/v0.6.1/class_fields/intro.html
+http://www.thofma.com/Hecke.jl/v0.6.1/class_fields/intro.html
+
+Some relevant functions from Hecke:
 - Relative automorphism generators from  `Hecke.automorphism_groupQQ`
-- Things used to go wrong in computing the full automorphism group in many cases e.g. `ray_class_field(5*OK,infinite_places(K))` for `K = quadratic_field(3)` runs forever but they were nice enough to fix for all the ray class fields of interest.  Though I haven't checked the ring class fields and probably won't any time soon.
+- Defining ray class fields: `rcf = ray_class_field((iseven(d) ? 2*d : d)*OK,infinite_places(K))` for `K = quadratic_field((d-3)*(d+1))[1]` and `OK = maximal_order(K)`.
+- `number_field(rcf)` computes generators `absolute_automorphism_group(rcf)` of the full automorphism group and now works for all `d`.   
+- TO DO: check that we can construct the ring ray class fields.
 - `MapClassGrp` : {quotient of the class group} -> {ideals} 
 - `MapRayClassGrp` : {quotient of a ray class group} -> {ideals prime to the conductor}
 - `ClassField` 
 - `ClassField_pp` Cyclic class field of prime-power degree
-
-Given ray class field like `rcf = ray_class_field(5*OK,inf)` and the corresponding relative number field `A = number_field(rcf)` (henceforth is accessible via `rcf.A`), how do I compute the Artin map on ideals and real places? `automorphism_group(rcf)` gives me a map from a `GrpGen` to the set of automorphisms of `A` fixing the base, and `inv(rcf.quotientmap)` (this was fixed and now `artin_map` and `complex_conjugation(F,infplace)` work)
+- `artin_map(rcf)` gives map from the ideal group to the set of automorphisms of `number_field(rcf)` i.e. from a `FacElemMon{Hecke.NfAbsOrdIdlSet{AnticNumberField, nf_elem}}` to a `Hecke.NfMorSet{NfRelNS{nf_elem}}`
+- `complex_conjugation(F,infplace)` extends the Artin map to infinite places, giving complex conjugation in the corresponding complex embeddings. 
+- `automorphism_group(rcf)` gives a map from a `GrpGen` to the set of automorphisms of `number_field(rcf)` fixing the base, and `inv(rcf.quotientmap)` works. 
 ## TODO 
 - Group actions
 - Characteristic and Wigner functions
