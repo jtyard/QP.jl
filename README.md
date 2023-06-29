@@ -1,13 +1,11 @@
 # QP.jl - Quantum Programming
 
-Experimental integrated open-source Julia/Oscar/Nemo/Hecke/GAP/Polymake/ANTIC workflow for quantum computing research as alternative to Python/Magma/Sage/Pari.  Heavily using [Oscar.jl](https://docs.oscar-system.org/stable/) which in turn wraps [`GAP.jl`](https://github.com/oscar-system/GAP.jl) for group theory, [`Polymake.jl`](https://github.com/oscar-system/Polymake.jl) for polyhedral geometry and [`Singular.jl`](https://github.com/oscar-system/Singular.jl) for algebraic geometry and invariant theory.  It also incorporates [`Hecke.jl`](https://github.com/thofma/Hecke.jl) for computational algebraic number theory...
+Experimental integrated open-source Julia/Oscar/Nemo/Hecke/GAP/Polymake/ANTIC workflow for quantum computing research as alternative to Python/Magma/Sage/Pari.  Heavily using [Oscar.jl](https://docs.oscar-system.org/stable/) which in turn wraps [`GAP.jl`](https://github.com/oscar-system/GAP.jl) for group theory, [`Polymake.jl`](https://github.com/oscar-system/Polymake.jl) for polyhedral geometry and [`Singular.jl`](https://github.com/oscar-system/Singular.jl) for algebraic geometry and invariant theory.  Oscar also includes [`Hecke.jl`](https://github.com/thofma/Hecke.jl) for computational algebraic number theory and class field theory, which wraps [`ANTIC`](https://github.com/flintlib/antic) for fast number theory computations in C.
 
 
 
 ```julia
-julia> using QP
-julia> using Oscar
-
+julia> using Oscar, QP
 
 julia> ZN(3)
 Integers modulo 3
@@ -34,6 +32,29 @@ julia> Xij(3)
 [X_{0,0}   X_{0,1}   X_{0,2}]
 [X_{1,0}   X_{1,1}   X_{1,2}]
 [X_{2,0}   X_{2,1}   X_{2,2}]
+
+julia> Xij(3) + Xij(3)
+
+julia> sic(3)
+9-element Vector{AbstractAlgebra.Generic.MatSpaceElem{nf_elem}}:
+ [0 0 0; 0 1 -1; 0 -1 1]
+ [0 0 0; 0 1 -z_3; 0 z_3+1 1]
+ [0 0 0; 0 1 z_3+1; 0 -z_3 1]
+ [1 -1 0; -1 1 0; 0 0 0]
+ [1 -z_3 0; z_3+1 1 0; 0 0 0]
+ [1 z_3+1 0; -z_3 1 0; 0 0 0]
+ [1 0 -1; 0 0 0; -1 0 1]
+ [1 0 z_3+1; 0 0 0; -z_3 0 1]
+ [1 0 -z_3; 0 0 0; z_3+1 0 1]
+
+julia> SicData(5)
+SicData(5, 12, 12, 1, Real quadratic field defined by x^2 - 3, InfPlc[Infinite place corresponding to (Complex embedding corresponding to -1.73 of real quadratic field defined by x^2 - 3), Infinite place corresponding to (Complex embedding corresponding to 1.73 of real quadratic field defined by x^2 - 3)], Maximal order of Real quadratic field defined by x^2 - 3 
+with basis nf_elem[1, sqrt(3)], sqrt(3) + 2, Order of Real quadratic field defined by x^2 - 3
+with Z-basis NfOrdElem[1, -sqrt(3) + 6], Order of Real quadratic field defined by x^2 - 3
+with Z-basis NfOrdElem[1, -sqrt(3) + 11//2], -sqrt(3) + 11//2, Class field defined mod (<5, 5>, InfPlc{AnticNumberField, NumFieldEmbNfAbs}[Infinite place corresponding to (Complex embedding corresponding to -1.73 of real quadratic field defined by x^2 - 3), Infinite place corresponding to (Complex embedding corresponding to 1.73 of real quadratic field defined by x^2 - 3)]) of structure Abelian group with structure: Z/2 x Z/8)
+
+julia> fiducial(5)
+
 ```
 
 Some julia tips can be found [here](julia)
