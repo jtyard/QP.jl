@@ -155,10 +155,10 @@ function ABN(N; type = 0)
 end
 
 ###
-# U(1)_k has anyons <zeta_N,-1>.
-# For even k is a TQFT with anyon group Z/k
-# For odd k is a spin TQFT with anyons Z/2k  
-# The fermion k = ψ generates a Z/2 1-form symmetry 
+# U(1)_k Chern-Simons theory has anyons <zeta_N,-1>.
+# For odd k is a 2+1D spin TQFT with anyons Z/2k and k = psi is the fermion.
+# For even k is a 2+1D TQFT with anyon group Z/k.  There is also a spin-TQFT with transparent fermion so the anyon group is Z/k x Z/2. 
+# In each case the fermion generates a Z/2 1-form symmetry that can be condensed to give a super TQFT (via gauging the fermion parity)
 ###
 
 

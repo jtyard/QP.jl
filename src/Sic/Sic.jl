@@ -209,7 +209,7 @@ function sic(d::Int)
 end
 
 # e.g. fiducial("7b") returns the Scott-Grassl 7b sic
-function fiducial(label::String)
+function sic(label::String)
     error("Not implemented")
 end
 
