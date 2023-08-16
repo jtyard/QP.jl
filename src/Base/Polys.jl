@@ -12,6 +12,7 @@ using Memoize
 export MatrixPolynomialRing, VariableMatrix, MatrixGradedPolynomialRing, QQXgraded
 export FX, QQX, Xij, TrX, TrX2, QQXhom, QQXt
 export QQzw, wj, zj, monomials_of_degree, laplacian, Laplacian
+export QQXtozw
 
 ###############
 # Matrix polynomials 
@@ -55,6 +56,10 @@ Xij(N::Int; graded = false) = matrix(QQX(N,graded=graded),[[Xij(i,j,N,graded=gra
 # Ring homomorphism taking Xij(N) -> Y when Y is an N x N matrix
 QQXhom(Y) = hom(QQX(nrows(Y)),QQX(nrows(Y)),vec(transpose(Y)))
 QQXt(N::Int) = QQXhom(transpose(Xij(N)))
+
+# Mapping to z and w 
+QQXtozw(N) = hom(QQX(N),QQzw(N),[gens(QQzw(N))[i]*gens(QQzw(N))[N+j] for i=1:N for j=1:N])
+
 
 TrX(N::Int; graded = false) = sum([Xij(i,i,N,graded=graded) for i = 0:N-1])
 TrX2(N::Int; graded = false) = sum([Xij(i,j,N,graded=graded)*Xij(j,i,N,graded=graded) for i = 0:N-1 for j = 0:N-1])

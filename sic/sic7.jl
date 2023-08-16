@@ -15,14 +15,14 @@ S = SicData(7)
 K = S.K
 OK = S.OK
 
-s = sqrt(OK(2))
+s = OK(sqrt(K(2)))
 
-I = ideal(OK,2+s)
+mm = ideal(OK,2+s)
 #I = ideal(OK,7)
-rcf0 = ray_class_field(I)
-rcf1 = ray_class_field(I,[real_places(K)[1]])
-rcf2 = ray_class_field(I,[real_places(K)[2]])
-rcf = ray_class_field(I,real_places(K))
+rcf0 = ray_class_field(mm)
+rcf1 = ray_class_field(mm,[real_places(K)[1]])
+rcf2 = ray_class_field(mm,[real_places(K)[2]])
+rcf = ray_class_field(mm,real_places(K))
 
 
 
