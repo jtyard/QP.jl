@@ -42,15 +42,18 @@ mutable struct SicData
     rcf::ClassField
     #ring_class_field::ClassField
     function SicData(d::Int;build_nf=false)
+        if d == 3
+            return new(3,0,0,1,rationals_as_number_field()[1])
+        end
         D = ZZ((d-3)*(d+1))
-        D0 = fundamental_discriminant(D)
-        f = ZZ(sqrt(D//D0))
-        K = quadratic_field(Hecke.squarefree_part(D0))[1]
+        D0 = fundamental_discriminant(D) 
+        f = ZZ(sqrt(D//D0)) 
+        K = quadratic_field(Hecke.squarefree_part(D0))[1] 
         inf = real_places(K)
         OK = maximal_order(K)
-        uf = fundamental_unit(OK)
+        uf = d > 3 ? fundamental_unit(OK) : OK(1)
         OD = quadratic_order(D)
-        bb = (D-1 + sqrt(K(D)))//2
+        bb = (d-1 + sqrt(K(D)))//K(2)
         Ob = quadratic_order(bb)
         b = Ob(bb)
         rcf = ray_class_field((isodd(d) ? d : 2*d)*OK,infinite_places(K))
@@ -58,7 +61,19 @@ mutable struct SicData
             number_field(rcf)
         end
         #F = number_field(rcf,using_stark_units = true)
-        new(d,D,D0,f,K,inf,OK,uf,OD,Ob,b,rcf)
+    
+        new(d,
+        D,
+        D0,
+        f,
+        K,
+        inf,
+        OK,
+        uf,
+        OD,
+        Ob,
+        b,
+        rcf)
     end
 end
 
@@ -160,7 +175,7 @@ function fiducial(d::Int)
         return (identity_matrix(F,2) + map(F,heis(0,1,2) + heis(1,0,2) + heis(1,1,2))/sqrt(F(3)))/2
     elseif d == 3
         F = cyclotomic_field(3)[1]
-        return F[0;1;-1]*F[0 1 -1]
+        return F[0;1;-1]*F[0 1 -1]/2
     elseif d == 5
 
         S5 = SicData(5)
