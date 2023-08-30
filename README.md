@@ -57,7 +57,9 @@ julia> fiducial(5)
 
 ```
 
-Some julia tips can be found [here](julia)
+Some julia tips can be found [here](julia).
+
+Supported in part by the NSERC Discovery under Grant No. RGPIN-2018-04742, the NSERC project FoQaCiA under Grant No. ALLRP-569582-21, the [Institute for Quantum Computing](https://uwaterloo.ca/institute-for-quantum-computing/) and the [Perimeter Institute for Theoretical Physics](https://perimeterinstitute.ca/).
 
 ## Current 
 - Rings of polynomial functions on matrices over number fields 
