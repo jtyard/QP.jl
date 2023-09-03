@@ -40,8 +40,10 @@ mutable struct SicData
     Ob::NumFieldOrd # the minimal order Z[b]
     b::NumFieldOrdElem # or NumFieldOrdElem?
     rcf::ClassField
+    F::NumField
+    c::Hecke.NumFieldMor
     #ring_class_field::ClassField
-    function SicData(d::Int;build_nf=false)
+    function SicData(d::Int;build_nf=true)
         if d == 3
             return new(3,0,0,1,rationals_as_number_field()[1])
         end
@@ -57,12 +59,8 @@ mutable struct SicData
         Ob = quadratic_order(bb)
         b = Ob(bb)
         rcf = ray_class_field((isodd(d) ? d : 2*d)*OK,infinite_places(K))
-        if build_nf
-            number_field(rcf)
-        end
-        #F = number_field(rcf,using_stark_units = true)
     
-        new(d,
+        S = new(d,
         D,
         D0,
         f,
@@ -74,6 +72,12 @@ mutable struct SicData
         Ob,
         b,
         rcf)
+        if build_nf
+            S.F = number_field(rcf)
+            #S.F = number_field(rcf,using_stark_units = true)
+            S.c = complex_conjugation(rcf,inf[2])
+        end
+        S
     end
 end
 
@@ -176,10 +180,32 @@ function fiducial(d::Int)
     elseif d == 3
         F = cyclotomic_field(3)[1]
         return F[0;1;-1]*F[0 1 -1]/2
-    elseif d == 5
+    elseif d == 4
+        S4 = SicData(4,build_nf=true)
+        F = S4.F
+        #F = number_field(S4.rcf,using_stark_units = true)
 
-        S5 = SicData(5)
-        F = number_field(S5.rcf,using_stark_units = true)
+        # Define some constants
+        w2 = sqrt(F(2))
+        w5 = sqrt(F(5))
+        w10 = w2*w5
+        r1=sqrt(w5+1)
+        I=sqrt(F(-1))
+        phi=S4.F[
+            8
+            ((w10+w2-2*w5-2)*r1-4)*I+(w10+w2)*r1+4*w2-4
+            (8*w2-8)*I
+        ((w10+w2-2*w5-2)*r1+4)*I+(w10+w2)*r1-4*w2+4]
+
+        #gal, sig = automorphism_group(S4.rcf)
+        #abs2c(x) = x*c(x)
+     
+        # Rank-1 density matrix 
+        Phi = phi*dagger(phi,S4.c); 
+        return trace(Phi)^-1 * Phi
+    elseif d == 5
+        S5 = SicData(5, build_nf=true)
+        F = S5.F
 
         # Define some constants
         w3 = sqrt(F(3));
@@ -195,9 +221,9 @@ function fiducial(d::Int)
         #possible_c = findall([map(sig(g),[I,w3,w5,r1,r2]) == [-I,w3,w5,r1,r2] for g in gal])
         #println("Better only be one choice in this list " * string(possible_c))
         #c = sig(gal[possible_c[1]])
-        gal, sig = automorphism_group(S5.rcf)
-        c = complex_conjugation(S5.rcf, S5.inf[2])
-        abs2c(x) = x*c(x)
+        #gal, sig = automorphism_group(S5.rcf)
+        #c = complex_conjugation(S5.rcf, S5.inf[2])
+        #abs2c(x) = x*c(x)
 
         # The fiducial vector
         phi = F[16*r1
@@ -207,8 +233,8 @@ function fiducial(d::Int)
             (((-8*w15+12*w3-12*w5+32)*r1+(-10*w15+10*w3-6*w5+30))*r2+((-2*w15+w5+3)*r1+w15+5*w3+3*w5+5))*I+((-4*w3-4)*r1+2*w15-10*w3+2*w5-10)*r2+(-w15+5*w3+2*w5)*r1+3*w15+5*w3+w5+5] 
 
         # Rank-1 density matrix 
-        Phi = phi*transpose(map(c,phi)); Phi = trace(Phi)^-1 * Phi
-        return Phi
+        Phi = phi*dagger(phi,S5.c); 
+        return trace(Phi)^-1 * Phi
     else
         error("Not implemented")
     end
