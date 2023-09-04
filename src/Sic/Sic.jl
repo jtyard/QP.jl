@@ -3,6 +3,7 @@
 
 
 using Oscar
+using Memoize
 #using Caching
 
 
@@ -43,7 +44,7 @@ mutable struct SicData
     F::NumField
     c::Hecke.NumFieldMor
     #ring_class_field::ClassField
-    function SicData(d::Int;build_nf=true)
+    @memoize function SicData(d::Int;build_nf=true)
         if d == 3
             return new(3,0,0,1,rationals_as_number_field()[1])
         end
