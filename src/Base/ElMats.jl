@@ -46,18 +46,14 @@ end
 #A::MatElem ⊗ B::MatElem = tensor(A,B)
 # Conflicts with Hecke.⊗ maybe import it directly?
 
-
+# d is a vector of qudit dimensions, p is permutation of the same length
 function tensorperm(d,p)
     e = [d[p(i)] for i in d]
     A = abelian_group(d)
     B = abelian_group(e)
     U = 0
-    println(e)
     for a in A
         b = B([a[p(i)] for i in 1:length(a.coeff)])
-        println(a,b)
-        println(bra(a))
-        println(ket(b))
         U = U + ket(b)*bra(a)
     end
     U
