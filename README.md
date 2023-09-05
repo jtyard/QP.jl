@@ -65,14 +65,15 @@ Supported in part by the NSERC Discovery under Grant No. RGPIN-2018-04742, the N
 - Rings of polynomial functions on matrices over number fields 
 - Explicit computing in bases (vector, operator, etc)
 - Useful matrices and tensor products 
-- Qudit generalized Paulis
-- Prime qudit generalized Clifford = Weil representation
+- Multiqudit bases parameterized by elements of finite cyclic rings (`nmod`), of modules over them (`nmod_mat`) or of finite abelian groups (`GrpAbFinGenElem`)
+- Single-qudit generalized Paulis in all dimensions
+- Qudit generalized Clifford = Weil representation in prime dimensions
 - Projective linear groups 
 - Computing properties of SIC-POVMs 
 
 ## SIC-POVMs
-- `SicData(d)` (or `SicData(d,build_nf=true)` to build the number field)
-
+- `SicData(d)` (or `SicData(d,build_nf=false)` to skip building the number field)
+- `fiducial(d)` and `sic(d)` for `d=2,3,3,4,5`
 
 
 ## Class fields
