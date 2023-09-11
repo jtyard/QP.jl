@@ -43,6 +43,7 @@ mutable struct SicData
     rcf::ClassField
     F::NumField
     c::Hecke.NumFieldMor
+    e::Hecke.NumFieldEmbNfNS
     #ring_class_field::ClassField
     @memoize function SicData(d::Int;build_nf=true)
         if d == 3
@@ -75,8 +76,12 @@ mutable struct SicData
         rcf)
         if build_nf
             S.F = number_field(rcf)
+            F = S.F
             #S.F = number_field(rcf,using_stark_units = true)
             S.c = complex_conjugation(rcf,inf[2])
+            CC = AcbField(64) #bitsize should be increased for larger fiducials but this will work for small ones. Revisit this.
+            zdd = exp(2*pi*onei(CC)/(2*d))
+            S.e = [e for e in complex_embeddings(F) if overlaps(e(zetaN(2*d,F)),zdd) && overlaps(e(sqrt(F(D0))),sqrt(CC(D0)))][1]
         end
         S
     end
@@ -154,7 +159,7 @@ function overlaps(Phi::AbstractAlgebra.Generic.MatSpaceElem)
     N = ncols(Phi)
     F = base_ring(Phi)
     C_to_F = hom(cyclotomic_field(N)[1],F,zetaN(N,F))
-    [[trace(map(C_to_F,heis(ZN(N)[i j]))*Phi) for j in 0:N-1] for i in 0:N-1]
+    matrix(F,N,N,[trace(map(C_to_F,heis(ZN(N)[i j]))*Phi) for j in 0:N-1 for i in 0:N-1])
 end
 
 
