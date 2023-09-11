@@ -22,18 +22,27 @@ gpZ(N::Int) = diagonal_matrix([zetaN(N)^i for i in 0:N-1]...)
 
 # Section of the Heisenberg group from AAZ & AFMY
 # Do I need to change the signs/order?  What about for mod d and/or integer coordinates
-function heis(j::nmod_mat)
-    N = Int(characteristic(base_ring(j)))
+function heis(j1::Int,j2::Int,N::Int)
     if iseven(N)
         C,z = cyclotomic_field(2N)
-        (-z)^Int(-j[1]*j[2])*map(C,gpZ(N)^Int(-j[1])*gpX(N)^Int(-j[2]))
+        (-z)^Int(-j1*j2)*map(C,gpZ(N)^(-j1)*gpX(N)^(-j2))
     else  
         twoinv = ZN(N)(2)^-1
-        zetaN(N)^Int(-j[1]*j[2]*twoinv)*gpZ(N)^Int(-j[1])*gpX(N)^Int(-j[2])
+        zetaN(N)^Int(-j1*j2*twoinv)*gpZ(N)^(-j1)*gpX(N)^(-j2)
     end
 end
 
-heis(i::Union{Int,nmod},j::Union{Int,nmod},N::Int) = heis(ZN(N)[Int(i) Int(j)])
+function heis(j::nmod_mat)
+    N = Int(characteristic(base_ring(j)))
+    n2 = length(j)
+    if isodd(n2)  
+        error("argument must have even length")
+    end
+    n = Int(n2//2)
+    tensor([heis(Int(j[2i-1]),Int(j[2i]),N) for i in 1:n]...)
+end
+
+#heis(i::Int,j::Int,N::Int) = heis(ZN(N)[Int(i) Int(j)])
 
 function heiscocycle(j::nmod_mat,k::nmod_mat) 
     N = Int(characteristic(base_ring(j))) 
