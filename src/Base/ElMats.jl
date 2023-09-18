@@ -15,7 +15,11 @@ Eij(ij::nmod_mat) = Eij(Int(ij[1]), Int(ij[2]), Int(characteristic(base_ring(ij)
 # 2d array of matrix units 
 Eij(N::Int) = [[Eij(i,j,N) for j in 0:N-1] for i in 0:N-1]
 
+#################
 # Unit vectors 
+# Consider keeping these abstract like ket(Spin(1),Spin(0)), which 
+# displays as |1,0⟩, and defining e.g. Vector{ZZ}(ket(...)) as below.
+#############
 ket(i::Int,N::Int) = matrix(ZZ,[[a==mod(i,N)] for a in 0:N-1])
 
 ket(i::nmod) = ket(Int(i),Int(characteristic(parent(i))))
