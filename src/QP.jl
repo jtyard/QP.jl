@@ -28,16 +28,7 @@ include("Clif/Weil.jl")
 # SIC-POVMs
 include("Sic/Sic.jl")
 
-# Class fields
-
-# Schur transform (eventually)
+# Abstract spin kets
 include("Schur/SU2.jl")
-
-
-# Todo: Tensor categories
-#include("Base/Cats.jl")
-#include("Base/Types.jl")
-
-
 
 end # module
