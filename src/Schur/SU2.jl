@@ -1,16 +1,18 @@
 # Experimental - not much useful here yet
 
-# q-deformed Schur transform for Uq(sl_2) at roots of unity.
+# Eventually - q-deformed Schur transform for Uq(sl_2) at roots of unity.
 
 # First need to define maps V(2j-1) -> V(2j) ⊗ V(1)
+
+using Memoize
 
 import Base.show
 export Spin, ket,ketjm, UqMod, j_plus_halfs, j_minus_halfs, show
 
 struct Spin
-    n::fmpz #units of 1/2 (really hbar omega/ 2) 
+    n::fmpz #units of 1/2 (really ħω/2) 
     j::fmpq
-    Spin(j) = new(fmpz(2*j),fmpz(2*j)//2)
+    @memoize Spin(j) = new(fmpz(2*j),fmpz(2*j)//2) # so Spin(1) == Spin(1)
 end
 
 function Base.show(io::IO, s::Spin)
@@ -31,7 +33,6 @@ function ket(j::Spin,m::Spin)
     #fmpz[Spin(k) == m ? 1 : 0 for k in j.j:-1:-j.j]
 end
 
-# The above is a nice idea but it does't really work as expected because e.g. Spin(1) != Spin(1) (== on a struct uses === on the fields for some reason).
 
 function ketjm(j,m)
     [k == m ? 1 : 0 for k in j:-1:-j]
@@ -47,24 +48,26 @@ end
 
 function j_plus_halfs(j1,m,k) 
     vec = zeros(4 * j1 + 2)
-    q4 = zetaN(4*k+4)
+    qq = zetaN(Int(4*k+4))
 
     if m < j1
-        vec[1 + 2*Int(j1 - (m + 1/2)) + 1] = sqrt(q^(-(j1 + 1/2 + m)/2) * qint(j1 + 1/2 - m,k+2)//qint(2*j1+1,k+2))
+        vec[1 + 2*Int(j1 - (m + 1/2)) + 1] = sqrt(qq^(-(2*j1 + 1 + 2*m)) * qint(j1 + 1/2 - m,k+2)//qint(2*j1+1,k+2))
     end
     if m > -j1
-        vec[1 + 2*Int(j1 - (m - 1/2))] = sqrt(q^((j1 + 1/2 - m)/2) * qint(j1 + 1/2 + m,k+2)//qint(2*j1+1,k+2))
+        vec[1 + 2*Int(j1 - (m - 1/2))] = sqrt(qq^((2*j1 + 1 - 2*m)) * qint(j1 + 1/2 + m,k+2)//qint(2*j1+1,k+2))
     end 
     vec
 end
 
 function j_minus_halfs(j1,m,k)
     vec = zeros(4 * j1 + 2)
+    qq = zetaN(Int(4*k+4))
+
     if m < j1
-        vec[1 + 2*Int(j1 - (m + 1/2)) + 1] = -sqrt(q^((j1 + 1/2 - m)/2) * qint(j1 + 1/2 + m,k+2)//qint(2*j1+1,k+2))
+        vec[1 + 2*Int(j1 - (m + 1/2)) + 1] = -sqrt(qq^((2*j1 + 1 - 2*m)) * qint(Int(j1 + 1/2 + m),k+2)//qint(2*j1+1,k+2))
     end
     if m > -j1
-        vec[1 + 2*Int(j1 - (m - 1/2))] = sqrt(q^(-(j1 + 1/2 + m)/2) * qint(j1 + 1/2 + m,k+2)//qint(2*j1+1,k+2))
+        vec[1 + 2*Int(j1 - (m - 1/2))] = sqrt(qq^(-(2*j1 + 1 + 2*m)) * qint(Int(j1 + 1/2 + m),k+2)//qint(2*j1+1,k+2))
     end 
     vec
 end
