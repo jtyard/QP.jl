@@ -15,8 +15,9 @@ export minors, Im, QQXp
 export XX, h, h2, hp, hm
 export Ih, Ih2, Im, Ihm, Ihp, Ic, Icc, Itr0, Itr1, IT
 
-import Oscar.overlaps
-export is_fiducial, overlaps, heis_orbit, algebra_from_heis_orbit, algebra_from_basis, fiducial, sic
+import Oscar.overlaps, Oscar.complex_conjugation
+export overlaps, complex_conjugation
+export is_fiducial, heis_orbit, algebra_from_heis_orbit, algebra_from_basis, fiducial, sic
 
 
 # Making new rings for the overlaps - maybe use routines from Vars.jl instead? 
@@ -79,6 +80,11 @@ mutable struct SicData
             F = S.F
             #S.F = number_field(rcf,using_stark_units = true)
             S.c = complex_conjugation(rcf,inf[2])
+            
+            # would be nice if we could do
+            # complex_conjugation(S.F) = c 
+            # but it's not so easily possible
+
             CC = AcbField(64) #bitsize should be increased for larger fiducials but this will work for small ones. Revisit this.
             zdd = exp(2*pi*onei(CC)/(2*d))
             S.e = [e for e in complex_embeddings(F) if overlaps(e(zetaN(2*d,F)),zdd) && overlaps(e(sqrt(F(D0))),sqrt(CC(D0)))][1]
