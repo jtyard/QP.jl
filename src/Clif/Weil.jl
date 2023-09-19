@@ -2,85 +2,9 @@
 # Generalized Paulis and Heisenberg group
 ###############
 
-export gpX, gpZ, heis, heis2, heiscocycle, heispairing, gauss_sum, weil_w0, weil_N, weil_T, weil_U
-
-export heisAAZ, heisQ
+export gauss_sum, weil_w0, weil_N, weil_T, weil_U
 
 export ABN, weil_overlaps, weil_ad, weil_zw
-
-# generalized Pauli X 
-function gpX(N::Int)
-    X = zero_matrix(cyclotomic_field(N)[1],N,N)
-    for i in 0:N-1
-        X[1 + ((i+1) % N),1+i] = 1
-    end
-    X
-end
-
-# generalized Pauli Z
-gpZ(N::Int) = diagonal_matrix([zetaN(N)^i for i in 0:N-1]...)
-
-# Section of the Heisenberg group from AAZ & AFMY
-# Do I need to change the signs/order?  What about for mod d and/or integer coordinates
-function heis(j1::Int,j2::Int,N::Int)
-    if iseven(N)
-        C,z = cyclotomic_field(2N)
-        (-z)^Int(-j1*j2)*map(C,gpZ(N)^(-j1)*gpX(N)^(-j2))
-    else  
-        twoinv = ZN(N)(2)^-1
-        zetaN(N)^Int(-j1*j2*twoinv)*gpZ(N)^(-j1)*gpX(N)^(-j2)
-    end
-end
-
-function heis(j::nmod_mat)
-    N = Int(characteristic(base_ring(j)))
-    n2 = length(j)
-    if isodd(n2)  
-        error("argument must have even length")
-    end
-    n = Int(n2//2)
-    tensor([heis(Int(j[2i-1]),Int(j[2i]),N) for i in 1:n]...)
-end
-
-#heis(i::Int,j::Int,N::Int) = heis(ZN(N)[Int(i) Int(j)])
-
-function heiscocycle(j::nmod_mat,k::nmod_mat) 
-    N = Int(characteristic(base_ring(j))) 
-    twoinv = ZN(N)(2)^-1
-    w = zetaN(N)^Int(twoinv)  
-    w^Int(j[1]*k[2] - j[2]*k[1])
-end
-
-function heispairing(j::nmod_mat,k::nmod_mat) 
-    N = Int(characteristic(base_ring(j))) 
-    zetaN(N)^Int((j[1]*k[2] - j[2]*k[1]))
-end
-
-# Let's work with 
-function heis2(j::nmod_mat)
-    N2 = Int(characteristic(base_ring(j)))
-    @assert iseven(N2) "Characteristic must be even"
-    N = Int(N2//2)
-    C,w = cyclotomic_field(N2)
-        (-w)^Int(j[1]*j[2])*map(C,gpX(N)^Int(j[1])*gpZ(N)^Int(j[2]))
-end
-
-# eqn (8) of AAZ
-function heisAAZ(i,j,N)
-    C,z = isodd(N) ? cyclotomic_field(N) : cyclotomic_field(2*N);
-    w = isodd(N) ? z : z 
-    w^Int(i*j)*map(C,gpX(N)^Int(i)*gpZ(N)^Int(j))
-end
-
-
-# Quaternion section (N=2 only)
-function heisQ(j::nmod_mat)
-    N = Int(characteristic(base_ring(j)))
-    @assert N==2 "Characteristic must equal 2"
-    C,i = cyclotomic_field(4)
-    #return ( i^(Int(j[1]*j[2])) ) * ( (C[0 i; i 0])^Int(j[1]) ) * ( (C[i 0; 0 -i])^Int(j[2]) )
-    return  (C[0 i; i 0])^Int(j[1]) * (C[i 0; 0 -i])^Int(j[2])
-end
 
 ###############
 # Unitary lifting of Weil representation of SL(2,Z/N) for prime N
@@ -117,9 +41,6 @@ function weil_T(a::nmod)
     end
     jacobi_symbol(a,N)*M
 end
-
-
-
 
 # Accepts a matrix in SL(2,GF(p)), with p prime, and returns a p x p matrix over the pth cyclotomic field
 function weil_U(g::nmod_mat)
@@ -166,7 +87,7 @@ end
 ###
 # U(1)_k Chern-Simons theory has anyons <zeta_N,-1>.
 # For odd k is a 2+1D spin TQFT with anyons Z/2k and k = psi is the fermion.
-# For even k is a 2+1D TQFT with anyon group Z/k.  There is also a spin-TQFT with transparent fermion so the anyon group is Z/k x Z/2. 
+# For even k is a 2+1D TQFT with anyon group Z/k.  There is also a spin-TQFT with transparent fermion and anyon group Z/k x Z/2. 
 # In each case the fermion generates a Z/2 1-form symmetry that can be condensed to give a super TQFT (via gauging the fermion parity)
 ###
 

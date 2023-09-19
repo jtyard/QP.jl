@@ -23,6 +23,7 @@ include("Base/Quad.jl")
 include("Base/Quat.jl")
 
 # Heisenberg groups for all Z/N and Weil for Z/p
+include("Clif/Heis.jl")
 include("Clif/Weil.jl")
 
 # SIC-POVMs
