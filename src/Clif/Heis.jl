@@ -2,11 +2,11 @@
 # Generalized Paulis and Heisenberg group
 ###############
 
-export gpX, gpZ, heis, heis2, heiscocycle, heispairing, gauss_sum, weil_w0, weil_N, weil_T, weil_U
+export gpX, gpZ, heis, heis2, heiscocycle, heispairing
 
 export heisAAZ, heisQ
 
-export ABN, weil_overlaps, weil_ad, weil_zw
+export ABN
 
 # generalized Pauli X 
 function gpX(N::Int)
@@ -87,4 +87,26 @@ function heisQ(j::nmod_mat)
     C,i = cyclotomic_field(4)
     #return ( i^(Int(j[1]*j[2])) ) * ( (C[0 i; i 0])^Int(j[1]) ) * ( (C[i 0; 0 -i])^Int(j[2]) )
     return  (C[0 i; i 0])^Int(j[1]) * (C[i 0; 0 -i])^Int(j[2])
+end
+
+## May be useful to define action of matrix group to use existing algorithms for e.g. invariant theory.
+
+function ABN(N; type = 0)
+    X = gpX(N)
+    Z = gpZ(N)
+    O = 0*X
+    if type == 0
+        A = X
+        B = Z
+    elseif type == 1
+        A = [O X; -X O]
+        B = [O Z; -Z O]
+    elseif type == 2 
+        A = [X O; O X]
+        B = [Z O; O Z]
+    elseif type == 3
+        A = [O X; X O]
+        B = [O Z; Z O]
+    end
+    matrix_group([A,B])
 end

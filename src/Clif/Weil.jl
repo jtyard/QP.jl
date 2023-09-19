@@ -4,7 +4,7 @@
 
 export gauss_sum, weil_w0, weil_N, weil_T, weil_U
 
-export ABN, weil_overlaps, weil_ad, weil_zw
+export weil_overlaps, weil_ad, weil_zw
 
 ###############
 # Unitary lifting of Weil representation of SL(2,Z/N) for prime N
@@ -61,28 +61,6 @@ end
 
 weil_U(g::MatrixGroupElem{nmod, nmod_mat}) = weil_U(g.elm)
 
-
-## 
-
-function ABN(N; type = 0)
-    X = gpX(N)
-    Z = gpZ(N)
-    O = 0*X
-    if type == 0
-        A = X
-        B = Z
-    elseif type == 1
-        A = [O X; -X O]
-        B = [O Z; -Z O]
-    elseif type == 2 
-        A = [X O; O X]
-        B = [Z O; O Z]
-    elseif type == 3
-        A = [O X; X O]
-        B = [O Z; Z O]
-    end
-    matrix_group([A,B])
-end
 
 ###
 # U(1)_k Chern-Simons theory has anyons <zeta_N,-1>.
@@ -188,7 +166,6 @@ function weil_overlaps_vec(g::nmod_mat)
     end
     U
 end
-
 
 
 function weil_overlaps_mat(g::nmod_mat) 
