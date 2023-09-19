@@ -1,4 +1,4 @@
-using QP
+using QP, Oscar
 using Test
 
 @testset "QP.jl" begin

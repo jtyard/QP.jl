@@ -1,6 +1,7 @@
-# Tests for Heisenberg and Weil representation.  Eventually write these as @test statements.
+using QP, Oscar
+using Test
 
-#Z2 = ZN(2); Z3 = ZN(3); Z4 = ZN(4); Z5 = ZN(5); Z6 = ZN(6); Z7 = ZN(7); Z8 = ZN(8);
+# Tests for Heisenberg and Weil representation.  
 
 @testset "heis" begin
     v = rand(Z8^2); w = rand(Z8^2); 
