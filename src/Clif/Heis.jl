@@ -4,6 +4,7 @@
 
 export gpX, gpZ, heis, heis2, heiscocycle, heispairing
 
+
 export heisAAZ, heisQ
 
 export ABN
@@ -20,7 +21,8 @@ end
 # generalized Pauli Z
 gpZ(N::Int) = diagonal_matrix([zetaN(N)^i for i in 0:N-1]...)
 
-# Section of the single qudit Heisenberg group.  
+# Section of the single qudit Heisenberg group, compatible with weil_U
+# To run some tests: include("test/clif.jl")
 function heis(j1::Int,j2::Int,N::Int)
     if iseven(N)
         C,z = cyclotomic_field(2N)
@@ -31,8 +33,8 @@ function heis(j1::Int,j2::Int,N::Int)
     end
 end
 
-# It is related to the following section from
-# eqn (8)  https://arxiv.org/abs/1209.1813 and eqn (6) of https://arxiv.org/abs/1604.06098
+# For comparison the section from eqn (8) of https://arxiv.org/abs/1209.1813 
+# and eqn (6) of https://arxiv.org/abs/1604.06098 is
 function heisAAZ(i::Int,j::Int,N::Int)
     C,z = isodd(N) ? cyclotomic_field(N) : cyclotomic_field(2*N);
     w = isodd(N) ? z : z 
