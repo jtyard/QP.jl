@@ -1,7 +1,7 @@
 #################
 # Algebras and orders for SU(2)_k
 #################
-%export Dn, su2levelk
+export Dn, su2levelk
 
 # Some orders from https://arxiv.org/abs/1504.04350 (Section 4) and https://arxiv.org/abs/1510.03888 for SU(2)_k
 
