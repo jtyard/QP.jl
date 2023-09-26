@@ -1,6 +1,13 @@
 # Julia workflow
 
-
+For generic linux systems on Intel x86 (running natively, in [Windows 11 WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) and on a [Chromebook](https://chromeos.dev/en/linux), I install julia with the following commands from a bash shell
+```
+$ wget https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-1.9.3-linux-x86_64.tar.gz
+tar -xvf julia-1.9.3-linux-x86_64.tar.gz
+sudo rm /usr/local/bin/julia  # only if previously installed
+sudo ln -s ./julia-1.9.3/bin/julia /usr/local/bin/julia
+sudo chmod +x /usr/local/bin/julia # may not be needed but can't hurt
+``` 
 
 I keep these packages [`OhMyREPL`](https://kristofferc.github.io/OhMyREPL.jl/latest/), 
 [`PkgTemplates`](https://github.com/JuliaCI/PkgTemplates.jl),
@@ -11,13 +18,13 @@ I keep these packages [`OhMyREPL`](https://kristofferc.github.io/OhMyREPL.jl/lat
 pkg> add OhMyREPL, PkgTemplates, Revise, Term, Pkg
 ```
 
-My [`startup.jl`](startup.jl) is set up to automatically load an enviroment if julia is started from a directory containing a `Project.toml` and `Manifest.toml`.  It also loads some helpful things for navigating types.  It goes in `.julia/config/startup.jl`.  
+My [`startup.jl`](startup.jl) is set up to automatically load an enviroment if julia is started from a directory containing a `Project.toml` or `Manifest.toml`.  It also loads some helpful things for navigating types.  It goes in `.julia/config/startup.jl`.  
 
-To get a local copy of the code to a project do e.g. 
+To get a local copy of the code to a project you can do e.g.
 
 ```
 pkg> dev Oscar
 ```
 
-and this will put it in `.julia/dev/Oscar/`.  You can update the package by running `git pull` from inside `.julia/dev/Oscar/` and you can also navigate that code e.g. by adding `.julia/dev` to your vscode workspace.  
+and this will put it in `.julia/dev/Oscar/`.  You can update the package by running `git pull` from inside `.julia/dev/Oscar/` and you can also navigate that code by adding `.julia/dev` to your vscode workspace.  
 
