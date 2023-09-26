@@ -31,7 +31,7 @@ function package_template()
         julia=v"1.9.3",
         dir="~",
         plugins=[
-            PkgTemplates.License(; name="MIT"),
+            PkgTemplates.License(; name="GPL-3.0+"),
             # Don't commit Manifest.jl, use SSH and append .jl to the name of the repo
             # See https://invenia.github.io/PkgTemplates.jl/stable/user/#PkgTemplates.Git for more options
             PkgTemplates.Git(; manifest=false, ssh=true, jl=true),
