@@ -115,11 +115,12 @@ iff they are connected by a principal ideal $bO = O'b$. So the isomorphism class
 - An **invertible ideal** is a fractional ideal $I$ with an **inverse** $I^{-1}$, satisfying 
 $I^{-1}I = O_R(I)$ and therefore $I I^{-1} = O_L(I)$.
   - The orders and the invertible ideals form a groupoid called the **core** of the above category.
-- A **normal $R$-ideal** is a fractional $R$-ideal with maximal left/right orders.
+- A **normal ideal** is a fractional $R$-ideal with maximal left/right orders.
   - normal $\Rightarrow$ invertible.  
   -  The maximal orders and normal ideals form the **Brandt groupoid**.
-- An **integral $R$-ideal** is a normal ideal $I$ with $I \subset O_L(I) \cap O_R(I)$. Why not just invertible? 
-- An **Eichler order** is the intersection of two maximal orders.  So each normal ideal as defined above is contained in an Eichler order by definition.
+- An **integral ideal** is a normal $R$-ideal $I$ with $I \subset O_L(I) \cap O_R(I)$. 
+- An **Eichler order** is the intersection of two maximal orders. 
+By the above definitions, integral ideals are Eichler.  Why is "normal" part of the definition of "integral"? 
 
 
 
