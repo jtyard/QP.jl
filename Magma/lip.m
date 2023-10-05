@@ -27,7 +27,7 @@ allinvs := function(OO)
     return [#TwoSidedIdealClassGroup(OO),#ConjugacyClasses(OO), #LeftIdealClasses(OO),#RightIdealClasses(OO),Mass(OO)];
 end function;
 
-// Strange that Left/Right classes don't work for for n geq 5 because 
+// Strange that Left/Right classes did't work for n geq 5 though they work now () 
 // because right_ideal_classes = 2_sided_ideal_classes x conjugacy_classes
 // i.e. conjugacy_classes = right_ideal_classes
 
@@ -44,7 +44,7 @@ end function;
 //print allinvs(OA);
 //[ 1, 2, 2, 2, 5/48 ]
 
-// Already here I couldn't compute the Left/Right classes for maximal orders
+// Already here I couldn't compute the Left/Right classes for maximal orders though now (9/26/23) it works.
 //n:=5; load "lip.m";
 //print invs(OL);
 //[ 1, 58, 2234880 ]
