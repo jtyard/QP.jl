@@ -37,7 +37,6 @@ function VariableMatrix(F,N::Int;X::Union{AbstractString, Char, Symbol} = "X", g
 end
 
 
-
 #####
 function FX(F::AbstractAlgebra.Ring,N::Int; graded = false) 
     graded ? MatrixGradedPolynomialRing(F,N) : MatrixPolynomialRing(F,N)
@@ -59,7 +58,6 @@ QQXt(N::Int) = QQXhom(transpose(Xij(N)))
 
 # Mapping to z and w 
 QQXtozw(N) = hom(QQX(N),QQzw(N),[gens(QQzw(N))[i]*gens(QQzw(N))[N+j] for i=1:N for j=1:N])
-
 
 TrX(N::Int; graded = false) = sum([Xij(i,i,N,graded=graded) for i = 0:N-1])
 TrX2(N::Int; graded = false) = sum([Xij(i,j,N,graded=graded)*Xij(j,i,N,graded=graded) for i = 0:N-1 for j = 0:N-1])
