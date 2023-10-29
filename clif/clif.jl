@@ -1,4 +1,5 @@
 using Oscar
+using QP 
 
 # Experiments with constructing the 2-qubit Clifford group and its subgroups that stabilize quadratic forms over F_2.
 
@@ -22,10 +23,10 @@ o = 0*q00
 q = [q00 o; o q00]
 b = invariant_bilinear_forms(Sp(4,2))[1]
 
-#println(length([g for g in Sp(2,2) if quadratic_form(q11) == quadratic_form(q11)^g]))
-#println(length([g for g in Sp(2,2) if quadratic_form(q00) == quadratic_form(q00)^g]))
+println(length([g for g in Sp(2,2) if quadratic_form(q11) == quadratic_form(q11)^g]))
+println(length([g for g in Sp(2,2) if quadratic_form(q00) == quadratic_form(q00)^g]))
 
-#println(length([g for g in Sp(4,2) if transpose(g.elm)*b*g.elm == b]))
+println(length([g for g in Sp(4,2) if transpose(g.elm)*b*g.elm == b]))
 
 #println(length([g for g in Sp(4,2) if quadratic_form( [q00 o; o q00]) == quadratic_form( [q00 o; o q00])^(W*g*transpose(W))]))
 #println(length([g for g in Sp(4,2) if quadratic_form( [q00 o; o q11]) == quadratic_form( [q00 o; o q11])^(W*g*transpose(W))]))
@@ -33,12 +34,15 @@ b = invariant_bilinear_forms(Sp(4,2))[1]
 # Here is some of the way towards defining affine extension (Z/2)^4 rtimes Sp(4,2) by isomorphism to abelian group
 
 A = abelian_group([2,2,2,2])
-V = GF(2,1)^4
+V = GF(2,1)^4 #F^n as matrix space of column vectors over F is defined in QP.jl should I submit it to Oscar?
 
 AtoV(a) = V([GF(2,1)(a[i]) for i in 1:4])
 VtoA(v) = A([v[i] == GF(2,1)(0) ? 0 : 1 for i in 1:4])
 
-# But maybe a better way is just to define a new matrix group: see affine_group(G) in Groups.jl
+# But maybe a better way is just to define a new matrix group: see affine_group(G) in src/Groups.jl
+
+println(order(affine_group(Sp(4,2))))
+println(2^4*720)
 
     
 
