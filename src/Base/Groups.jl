@@ -1,10 +1,18 @@
 # Groups
 # Some useful / experimental routines for working with groups. 
 
-export eye
+using Oscar
 
-export PSL,PGL, abelian_2cocycle, abelian_2cocycle_mat, affine_group
-#export PGL, PSL, eye
+
+export aut, inn
+
+export eye, PSL,PGL, abelian_2cocycle, abelian_2cocycle_mat, affine_group 
+
+
+import Oscar.aut
+aut(G::Oscar.GAPGroup) = automorphism_group(G)
+inn(G::Oscar.GAPGroup) = inner_automorphism_group(aut(G))[1]
+
 
 #Given projective representation f : G -> matrices, return the corresponding normalized 2-cocycle
 function abelian_2cocycle(G,f) 
