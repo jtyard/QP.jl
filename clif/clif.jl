@@ -45,6 +45,14 @@ println(order(affine_group(Sp(4,2))))
 println(2^4*720)
 
     
+D = dihedral_group(8)
+C,ph = center(D)
+c = ph(C[1]) # generator of the center of D8
+println(length([s for s in aut(D) if s(c) == c]))
 
+Q = quaternion_group(8)
+Z,phh = center(Q)
+z = phh(Z[1]) # generator of the center of Q
+println(length([s for s in aut(Q) if s(z) == z]))
 
 
