@@ -254,7 +254,13 @@ end
 
 # e.g. fiducial("7b") returns the Scott-Grassl 7b fiducial
 function fiducial(label::String)
-    error("Not implemented")
+    if label == "7a"
+        error("Not implemented")
+    elseif label == "7b"
+        error("Not implemented")
+    else
+        error("Not implemented")
+    end
 end
 
 function sic(d::Int)
