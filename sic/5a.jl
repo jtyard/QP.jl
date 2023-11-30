@@ -10,3 +10,5 @@ s = gen(S.K)
 
 P = fiducial(5)
 
+mu = dwork_modulus(P[1,:])
+
