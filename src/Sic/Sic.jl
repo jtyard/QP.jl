@@ -19,6 +19,8 @@ import Oscar.overlaps, Oscar.complex_conjugation
 export overlaps, complex_conjugation
 export is_fiducial, heis_orbit, algebra_from_heis_orbit, algebra_from_basis, fiducial, sic
 
+export dwork_modulus
+
 
 # Making new rings for the overlaps - maybe use routines from Vars.jl instead? 
 #Aij(i::Union{Int,nmod},j::Union{Int,nmod},N::Int) = gens(CA(N))[1 + (Int(j) % N) + N*(Int(i) % N)]
@@ -280,4 +282,16 @@ end
 
 function is_split(A::AlgMat)
     is_split(AlgAss(A)[1])
+end
+
+
+# SICs on Calabi-Yaus
+# Verifying that each fiducial lies on a unique Dwork hypersurface X_1^N + ... + X_N^N - N mu X_1 ... X_N
+# with e^{t/N} a unit in the complex ring class field of the corresponding quadratic order.
+# 
+# In particular this should be real when there are real fiducials.
+
+function dwork_modulus(v)
+    N = length(v)
+    (1//N)*sum([a^N for a in v])//prod([a for a in v])
 end
