@@ -1,5 +1,9 @@
 using Oscar, QP
 
+
+# Checking the modulus of the Dwork hypersurface on which the fiducial lives. 
+
+
 # Match the Artin map with the Weil representation
 to_abs(F) = inv(absolute_simple_field(F)[2])
 
@@ -22,11 +26,8 @@ gal(g) = art.map2(G(g))
 println([g for g in G if art.map2(g)(mu) == mu])
 
 f = minpoly(to_abs(F)(mu))
-
-println(f)
-
 L = number_field(f)[1]
+LL = compositum(quadratic_field(5)[1],quadratic_field(-1)[1])[1]
+disc = absolute_discriminant(maximal_order(L))
 
-disc = ZZ(discriminant(L))
-
-disc, factor(disc)
+disc, factor(disc), is_isomorphic(L,LL)
