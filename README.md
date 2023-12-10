@@ -104,23 +104,24 @@ Some relevant functions from Hecke:
 Let $R$ be an integral domain and $B$ a central simple algebra over $\mathrm{Frac}(R)$.  
 - An **$R$-lattice** is a finitely generated torsion-free $R$-module.
 - A **fractional $R$-ideal** $I$ of $B$ is a full-rank $R$-sublattice.
-  - **Left order** $`O_L(I) = \{ b \in B : bI \subset I \}`$
-  - **Right order**  $`O_L(I) = \{ b \in B : bI \subset I \}`$
-  - $I$ is an $O_L(I)-O_R(I)$-bimodule, a left fractional $O_L(I)$ 
-ideal and a right fractional $O_R(I)$-ideal.
-  - A **proper product** $I_1 I_2 \cdots I_n$ of fractional ideals has $O_R(I_i) = O_L(I_{i+1})$ for $1 \leq i < n$.
+  - **Left order** $`O_\ell(I) = \{ b \in B : bI \subset I \}`$
+  - **Right order**  $`O_r(I) = \{ b \in B : bI \subset I \}`$
+  - $I$ is an $O_\ell(I)-O_r(I)$-bimodule, a left fractional $O_\ell(I)$ 
+ideal and a right fractional $O_r(I)$-ideal.
   - There is a **category** whose objects are the orders and whose morphisms are the fractional ideals, with composition given by proper products.  Fractional ideals **connect** their left/right orders.
 - $O\simeq O'$ iff $bOb^{-1} = O'$ for some $b \in B^\times$ 
 iff they are connected by a principal ideal $bO = O'b$. So the isomorphism classes are the conjugacy classes.
-- An **invertible ideal** is a fractional ideal $I$ with an **inverse** $I^{-1}$, satisfying 
-$I^{-1}I = O_R(I)$ and therefore $I I^{-1} = O_L(I)$.
+- An **invertible ideal** of $B$ is a fractional ideal $I$ with an **inverse** $I^{-1}$, satisfying 
+$I^{-1}I = O_R(I)$ and therefore $I I^{-1} = O_\ell(I)$.
   - The orders and the invertible ideals form a groupoid called the **core** of the above category.
-- A **normal ideal** is a fractional $R$-ideal with maximal left/right orders.
+- A **normal ideal** of $B$ is a fractional $R$-ideal with maximal left/right orders.
   - normal $\Rightarrow$ invertible.  
-  -  The maximal orders and normal ideals form the **Brandt groupoid**.
-- An **integral ideal** is a normal $R$-ideal $I$ with $I \subset O_L(I) \cap O_R(I)$. 
-- An **Eichler order** is the intersection of two maximal orders. 
-By the above definitions, integral ideals are Eichler.  Why is "normal" part of the definition of "integral"? 
+  -  The maximal orders and normal ideals of $B$ form the **Brandt groupoid**.
+- An **integral ideal** of $B$ is a normal $R$-ideal $I$ with $I \subset O_\ell(I) \cap O_r(I)$. 
+- An **Eichler order** is the intersection of two maximal orders. By the above definitions, integral ideals are Eichler.  
+- A **maximal left ideal** $I$ of $B$ is a maximal left ideal of $O_\ell(I)$.  
+- Each integral ideal $I$ of $B$ can be factored into a **proper product** $I = M_1 M_2 \cdots M_n$ of maximal left ideals $M_i$ of $B$ with $O_r(M_i) = O_\ell(M_{i+1})$ for $1 \leq i < n$, 
+where $n$ is the length of $O_\ell(I)/I$.
 
 
 
