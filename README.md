@@ -108,7 +108,7 @@ Let $R$ be an integral domain and $B$ a central simple algebra over $\mathrm{Fra
   - **Right order**  $`O_r(I) = \{ b \in B : bI \subset I \}`$
   - $I$ is an $O_\ell(I)-O_r(I)$-bimodule, a left fractional $O_\ell(I)$ 
 ideal and a right fractional $O_r(I)$-ideal.
-  - There is a **category** whose objects are the orders and whose morphisms are the fractional ideals, with composition given by proper products.  Fractional ideals **connect** their left/right orders.
+  - There is a **category** whose objects are the orders and whose morphisms are the fractional ideals, with composition given by proper products (requiring matching left and right orders).  Fractional ideals **connect** their left/right orders.
 - $O\simeq O'$ iff $bOb^{-1} = O'$ for some $b \in B^\times$ 
 iff they are connected by a principal ideal $bO = O'b$. So the isomorphism classes are the conjugacy classes.
 - An **invertible ideal** of $B$ is a fractional ideal $I$ with an **inverse** $I^{-1}$, satisfying 
@@ -118,7 +118,6 @@ $I^{-1}I = O_R(I)$ and therefore $I I^{-1} = O_\ell(I)$.
   - normal $\Rightarrow$ invertible.  
   -  The maximal orders and normal ideals of $B$ form the **Brandt groupoid**.
 - An **integral ideal** of $B$ is a normal $R$-ideal $I$ with $I \subset O_\ell(I) \cap O_r(I)$. 
-- An **Eichler order** is the intersection of two maximal orders. By the above definitions, integral ideals are Eichler.  
 - A **maximal left ideal** $I$ of $B$ is a maximal left ideal of $O_\ell(I)$.  
 - Each integral ideal $I$ of $B$ can be factored into a **proper product** $I = M_1 M_2 \cdots M_n$ of maximal left ideals $M_i$ of $B$ with $O_r(M_i) = O_\ell(M_{i+1})$ for $1 \leq i < n$, 
 where $n$ is the length of $O_\ell(I)/I$.
