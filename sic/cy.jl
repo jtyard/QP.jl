@@ -6,7 +6,6 @@
 
 using Oscar, QP
 
-function cyparam(v)
-    N = length(v)
-    sum([a^N for a in v])//prod([a for a in v])
-end
+#println(dwork_modulus(fiducial(4)))
+# 57841632//25*sqrt(5) + 31157653//5
+
