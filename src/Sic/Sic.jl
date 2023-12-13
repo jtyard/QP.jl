@@ -293,5 +293,5 @@ end
 
 function dwork_modulus(v)
     N = length(v)
-    (1//N)*sum([a^N for a in v])//prod([a for a in v])
+    sum([a^N for a in v])//prod([a for a in v]) # Often divided by N but it is more integral without doing that
 end
