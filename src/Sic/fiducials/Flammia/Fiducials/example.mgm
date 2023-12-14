@@ -1,0 +1,48 @@
+/*
+The following code gives an example of one way to build the field tower for dimension 15 given the minimal polynomials in the tables from the paper. 
+
+From Table 9, we have the following:
+
+cyclotomic field:                        Q(r1,t,i*a)                        (degree 8)
+ray class field and orbit 15d:       Q(a,r1,t,b2,b1,i)               (degree 96)
+orbit 15b:                                   Q(a,r1,t,b2,b1,b3,i)          (degree 192)
+orbits 15ac:                               Q(a,r1,t,b2,b1,b3,b4,i)		(degree 384)
+
+
+Base fields:
+
+orbits 15d:   	Q(a)
+orbits 15b: 	Q(a)
+orbits 15ac:	Q(a,b4)
+*/
+
+// From Table 4, we find the expressions for a, r1, and the minimal polynomial for t
+
+P0<x0>:=PolynomialRing(RationalField());  // Start with the rationals
+
+Fa<a>:=NumberField(x0^2-3);  // Extend by a = sqrt(3)
+Pa<xa>:=PolynomialRing(Fa);
+
+Fr1<r1>:=NumberField(xa^2-5); // Extend by sqrt(5)
+Pr1<xr1>:=PolynomialRing(Fr1);
+
+Ft<t>:=NumberField(8*xr1^2-2*(r1-1)*xr1-(r1+3));  // Extend by t  (see Table 4)
+Pt<xt>:=PolynomialRing(Ft);
+
+Fb2<b2>:=NumberField(xt^3-30*xt-20);  // Extend by b2 (see Table 8)
+Pb2<xb2>:=PolynomialRing(Fb2);
+
+Fb3<b3>:=NumberField(xb2^2+2*a);  // Extend by b3 (see Table 5)
+Pb3<xb3>:=PolynomialRing(Fb3);
+
+Fb4<b4>:=NumberField(xb3^2-(a+2));    // Extend by b4 (see Table 5)
+Pb4<xb4>:=PolynomialRing(Fb4);
+
+Fb1<b1>:=NumberField(xb4^2+(-30+28*a-6*r1+4*a*r1+(-60+24*a-12*r1+8*a*r1)*t):Check:=false); // Extend by b4 (see Table 5)  Takes about 1 second to check irreducibility.
+Pb1<xb1>:=PolynomialRing(Fb1);
+
+F<i>:=NumberField(xb1^2+1: Check:=false); // Add the complex unit. Takes about 13 seconds to check irreducibility
+P<x>:=PolynomialRing(F);
+
+load "d15fida.txt"; // loads the fiducial 15a into memory
+

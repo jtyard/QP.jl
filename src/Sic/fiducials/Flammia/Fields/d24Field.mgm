@@ -1,0 +1,46 @@
+/*
+Base fields:
+
+orbit 	24c:		Q(a)
+orbits  24ab: 		Q(a,r3)
+
+SIC fields:
+
+orbit  24c (ray class field):		Q(a,r1,r2,t,b1,b2,b3,i)				(degree 384)
+orbits 24ab:  						Q(a,r1,r2,r3,t,b1,b2,b3,b4,i)		(degree 1536)
+*/
+
+
+P0<x0>:=PolynomialRing(RationalField());
+
+Fa<a>:=NumberField(x0^2-21); 
+Pa<xa>:=PolynomialRing(Fa);
+
+Fr1<r1>:=NumberField(xa^2-2);
+Pr1<xr1>:=PolynomialRing(Fr1);
+
+Fr2<r2>:=NumberField(xr1^2-3);
+Pr2<xr2>:=PolynomialRing(Fr2);
+
+Fr3<r3>:=NumberField(xr2^2-5);
+Pr3<xr3>:=PolynomialRing(Fr3);
+
+Ft<t>:=NumberField(8*xr3^2-(4+r1+r1*r2));
+Pt<xt>:=PolynomialRing(Ft);
+
+Fb3<b3>:=NumberField(xt^3-24*xt-16);
+Pb3<xb3>:=PolynomialRing(Fb3);
+
+Fb2<b2>:=NumberField(xb3^2-(4+r1)*(3+r2): Check:=false); // ~1 second to check irreducibility
+Pb2<xb2>:=PolynomialRing(Fb2);
+
+Fb4<b4>:=NumberField(xb2^2+(a+1)*(r3+5): Check:=false); //  ~20 seconds to check irreducibility
+Pb4<xb4>:=PolynomialRing(Fb4);
+
+Fb1<b1>:=NumberField(xb4^2+(a-3): Check:=false); // ~700 seconds to check irreducibility
+Pb1<xb1>:=PolynomialRing(Fb1);
+
+F<i>:=NumberField(xb1^2+1: Check:=false); // ~12000  seconds to check irreducibility
+P<x>:=PolynomialRing(F);
+
+tau:=((-r1 + 1)*r2 - r1 + 2)*t*i - t;

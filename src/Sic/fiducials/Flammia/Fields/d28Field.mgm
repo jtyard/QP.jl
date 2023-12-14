@@ -1,0 +1,89 @@
+/*
+Base fields:
+
+orbit 	28c:		Q(a)
+orbits  28ab: 		Q(a,r3)
+
+SIC fields:
+
+orbit  28c (ray class field):		Q(a,r1,r2,t,b1,b2,b3,i)				(degree 576)
+orbits 28ab:  						Q(a,r1,r2,r3,t,b1,b2,b3,b4,i)		(degree 2304)
+*/
+
+
+P0<x0>:=PolynomialRing(RationalField());
+
+Fa<a>:=NumberField(x0^2-29);
+Pa<xa>:=PolynomialRing(Fa);
+
+Fr1<r1>:=NumberField(xa^2-2);
+Pr1<xr1>:=PolynomialRing(Fr1);
+
+Fr2<r2>:=NumberField(xr1^2-7);
+Pr2<xr2>:=PolynomialRing(Fr2);
+
+Fr3<r3>:=NumberField(xr2^2-5);
+Pr3<xr3>:=PolynomialRing(Fr3);
+
+Ft<t>:=NumberField(16*xr3^3-4*r1*(r2-1)*xr3^2-4*(r2+1)*xr3+r1*(r2+3));
+Pt<xt>:=PolynomialRing(Ft);
+
+Fb2<b2>:=NumberField(xt^2+(a+5));
+Pb2<xb2>:=PolynomialRing(Fb2);
+
+Fb3<b3>:=NumberField(xb2^3-126*xb2-378:  Check:=false); // ~5 seconds to check irreducibility
+Pb3<xb3>:=PolynomialRing(Fb3);
+
+Fb4<b4>:=NumberField(xb3^2+20*a+50+(6*a+36)*r3: Check:=false); // ~200 seconds to check irreducibility
+Pb4<xb4>:=PolynomialRing(Fb4);
+
+Fb1<b1>:=NumberField(xb4^2+(a+1): Check:=false);  // ~5000 seconds to check irreducibility
+Pb1<xb1>:=PolynomialRing(Fb1);
+
+F<i>:=NumberField(xb1^2+1: Check:=false); //  irreducibility not checked directly.  See below for indirect check.
+P<x>:=PolynomialRing(F);
+
+tau:=((-2*r1*r2+6*r1)*t^2+(-3*r2+8)*t+(-1/2*r1*r2+1/2*r1))*i-t;
+
+
+/*
+CHECKING IRREDUCIBILITY OF THE DEFINING POLYNOMIAL OF F.
+
+A direct check is likely to be somewhat time consuming.  So we did an indirect check, by looking at the subfields
+
+F	= Q(a,r1,r2,t,b2,b1,i)  	(degree 192)
+Fb4 = Q(a,r3,b4)				(degree 8)
+Fb3 = Q(b3)						(degree 3)
+
+Consider first G = F ∩ Fb4.  The degree of G must divide GCD(192,8) = 8.  
+We have that a ∈ G, and r3 ∉ G (5 seconds to check). So the degree of G must be 2 or 4.
+The defining polynomials of the subfields of Fb4 are
+
+[
+x0^8 + 7*x0^7 + 4*x0^6 + 23*x0^5 - 104*x0^4 + 15*x0^3 - 25*x0^2 - 80*x0 - 20,
+x0^2 + x0 - 7,
+x0^2 + x0 - 1,
+x0^2 + x0 - 36,
+x0^4 - 17*x0^2 + 36
+]
+
+from which we see that the only  subfield of Fb4 of degree 4 is the one whose defining polynomial is
+x0^4 - 17*x0^2 + 36.  This splits over F into two quadratic factors (17 seconds):
+
+[
+x^2 - a*x + 6,
+x^2 + a*x + 6
+]
+
+So G is degree 2.  Since G contains a this means G = Q(a).  It follows that 
+F ∨ Fb4 = Q(a,r1,r2,r3,t,b2,b1,b4,i) is degree 4*192 = 768.  
+
+Now consider G = Fb3 ∧ (F ∨ Fb4).  The degree of G must divide GCD(768,3) = 3.  If Degree(G) was 3 it 
+would mean that b3 ∈ F ∨ Fb4 = Q(a,r1,r2,r3,t,b2,b1,b4,i).  But that would imply 
+Q(a,r1,r2,t,b2,b3,b1,i) was a subfield of  F ∨ Fb4 = Q(a,r1,r2,r3,t,b2,b1,b4,i), and that its degree was
+a divisor of 768. However, Q(a,r1,r2,t,b2,b3,b1,i) is the ray class field, with degree 9*64=576, and 576 
+is a not a divisor of 768.  We conclude that Degree(G) is 1, implying that
+Degree( Q(a,r1,r2,r3,t,b2,b3,b1,b4,i) is 2304, and that each of the defining polynomials in the tower in
+d28Field.mgm is irreducible over the field below it.
+*/
+
