@@ -28,6 +28,7 @@ include("Clif/Weil.jl")
 
 # SIC-POVMs
 include("Sic/Sic.jl")
+include("Sic/Fiducials.jl")
 
 # Abstract spin kets
 include("Schur/SU2.jl")
