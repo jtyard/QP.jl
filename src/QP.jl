@@ -8,6 +8,7 @@ nmod = zzModRingElem
 nmod_mat = zzModMatrix
 fmpz = ZZRingElem
 fmpq = QQFieldElem
+PolynomialRing = polynomial_ring
 
 # Scalars
 include("Base/Numbers.jl")
