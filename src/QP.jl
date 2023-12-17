@@ -4,6 +4,11 @@ module QP
 
 using Oscar
 
+nmod = zzModRingElem
+nmod_mat = zzModMatrix
+fmpz = ZZRingElem
+fmpq = QQFieldElem
+
 # Scalars
 include("Base/Numbers.jl")
 
