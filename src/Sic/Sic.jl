@@ -60,7 +60,7 @@ end
 
 # e.g. fiducial("7b") returns the Scott-Grassl 7b sic
 function sic(label::String)
-    error("Not implemented")
+    heis_orbit(fiducial(label))
 end
 
 function algebra_from_basis(Phis)
