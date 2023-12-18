@@ -24,4 +24,4 @@ length(PZ)
 a = PZ[2]
 
 art.map1(a)
-# how to put a in rcf???
+# how to put a in rcg???
