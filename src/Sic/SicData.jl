@@ -35,7 +35,7 @@ mutable struct SicData
         b = Ob(bb)
         rcf = ray_class_field((isodd(d) ? d : 2*d)*OK,infinite_places(K))
         
-        println("Constructing new")
+        #println("Constructing new")
         S = new(d,
         D,
         D0,
