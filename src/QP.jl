@@ -16,8 +16,11 @@ include("Base/Numbers.jl")
 # Elementary matrices and tensor products
 include("Base/ElMats.jl")
 
-# Polynomial rings
+# Polynomial rings (to be removed/replaced by ambient schemes)
 include("Base/Polys.jl")
+
+# Projective scheme of matrices over arbitrary base. Include harmonics and minors here.
+include("Base/Schemes.jl")
 
 # Groups
 include("Base/Groups.jl")
