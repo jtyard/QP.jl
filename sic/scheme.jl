@@ -1,6 +1,12 @@
 using Oscar, QP
 
-S = projective_matrix_space(QQ,3)
+#N = 2
 
-X = matrix(S)
+S = projective_matrix_space(QQ,N)
+
+X = gen(S)
+
+PP = subscheme(S.P,Im(S)+Ihplus(S))
+
+dim(PP)
 
