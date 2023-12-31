@@ -8,6 +8,8 @@ export ProjectiveMatrixSpace, projective_matrix_space, gen, matrix
 
 export fij, fplus, fminus, hij, hplus, hminus
 
+export laplacian
+
 export Iminors, Ihplus
 
 
@@ -52,7 +54,7 @@ function fij(S::ProjectiveMatrixSpace,j::nmod_mat)
 end
 
 function fplus(S::ProjectiveMatrixSpace,j1::Union{Int,nmod},j2::Union{Int,nmod}) 
-    (fij(S,j1,j2) + fij(S,j2,j1))*S.RP(1//2)
+    (1//2)*(fij(S,j1,j2) + fij(S,j2,j1))
 end
 
 function fplus(S::ProjectiveMatrixSpace,j::nmod_mat) 
@@ -60,7 +62,7 @@ function fplus(S::ProjectiveMatrixSpace,j::nmod_mat)
 end
 
 function fminus(S::ProjectiveMatrixSpace,j1::Union{Int,nmod},j2::Union{Int,nmod}) 
-    (fij(S,j1,j2) - fij(S,j2,j1))*S.RP(1//2)
+    (1//2)*(fij(S,j1,j2) - fij(S,j2,j1))
 end
 
 function fminus(S::ProjectiveMatrixSpace,j::nmod_mat) 
@@ -71,7 +73,7 @@ end
 
 function hij(S::ProjectiveMatrixSpace,j1::Union{Int,nmod},j2::Union{Int,nmod}) 
     X = gen(S) 
-    c = S.RP(1//(2*S.N + 2))*(tr(X^2) + tr(X)^2)
+    c = (1//2)*(tr(X^2) + tr(X)^2)*(1//(S.N+1))
     fij(S,j1,j2) - S.RP((Int(j1) == 0 ? 0 : 1) + (Int(j2) == 0 ? 0 : 1))*c
 end
 
@@ -81,8 +83,8 @@ end
 
 function hplus(S::ProjectiveMatrixSpace,j1::Union{Int,nmod},j2::Union{Int,nmod})
     X = gen(S) 
-    c = S.RP(1//(2*S.N + 2))*(tr(X^2) + tr(X)^2)
-    0*fplus(S,j1,j2) - S.RP((Int(j1) == 0 ? 0 : 1) + (Int(j2) == 0 ? 0 : 1))*c
+    c = (1//2)*(tr(X^2) + tr(X)^2)*(1//(S.N+1))
+    fplus(S,j1,j2) - ((Int(j1) == 0 ? 0 : 1) + (Int(j2) == 0 ? 0 : 1))*c
 end
 
 function hplus(S::ProjectiveMatrixSpace,j::nmod_mat) 
