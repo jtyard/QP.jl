@@ -1,16 +1,16 @@
 using Oscar, QP
 
-N = 2
+N = 5
 
-C12 = cyclotomic_field(12)[1]
+S = SicData(5)
 
-P = projective_matrix_space(C12,N)
+P = projective_matrix_space(QQ,5)
 
 I = Im(P) + Ihplus(P)
 
-#T = subscheme(P.P,I)
+T = subscheme(P.P,I)
 #Tall = subscheme(P.P,Ihminus(S) + Ihplus(P))
 
-rational_solutions(I)
+@time dim(T)
 
 

@@ -5,7 +5,7 @@ N = 4
 S = SicData(4)
 F = S.F
 
-P = projective_matrix_space(F,N)
+P = projective_matrix_space(QQ,N)
 
 I = Im(P) + Ihplus(P) #+ Ireal(P)
 
@@ -18,3 +18,4 @@ I = Im(P) + Ihplus(P) #+ Ireal(P)
 #rational_solutions(I)
 
 
+@time pd = primary_decomposition(I)
