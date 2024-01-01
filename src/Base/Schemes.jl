@@ -10,7 +10,7 @@ export fij, fplus, fminus, hij, hplus, hminus
 
 export laplacian
 
-export Iminors, Ihplus, Ireal
+export Iminors, Ihplus, Ihminus, Ireal
 
 
 struct ProjectiveMatrixSpace
@@ -92,7 +92,9 @@ function hplus(S::ProjectiveMatrixSpace,j::nmod_mat)
 end
 
 function hminus(S::ProjectiveMatrixSpace,j1::Union{Int,nmod},j2::Union{Int,nmod}) 
-    hij(S,j1,j2) - hij(S,j2,j1)
+    X = gen(S) 
+    c = (1//2)*(tr(X^2) - tr(X)^2)*(1//(S.N-1))
+    fminus(S,j1,j2) - ((Int(j1) == 0) || (Int(j2) == 0) ? 1 : 0)*c
 end
 
 function hminus(S::ProjectiveMatrixSpace,j::nmod_mat) 
@@ -108,13 +110,15 @@ end
 
 ## Ideals
 
-function Ihplus(S)
+function Ihplus(S::ProjectiveMatrixSpace)
     ideal(S.RP,[hplus(S,j1,j2) for j1 in 0:S.N-1 for j2 in 0:j1])
 end
 
+Ihminus(S::ProjectiveMatrixSpace) = ideal(S.RP,[hminus(S,i,j) for i in 0:S.N-1 for j in 0:i if i != j])
 
-function Im(S) 
+function Im(S::ProjectiveMatrixSpace) 
     ideal(S.RP,minors(matrix(S),2))
 end
 
-Ireal(S) = ideal(S.RP,[gen(S,i,j) - gen(S,j,i) for i in 0:S.N-1 for j in 0:i])
+Ireal(S::ProjectiveMatrixSpace) = ideal(S.RP,[gen(S,i,j) - gen(S,j,i) for i in 0:S.N-1 for j in 0:i if i != j])
+
