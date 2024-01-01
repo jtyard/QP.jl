@@ -7,7 +7,8 @@ F = S.F
 
 P = projective_matrix_space(F,N)
 
-I = Im(P) + Ihplus(P) + Ireal(P)
+I = Im(P) + Ihplus(P) #+ Ireal(P)
+
 
 # Actually I think there are no real solutions but maybe a different symmetry is needed
 

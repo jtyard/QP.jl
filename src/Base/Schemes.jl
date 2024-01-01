@@ -10,7 +10,7 @@ export fij, fplus, fminus, hij, hplus, hminus
 
 export laplacian
 
-export Iminors, Ihplus, Ihminus, Ireal
+export Iminors, Ihplus, Ihminus, Ireal, It
 
 
 struct ProjectiveMatrixSpace
@@ -42,6 +42,11 @@ gen(S::ProjectiveMatrixSpace) = matrix(S)
 function gen(S::ProjectiveMatrixSpace,i::Union{Int,nmod},j::Union{Int,nmod})
     #@assert divides(Int(S.N),Int(characteristic(base_ring(j))))[1]
     matrix(S)[Int(ZN(S.N)(i))+1,Int(ZN(S.N)(j))+1]
+end
+
+function gen(S::ProjectiveMatrixSpace,j::nmod_mat)
+    #@assert divides(Int(S.N),Int(characteristic(base_ring(j))))[1]
+    gen(S,j[1],j[2])
 end
 
 function fij(S::ProjectiveMatrixSpace,j1::Union{Int,nmod},j2::Union{Int,nmod}) 
@@ -122,3 +127,7 @@ end
 
 Ireal(S::ProjectiveMatrixSpace) = ideal(S.RP,[gen(S,i,j) - gen(S,j,i) for i in 0:S.N-1 for j in 0:i if i != j])
 
+function It(S::ProjectiveMatrixSpace,t::nmod_mat) 
+    N = S.N
+    ideal(S.RP,[gen(S,ZN(N)[j1 j2]) - gen(S,ZN(N)[j1 j2]*t) for j1 in 0:S.N-1 for j2 in 0:S.N-1])
+end
