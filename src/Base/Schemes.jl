@@ -2,7 +2,7 @@
 
 using Oscar
 
-import Oscar.gen, Oscar.matrix, Oscar.minors
+import Oscar.gen, Oscar.matrix, Oscar.minors, Oscar.irrelevant_ideal, Oscar.saturation
 
 export ProjectiveMatrixSpace, projective_matrix_space, gen, matrix
 
@@ -10,7 +10,7 @@ export fij, fplus, fminus, hij, hplus, hminus
 
 export laplacian
 
-export Iminors, Ihplus, Ihminus, Ireal, It
+export Iminors, Ihplus, Ihminus, Ireal, It, irrelevant_ideal, saturation, is_saturated
 
 
 struct ProjectiveMatrixSpace
@@ -130,4 +130,20 @@ Ireal(S::ProjectiveMatrixSpace) = ideal(S.RP,[gen(S,i,j) - gen(S,j,i) for i in 0
 function It(S::ProjectiveMatrixSpace,t::nmod_mat) 
     N = S.N
     ideal(S.RP,[gen(S,ZN(N)[j1 j2]) - gen(S,ZN(N)[j1 j2]*t) for j1 in 0:S.N-1 for j2 in 0:S.N-1])
+end
+
+function irrelevant_ideal(R::MPolyRing)
+    ideal(gens(R))
+end
+
+function irrelevant_ideal(S::ProjectiveMatrixSpace)
+    irrelevant_ideal(S.RP)
+end
+
+function saturation(I::MPolyIdeal)
+    saturation(I,irrelevant_ideal(base_ring(I)))
+end
+
+function is_saturated(I::MPolyIdeal)
+    saturation(I) == I
 end

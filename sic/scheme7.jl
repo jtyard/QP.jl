@@ -5,7 +5,7 @@ N = 7
 S = SicData(7)
 F = S.F
 
-P = projective_matrix_space(F,N)
+P = projective_matrix_space(QQ,N)
 
 I = Im(P) + Ihplus(P) + Ireal(P) + It(P,Z7[2 0; 0 4])
 
@@ -15,3 +15,5 @@ T = subscheme(P.P,I)
 #Tall = subscheme(P.P,Ihminus(S) + Ihplus(P))
 
 #rational_solutions(I)
+
+mp = minimal_primes(I)
