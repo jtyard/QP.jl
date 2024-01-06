@@ -13,8 +13,8 @@ println(order(Sp(4,2))) # 720 elements preserving the bilinear form b = [0 1; 1 
 # O(q00) ≃ O(q01) ≃ O(q10) ≃ Z/3
 
 # What are the right types for finite fields?
-# gfp_mat, gfp_elem from GF(2)
-# fq_nmod_mat, fq_nmod from GF(2,1)
+# fpMatrix, Nemo.fpField from GF(2)
+# fqPolyRepMatrix, fqPolyRepField from GF(2,1)
 
 gf2 = GF(2,1)
 q00 = gf2[0 1; 0 0]
