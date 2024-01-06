@@ -40,7 +40,7 @@ transpose(M::Main.ForeignGAP.MPtr) = GAP.Globals.TransposedMatImmutable(M)
 #
 #for (p,d) in [(2,1), (17,1), (17,2)]
 #  q = p^d
-#  F, _ = FiniteField(fmpz(p), d, "a")
+#  F, _ = FiniteField(ZZRingElem(p), d, "a")
 #  mats = []
 #  push!(mats, (one(GL(n,q)), "GAP GF("*string(p)*","*string(d)*")"))
 #  push!(mats, (one(GL(n,q)).X, "raw GAP GF("*string(p)*","*string(d)*")"))
