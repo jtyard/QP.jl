@@ -10,9 +10,9 @@ import Base.show
 export Spin, ket,ketjm, UqMod, j_plus_halfs, j_minus_halfs, show
 
 struct Spin
-    n::fmpz #units of 1/2 (really ħω/2) 
-    j::fmpq
-    @memoize Spin(j) = new(fmpz(2*j),fmpz(2*j)//2) # so Spin(1) == Spin(1)
+    n::ZZRingElem #units of 1/2 (really ħω/2) 
+    j::QQFieldElem
+    @memoize Spin(j) = new(ZZRingElem(2*j),ZZRingElem(2*j)//2) # so Spin(1) == Spin(1)
 end
 
 function Base.show(io::IO, s::Spin)
@@ -30,7 +30,7 @@ end
 
 function ket(j::Spin,m::Spin) 
     SpinKet(j,m)
-    #fmpz[Spin(k) == m ? 1 : 0 for k in j.j:-1:-j.j]
+    #ZZRingElem[Spin(k) == m ? 1 : 0 for k in j.j:-1:-j.j]
 end
 
 
