@@ -28,12 +28,13 @@ julia> weil_U(Z5[2 1; 0 3])
 [ 0   z_5^3 + z_5^2 + z_5 + 1      0      0                         0]
 [ 0                         0      0   -z_5                         0]
 
-julia> Xij(3)
+julia> gen(projective_matrix_space(QQ,3))
 [X_{0,0}   X_{0,1}   X_{0,2}]
 [X_{1,0}   X_{1,1}   X_{1,2}]
 [X_{2,0}   X_{2,1}   X_{2,2}]
 
-julia> Xij(3) + Xij(3)
+julia> tr(gen(projective_matrix_space(QQ,3))^2)
+X_{0,0}^2 + 2*X_{0,1}*X_{1,0} + 2*X_{0,2}*X_{2,0} + X_{1,1}^2 + 2*X_{1,2}*X_{2,1} + X_{2,2}^2
 
 julia> sic(3)
 9-element Vector{AbstractAlgebra.Generic.MatSpaceElem{nf_elem}}:
@@ -55,6 +56,8 @@ with Z-basis NfOrdElem[1, -sqrt(3) + 11//2], -sqrt(3) + 11//2, Class field defin
 
 julia> fiducial(5)
 
+julia> fiducial("7a")
+
 ```
 
 Some julia tips can be found [here](julia).
@@ -65,7 +68,7 @@ Supported in part by the NSERC Discovery under Grant No. RGPIN-2018-04742, the N
 - Rings of polynomial functions on matrices over number fields 
 - Explicit computing in bases (vector, operator, etc)
 - Useful matrices and tensor products 
-- Multiqudit bases parameterized by elements of finite cyclic rings (`nmod`), of modules over them (`nmod_mat`) or of finite abelian groups (`GrpAbFinGenElem`)
+- Multiqudit bases parameterized by elements of finite cyclic rings (~~`nmod`~~`zzModRingElem`), of modules over them (~~`nmod_mat`~~`zzModMatrix`) or of finite abelian groups (`GrpAbFinGenElem`)
 - Single-qudit generalized Paulis in all dimensions
 - Qudit generalized Clifford = Weil representation in prime dimensions
 - Projective linear groups 
