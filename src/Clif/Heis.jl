@@ -42,7 +42,7 @@ function heisAAZ(i::Int,j::Int,N::Int)
 end
 
 # Section of multi-qudit heisenberg group
-function heis(j::nmod_mat)
+function heis(j::zzModMatrix)
     N = Int(characteristic(base_ring(j)))
     n2 = length(j)
     if isodd(n2)  
@@ -52,14 +52,14 @@ function heis(j::nmod_mat)
     tensor([heis(Int(j[2i-1]),Int(j[2i]),N) for i in 1:n]...)
 end
 
-function heiscocycle(j::nmod_mat,k::nmod_mat) 
+function heiscocycle(j::zzModMatrix,k::zzModMatrix) 
     N = Int(characteristic(base_ring(j))) 
     twoinv = ZN(N)(2)^-1
     w = zetaN(N)^Int(twoinv)  
     w^Int(j[1]*k[2] - j[2]*k[1])
 end
 
-function heispairing(j::nmod_mat,k::nmod_mat) 
+function heispairing(j::zzModMatrix,k::zzModMatrix) 
     N = Int(characteristic(base_ring(j))) 
     zetaN(N)^Int((j[1]*k[2] - j[2]*k[1]))
 end
@@ -70,7 +70,7 @@ function heis2(j1::Int,j2::Int,N::Int)
     (-w)^(-j1*j2)*map(C,gpZ(N)^(-j1)*gpX(N)^(-j2))
 end
 
-function heis2(j::nmod_mat)
+function heis2(j::zzModMatrix)
     N2 = Int(characteristic(base_ring(j)))
     n2 = length(j)
     
@@ -83,7 +83,7 @@ function heis2(j::nmod_mat)
 end
 
 # Quaternion section (N=2 only) for comparison
-function heisQ(j::nmod_mat)
+function heisQ(j::zzModMatrix)
     N = Int(characteristic(base_ring(j)))
     @assert N==2 "Characteristic must equal 2"
     C,i = cyclotomic_field(4)

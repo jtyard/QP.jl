@@ -39,70 +39,70 @@ matrix(S::ProjectiveMatrixSpace) = matrix(S.RP,S.N,S.N,gens(homogeneous_coordina
 
 gen(S::ProjectiveMatrixSpace) = matrix(S)
 
-function gen(S::ProjectiveMatrixSpace,i::Union{Int,nmod},j::Union{Int,nmod})
+function gen(S::ProjectiveMatrixSpace,i::Union{Int,zzModRingElem},j::Union{Int,zzModRingElem})
     #@assert divides(Int(S.N),Int(characteristic(base_ring(j))))[1]
     matrix(S)[Int(ZN(S.N)(i))+1,Int(ZN(S.N)(j))+1]
 end
 
-function gen(S::ProjectiveMatrixSpace,j::nmod_mat)
+function gen(S::ProjectiveMatrixSpace,j::zzModMatrix)
     #@assert divides(Int(S.N),Int(characteristic(base_ring(j))))[1]
     gen(S,j[1],j[2])
 end
 
-function fij(S::ProjectiveMatrixSpace,j1::Union{Int,nmod},j2::Union{Int,nmod}) 
+function fij(S::ProjectiveMatrixSpace,j1::Union{Int,zzModRingElem},j2::Union{Int,zzModRingElem}) 
     X(i,j) = gen(S,i,j)
     sum([X(a,a+j1)*X(a+j1+j2,a+j2) for a=0:S.N-1])
 end
 
-function fij(S::ProjectiveMatrixSpace,j::nmod_mat) 
+function fij(S::ProjectiveMatrixSpace,j::zzModMatrix) 
     fij(S,j[1],j[2])
 end
 
-function fplus(S::ProjectiveMatrixSpace,j1::Union{Int,nmod},j2::Union{Int,nmod}) 
+function fplus(S::ProjectiveMatrixSpace,j1::Union{Int,zzModRingElem},j2::Union{Int,zzModRingElem}) 
     (1//2)*(fij(S,j1,j2) + fij(S,j2,j1))
 end
 
-function fplus(S::ProjectiveMatrixSpace,j::nmod_mat) 
+function fplus(S::ProjectiveMatrixSpace,j::zzModMatrix) 
     fplus(S,j[1],j[2])
 end
 
-function fminus(S::ProjectiveMatrixSpace,j1::Union{Int,nmod},j2::Union{Int,nmod}) 
+function fminus(S::ProjectiveMatrixSpace,j1::Union{Int,zzModRingElem},j2::Union{Int,zzModRingElem}) 
     (1//2)*(fij(S,j1,j2) - fij(S,j2,j1))
 end
 
-function fminus(S::ProjectiveMatrixSpace,j::nmod_mat) 
+function fminus(S::ProjectiveMatrixSpace,j::zzModMatrix) 
     fminus(S,j[1],j[2])
 end
 
 ## Projecting onto harmonic subspace
 
-function hij(S::ProjectiveMatrixSpace,j1::Union{Int,nmod},j2::Union{Int,nmod}) 
+function hij(S::ProjectiveMatrixSpace,j1::Union{Int,zzModRingElem},j2::Union{Int,zzModRingElem}) 
     X = gen(S) 
     c = (1//2)*(tr(X^2) + tr(X)^2)*(1//(S.N+1))
     fij(S,j1,j2) - S.RP((Int(j1) == 0 ? 1 : 0) + (Int(j2) == 0 ? 0 : 1))*c
 end
 
-function hij(S::ProjectiveMatrixSpace,j::nmod_mat) 
+function hij(S::ProjectiveMatrixSpace,j::zzModMatrix) 
     hij(S,j[1],j[2])
 end
 
-function hplus(S::ProjectiveMatrixSpace,j1::Union{Int,nmod},j2::Union{Int,nmod})
+function hplus(S::ProjectiveMatrixSpace,j1::Union{Int,zzModRingElem},j2::Union{Int,zzModRingElem})
     X = gen(S) 
     c = (1//2)*(tr(X^2) + tr(X)^2)*(1//(S.N+1))
     fplus(S,j1,j2) - ((Int(j1) == 0 ? 1 : 0) + (Int(j2) == 0 ? 1 : 0))*c
 end
 
-function hplus(S::ProjectiveMatrixSpace,j::nmod_mat) 
+function hplus(S::ProjectiveMatrixSpace,j::zzModMatrix) 
     hplus(S,j[1],j[2])
 end
 
-function hminus(S::ProjectiveMatrixSpace,j1::Union{Int,nmod},j2::Union{Int,nmod}) 
+function hminus(S::ProjectiveMatrixSpace,j1::Union{Int,zzModRingElem},j2::Union{Int,zzModRingElem}) 
     X = gen(S) 
     c = (1//2)*(tr(X^2) - tr(X)^2)*(1//(S.N-1))
     fminus(S,j1,j2) - ((Int(j1) == 0) || (Int(j2) == 0) ? 1 : 0)*c
 end
 
-function hminus(S::ProjectiveMatrixSpace,j::nmod_mat) 
+function hminus(S::ProjectiveMatrixSpace,j::zzModMatrix) 
     hminus(S,j[1],j[2])
 end
 
@@ -127,7 +127,7 @@ end
 
 Ireal(S::ProjectiveMatrixSpace) = ideal(S.RP,[gen(S,i,j) - gen(S,j,i) for i in 0:S.N-1 for j in 0:i if i != j])
 
-function It(S::ProjectiveMatrixSpace,t::nmod_mat) 
+function It(S::ProjectiveMatrixSpace,t::zzModMatrix) 
     N = S.N
     ideal(S.RP,[gen(S,ZN(N)[j1 j2]) - gen(S,ZN(N)[j1 j2]*t) for j1 in 0:S.N-1 for j2 in 0:S.N-1])
 end

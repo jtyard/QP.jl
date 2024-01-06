@@ -9,8 +9,8 @@ export Eij, SWAP, Pplus, Pminus, werner, bra, ket, tensor, ⊗, tensorperm
 # Matrix units
 Eij(i::Int,j::Int,N::Int) = matrix(ZZ,[[a == (i % N) && b == (j % N) for b in 0:N-1] for a in 0:N-1])
 
-# Access with an nmod vector like Eij(ZZmod(N)[i j])
-Eij(ij::nmod_mat) = Eij(Int(ij[1]), Int(ij[2]), Int(characteristic(base_ring(ij))))
+# Access with an zzModRingElem vector like Eij(ZZmod(N)[i j])
+Eij(ij::zzModMatrix) = Eij(Int(ij[1]), Int(ij[2]), Int(characteristic(base_ring(ij))))
 
 # 2d array of matrix units 
 Eij(N::Int) = [[Eij(i,j,N) for j in 0:N-1] for i in 0:N-1]
@@ -22,9 +22,9 @@ Eij(N::Int) = [[Eij(i,j,N) for j in 0:N-1] for i in 0:N-1]
 #############
 ket(i::Int,N::Int) = matrix(ZZ,[[a==mod(i,N)] for a in 0:N-1])
 
-ket(i::nmod) = ket(Int(i),Int(characteristic(parent(i))))
+ket(i::zzModRingElem) = ket(Int(i),Int(characteristic(parent(i))))
 
-ket(a::nmod_mat) = tensor([ket(a[i]) for i in 1:length(a)]...)
+ket(a::zzModMatrix) = tensor([ket(a[i]) for i in 1:length(a)]...)
 
 ket(a::GrpAbFinGenElem) = tensor([ket(Int(a[i]),Int(order(gens(parent(a))[i]))) for i in 1:length(a.coeff)]...)
 

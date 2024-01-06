@@ -12,8 +12,8 @@ export my_real_embeddings, fundamental_unit, quadratic_order
 my_real_embeddings(K::NumField) = [real ∘ e for e in real_embeddings(K)]
 
 # real embeddings of quadratic_field(m) have tiny imaginary parts.  Doing this instead.
-#function my_quadratic_field(m::Union{fmpz,Int})
-#    _,x = PolynomialRing(QQ)
+#function my_quadratic_field(m::Union{ZZRingElem,Int})
+#    _,x = polynomial_ring(QQ)
 #    NumberField(x^2-m,'s')[1]
 #end
 
@@ -26,7 +26,7 @@ function quadratic_order(b::NumFieldElem)
 end
 
 # The quadratic order of discriminant D
-function quadratic_order(D::Union{fmpz,Int})
+function quadratic_order(D::Union{ZZRingElem,Int})
     @assert mod(D,4) in [0,1] string(D) * " ≢ 0,1 mod 4}"
     K = quadratic_field(Hecke.squarefree_part(D))[1]
     quadratic_order((K(D) + sqrt(K(D)))//2)
@@ -58,4 +58,4 @@ end
 fundamental_unit(K::NumField) = fundamental_unit(maximal_order(K))
 
 # Fundamental unit of the quadratic order.
-fundamental_unit(D::Union{fmpz,Int}) = fundamental_unit(quadratic_order(D))
+fundamental_unit(D::Union{ZZRingElem,Int}) = fundamental_unit(quadratic_order(D))

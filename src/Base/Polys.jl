@@ -1,4 +1,8 @@
 ###############
+#
+# MUCH OF THIS IS NOW SUBSUMED BY `Schemes.jl`
+#
+################
 # Polynomial rings and their generators in some convenient forms for computing with polynomial functions 
 # on matrices and projective spaces
 #
@@ -20,12 +24,12 @@ export QQXtozw
 
 # Oscar doesn't cache this yet
 @memoize function MatrixGradedPolynomialRing(F::AbstractAlgebra.Ring,N::Int;X::Union{AbstractString, Char, Symbol} = "X")
-    GradedPolynomialRing(F,[string(X,"_{",i,",",j,"}") for i in 0:N-1 for j in 0:N-1],)[1] 
+    graded_polynomial_ring(F,[string(X,"_{",i,",",j,"}") for i in 0:N-1 for j in 0:N-1],)[1] 
 end
 
 function MatrixPolynomialRing(F,N::Int; X::Union{AbstractString, Char, Symbol} = "X", graded = false)
     if graded == false
-        PolynomialRing(F,[string(X,"_{",i,",",j,"}") for i in 0:N-1 for j in 0:N-1],cached=true)[1]
+        polynomial_ring(F,[string(X,"_{",i,",",j,"}") for i in 0:N-1 for j in 0:N-1],cached=true)[1]
     else
         MatrixGradedPolynomialRing(F,N,X)
     end
@@ -47,8 +51,8 @@ function QQX(N::Int; graded = false)
 end
 
 # Okay for now but a more general definition allowing other names and instances ultimately needed
-Xij(i::Union{Int,nmod},j::Union{Int,nmod},N::Int; graded = false) = gens(QQX(N,graded=graded))[1 + (Int(j) % N) + N*(Int(i) % N)]
-Xij(j::nmod_mat; graded = false) = Xij(j[1],j[2],Int(characteristic(base_ring(j))),graded=graded)
+Xij(i::Union{Int,zzModRingElem},j::Union{Int,zzModRingElem},N::Int; graded = false) = gens(QQX(N,graded=graded))[1 + (Int(j) % N) + N*(Int(i) % N)]
+Xij(j::zzModMatrix; graded = false) = Xij(j[1],j[2],Int(characteristic(base_ring(j))),graded=graded)
 Xij(N::Int; graded = false) = matrix(QQX(N,graded=graded),[[Xij(i,j,N,graded=graded) for j =0:N-1] for i =0:N-1])
 
 
@@ -69,7 +73,7 @@ TrX2(N::Int; graded = false) = sum([Xij(i,j,N,graded=graded)*Xij(j,i,N,graded=gr
 QQXp(N::Int; graded = false) = ideal(QQX(N,graded=graded),gens(QQX(N,graded=graded)))
 
 # Accepts a matrix in SL(2,Z/N) or SL(2,Z/2N) and acts on QQX(N)
-#function weil_X(g::nmod_mat)
+#function weil_X(g::zzModMatrix)
 #    N = Int(characteristic(base_ring(g)))
 #    if divides(N,4)[1]
         
@@ -81,22 +85,22 @@ QQXp(N::Int; graded = false) = ideal(QQX(N,graded=graded),gens(QQX(N,graded=grad
 #####################
 
 @memoize function QQzw(N::Int; graded = false)
-    graded ? GradedPolynomialRing(QQ,vcat([string("z",i) for i in 0:N-1],[string("w",i) for i in 0:N-1]), vcat([ [1,0] for i in 1:N],[[0,1] for i in 1:N]))[1] : PolynomialRing(QQ,vcat([string("z",i) for i in 0:N-1],[string("w",i) for i in 0:N-1]))[1]
+    graded ? graded_polynomial_ring(QQ,vcat([string("z",i) for i in 0:N-1],[string("w",i) for i in 0:N-1]), vcat([ [1,0] for i in 1:N],[[0,1] for i in 1:N]))[1] : polynomial_ring(QQ,vcat([string("z",i) for i in 0:N-1],[string("w",i) for i in 0:N-1]))[1]
 end
 
 # Assuming for now input is of the type QQzw - can/should be generalized
-function monomials_of_degree(R::MPolyRing_dec,n::Union{Int,fmpz})
+function monomials_of_degree(R::MPolyRing_dec,n::Union{Int,ZZRingElem})
     Rnn, to_R = homogeneous_component(R,[n,n])
     [to_R(f) for f in gens(Rnn)]
 end
 
-function zj(j::nmod) 
+function zj(j::zzModRingElem) 
     N = Int(characteristic(parent(j)))
     j = Int(j)
     gens(QQzw(N))[1 + (j % N)]
 end
 
-function wj(j::nmod) 
+function wj(j::zzModRingElem) 
     N = Int(characteristic(parent(j)))
     j = Int(j)
     gens(QQzw(N))[1 + N + (j % N)]
@@ -118,11 +122,11 @@ end
 import Oscar.change_base_ring
 
 function change_base_ring(F::AbstractAlgebra.Ring,R::MPolyRing_dec)
-    GradedPolynomialRing(F,[string(x) for x in R.R.S],R.d)[1]
+    graded_polynomial_ring(F,[string(x) for x in R.R.S],R.d)[1]
 end
 
 function change_base_ring(F::AbstractAlgebra.Ring,R::MPolyRing)
-    PolynomialRing(F,[string(x) for x in R.S])
+    polynomial_ring(F,[string(x) for x in R.S])
 end
 
 function change_base_ring(F::AbstractAlgebra.Ring,I::MPolyIdeal)

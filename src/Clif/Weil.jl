@@ -10,7 +10,7 @@ export weil_overlaps, weil_ad, weil_zw
 # Unitary lifting of Weil representation of SL(2,Z/N) for prime N
 ###############
 
-function gauss_sum(a::nmod)
+function gauss_sum(a::zzModRingElem)
     N = Int(characteristic(parent(a)))
     z = cyclotomic_field(N)[2]
     a = Int(a)
@@ -24,7 +24,7 @@ function weil_w0(N::Int)
 end
 
 # represent the upper triangular unipotent matrices 
-function weil_N(b::nmod)
+function weil_N(b::zzModRingElem)
     N = Int(characteristic(parent(b)))
     _,z = cyclotomic_field(N)
     b = Int(b)
@@ -32,7 +32,7 @@ function weil_N(b::nmod)
 end
 
 # represent diagonal matrices
-function weil_T(a::nmod)
+function weil_T(a::zzModRingElem)
     N = Int(characteristic(parent(a)))
     a = Int(a)
     M = zero_matrix(cyclotomic_field(N)[1],N,N)
@@ -43,7 +43,7 @@ function weil_T(a::nmod)
 end
 
 # Accepts a matrix in SL(2,GF(p)), with p prime, and returns a p x p matrix over the pth cyclotomic field
-function weil_U(g::nmod_mat)
+function weil_U(g::zzModMatrix)
     N = Int(characteristic(base_ring(g)))
     @assert is_prime(N)
     @assert is_odd(N)
@@ -59,7 +59,7 @@ function weil_U(g::nmod_mat)
     end
 end
 
-weil_U(g::MatrixGroupElem{nmod, nmod_mat}) = weil_U(g.elm)
+weil_U(g::MatrixGroupElem{zzModRingElem, zzModMatrix}) = weil_U(g.elm)
 
 
 ###
@@ -81,7 +81,7 @@ end
 # Adjoint action X -> U X U^-1 in Aut_0(B) specified by 
 # (Z/N)^2 ⋊ SL(2,Z/N) (odd N) and (Z/N)^2 ⋊ SL(2,Z/2N) (even N)
 ###
-function weil_ad_vec(g::nmod_mat) 
+function weil_ad_vec(g::zzModMatrix) 
     n = Int(characteristic(base_ring(g)))
     if iseven(n)
         N = Int(n//2)   
@@ -103,7 +103,7 @@ function weil_ad_vec(g::nmod_mat)
     U
 end
 
-function weil_ad_mat(g::nmod_mat) 
+function weil_ad_mat(g::zzModMatrix) 
     n = Int(characteristic(base_ring(g)))
     if iseven(n)
         N = Int(n//2)
@@ -125,7 +125,7 @@ function weil_ad_mat(g::nmod_mat)
     U
 end
 
-function weil_ad(g::nmod_mat) 
+function weil_ad(g::zzModMatrix) 
     rc = nrows(g), ncols(g)
     if rc == (2,2) 
         return weil_ad_mat(g)
@@ -138,14 +138,14 @@ function weil_ad(g::nmod_mat)
 
 end
 
-weil_ad(g::MatrixGroupElem{nmod, nmod_mat}) = weil_ad(g.elm)
+weil_ad(g::MatrixGroupElem{zzModRingElem, zzModMatrix}) = weil_ad(g.elm)
 
 ###
 # Acts on the overlaps alpha_j(X) by (signed when N is even) permutation matrices.
 # Specified by (Z/N)^2 ⋊ SL(2,Z/N) (odd N) and (Z/N)^2 ⋊ SL(2,Z/2N) (even N)
 ###
 
-function weil_overlaps_vec(g::nmod_mat) 
+function weil_overlaps_vec(g::zzModMatrix) 
     n = Int(characteristic(base_ring(g)))
     if iseven(n)
         N = Int(n//2)
@@ -168,7 +168,7 @@ function weil_overlaps_vec(g::nmod_mat)
 end
 
 
-function weil_overlaps_mat(g::nmod_mat) 
+function weil_overlaps_mat(g::zzModMatrix) 
     n = Int(characteristic(base_ring(g)))
     if iseven(n)
         N = Int(n//2)
@@ -191,7 +191,7 @@ function weil_overlaps_mat(g::nmod_mat)
 end
 
 
-function weil_overlaps(g::nmod_mat) 
+function weil_overlaps(g::zzModMatrix) 
     rc = nrows(g), ncols(g)
     if rc == (2,2) 
         return weil_overlaps_mat(g)
@@ -205,7 +205,7 @@ function weil_overlaps(g::nmod_mat)
 end
 
 # Works with elements of SL(2,ZN(N)) too
-weil_overlaps(g::MatrixGroupElem{nmod, nmod_mat}) = weil_overlaps(g.elm)
+weil_overlaps(g::MatrixGroupElem{zzModRingElem, zzModMatrix}) = weil_overlaps(g.elm)
 
 # G = SL(2,Z3); g1 = rand(G); g2 = rand(G); weil_ad(g1)*weil_ad(g2) == weil_ad(g1*g2)
 

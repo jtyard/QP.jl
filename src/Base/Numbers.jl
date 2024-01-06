@@ -9,14 +9,14 @@ export roots_of_unity, primitive_roots_of_unity
 
 #################
 # Ring   Element type
-# ZZ     fmpz
-# QQ     fmpq
-# ZN(N)  nmod 
+# ZZ     ZZRingElem
+# QQ     QQFieldElem
+# ZN(N)  zzModRingElem 
 #
 # Note that characteristic(base_ring(___)) works for GF(p)[ ] and ResidueClassRing(ZZ,4)
 #################
 
-Base.Int(a::nmod) = Int(ZZ(a))
+Base.Int(a::zzModRingElem) = Int(ZZ(a))
 
 # Caching works unexpectedly - `@memoize` ensures that e.g. Z2 == ZN(2) always, which was broken for `using QP`
 @memoize ZN(N) = ResidueRing(ZZ,N) 
@@ -29,8 +29,8 @@ Z7 = ZN(7)
 Z8 = ZN(8)
 zetaN(N) = cyclotomic_field(N)[2]
 
-roots_of_unity(F,n) = roots(PolynomialRing(F)[2]^n-1)
-primitive_roots_of_unity(F,n) = roots(PolynomialRing(F)[1](collect(coefficients(cyclotomic_field(n)[1].pol))))
+roots_of_unity(F,n) = roots(polynomial_ring(F)[2]^n-1)
+primitive_roots_of_unity(F,n) = roots(polynomial_ring(F)[1](collect(coefficients(cyclotomic_field(n)[1].pol))))
 
 zetaN(n,F) = primitive_roots_of_unity(F,n)[1]
 

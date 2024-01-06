@@ -40,7 +40,7 @@ function clifford_quaternions(K::Field)
         F = K
         s = sqrt(K(2))
     else
-        _, x = PolynomialRing(K, "x")
+        _, x = polynomial_ring(K, "x")
         F, s = NumberField(x^2 - 2, "√2") # \sqrt TAB = \sqrt 
     end
 
@@ -66,7 +66,7 @@ clifford_quaternions() = clifford_quaternions(QQ)
 # assuming splitting at K(i)
 function toM(q)
     K = q.parent.base_ring
-    _,x = PolynomialRing(K)
+    _,x = polynomial_ring(K)
     N = normred(q)
     F,i = NumberField(x^2 +1,"i")
     P = [matrix(F,[1 0; 0 1]), matrix(F,[0 1; 1 0]), matrix(F,[0 -i; i 0]), matrix(F,[1 0; 0 -1])]
@@ -83,7 +83,7 @@ function toU(q)
         sqrtN = sqrt(N)
         MM = M
     else
-        _,x = PolynomialRing(F)
+        _,x = polynomial_ring(F)
         FF,sqrtN = NumberField(x^2 - N)
         MM = matrix(FF,M)
     end
