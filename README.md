@@ -73,7 +73,7 @@ Supported in part by the NSERC Discovery under Grant No. RGPIN-2018-04742, the N
 
 ## SIC-POVMs
 - `SicData(d)` (or `SicData(d,build_nf=false)` to skip building the number field)
-- `fiducial(d)` and `sic(d)` for `d=2,3,3,4,5`
+- `fiducial(d)` and `sic(d)` for `d=2,3,3,4,5,7` as well as `fiducial("7a")`, `fiducial("7b)` etc.
 
 
 ## Class fields
@@ -96,9 +96,9 @@ Some relevant functions from Hecke:
 - Characteristic and Wigner functions
 - Generalize Weil to composite $N$
   - Sort out even case
-  - Fix this [Oscar issue](https://github.com/oscar-system/Oscar.jl/issues/649) to implement 
-  $\mathrm{SL}(2,\mathbb{Z}/N)$ for all $N$.
-- Projective schemes - much more development on this by now.
+  - ~~Fix this [Oscar issue](https://github.com/oscar-system/Oscar.jl/issues/649) to implement~~
+  ~~$\mathrm{SL}(2,\mathbb{Z}/N)$ for all $N$.~~
+- ~~Projective schemes - much more development on this by now.~~ New functionality in [Schemes.jl](src/Base/Schemes.jl)
 
 ### Towards arithmetic of quantum circuits
 Let $R$ be an integral domain and $B$ a central simple algebra over $\mathrm{Frac}(R)$.  
