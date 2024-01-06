@@ -4,16 +4,16 @@ using Caching
 
 #################
 # Ring   Element type
-# ZZ     fmpz 
-# QQ     fmpq
-# ZN(N)  nmod
+# ZZ     ZZRingElem 
+# QQ     QQFieldElem
+# ZN(N)  zzModRingElem
 #
 # Can I use this yet??? https://github.com/oscar-system/Oscar.jl/blob/master/test/Schemes/ProjectiveSchemes.jl
 #
 # Note that characteristic(base_ring(___)) works for GF(p)[ ] and ResidueClassRing(ZZ,4)
 #################
 
-Base.Int(a::nmod) = Int(ZZ(a))
+Base.Int(a::zzModRingElem) = Int(ZZ(a))
 
 ZN(N) = ResidueRing(ZZ,N) 
 
@@ -26,10 +26,10 @@ ZN(N) = ResidueRing(ZZ,N)
 #################
 
 # Matrix units
-Eij(i::Union{Int,nmod},j::Union{Int,nmod},N::Int) = matrix(ZZ,[[a == (Int(i) % N) && b == (Int(j) % N) for b in 0:N-1] for a in 0:N-1])
+Eij(i::Union{Int,zzModRingElem},j::Union{Int,zzModRingElem},N::Int) = matrix(ZZ,[[a == (Int(i) % N) && b == (Int(j) % N) for b in 0:N-1] for a in 0:N-1])
 
-# Access with an nmod vector like Eij(ZN(N)[i j])
-Eij(ij::nmod_mat) = Eij(ij[1], ij[2], Int(characteristic(base_ring(ij))))
+# Access with an zzModRingElem vector like Eij(ZN(N)[i j])
+Eij(ij::zzModMatrix) = Eij(ij[1], ij[2], Int(characteristic(base_ring(ij))))
 
 # 2d array of matrix units 
 Eij(N::Int) = [[Eij(i,j,N) for j in 0:N-1] for i in 0:N-1]
@@ -47,31 +47,31 @@ Pminus(N) = (1//2)*(identity_matrix(QQ,N^2) - SWAP(N))
 
 # Oscar only caches rings not graded rings - I need QQX(N) to always refer to the *same* ring
 @cache function QQX(N::Int)
-    GradedPolynomialRing(QQ,[string("X_{",i,",",j,"}") for i in 0:N-1 for j in 0:N-1])[1]
+    graded_polynomial_ring(QQ,[string("X_{",i,",",j,"}") for i in 0:N-1 for j in 0:N-1])[1]
 end
 
-Xij(i::Union{Int,nmod},j::Union{Int,nmod},N::Int) = gens(QQX(N))[1 + (Int(j) % N) + N*(Int(i) % N)]
-Xij(j::nmod_mat) = Xij(j[1],j[2],Int(characteristic(base_ring(j))))
+Xij(i::Union{Int,zzModRingElem},j::Union{Int,zzModRingElem},N::Int) = gens(QQX(N))[1 + (Int(j) % N) + N*(Int(i) % N)]
+Xij(j::zzModMatrix) = Xij(j[1],j[2],Int(characteristic(base_ring(j))))
 Xij(N::Int) = matrix(QQX(N),[[Xij(i,j,N) for j =0:N-1] for i =0:N-1])
 
 @cache function CA(N::Int)
-    GradedPolynomialRing(cyclotomic_field(N)[1],[string("A_{",i,",",j,"}") for i in 0:N-1 for j in 0:N-1])[1]
+    graded_polynomial_ring(cyclotomic_field(N)[1],[string("A_{",i,",",j,"}") for i in 0:N-1 for j in 0:N-1])[1]
 end
 
 # Not sure what Oscar can do with these at the moment (i.e. with Proj) but I can ask later. 
 @cache function QQzw(N::Int)
-    GradedPolynomialRing(QQ,vcat([string("z",i) for i in 0:N-1],[string("w",i) for i in 0:N-1]))[1]
+    graded_polynomial_ring(QQ,vcat([string("z",i) for i in 0:N-1],[string("w",i) for i in 0:N-1]))[1]
 end
 
-zj(j::nmod) = gens(QQX(Int(characteristic(base_ring(j)))))[1 + (i % N)]
-wj(j::nmod) = gens(QQX(Int(characteristic(base_ring(j)))))[1 + N + (i % N)]
+zj(j::zzModRingElem) = gens(QQX(Int(characteristic(base_ring(j)))))[1 + (i % N)]
+wj(j::zzModRingElem) = gens(QQX(Int(characteristic(base_ring(j)))))[1 + N + (i % N)]
 
 # Overlaps
-Aij(i::Union{Int,nmod},j::Union{Int,nmod},N::Int) = gens(CA(N))[1 + (Int(j) % N) + N*(Int(i) % N)]
-Aij(j::nmod_mat) = Aij(j[1],j[2],Int(characteristic(base_ring(j))))
+Aij(i::Union{Int,zzModRingElem},j::Union{Int,zzModRingElem},N::Int) = gens(CA(N))[1 + (Int(j) % N) + N*(Int(i) % N)]
+Aij(j::zzModMatrix) = Aij(j[1],j[2],Int(characteristic(base_ring(j))))
 Aij(N::Int) = matrix(CA(N),[[Aij(i,j,N) for j =0:N-1] for i =0:N-1])
 
-aij(j::nmod_mat) = tr(Aij(Int(characteristic(base_ring(j))))*heis(j))
+aij(j::zzModMatrix) = tr(Aij(Int(characteristic(base_ring(j))))*heis(j))
 
 # Ring homomorphism taking Xij(N) -> Y when Y is an N x N matrix
 QQXhom(Y) = hom(QQX(nrows(Y)),QQX(nrows(Y)),vec(transpose(Y)))
@@ -84,32 +84,32 @@ TrX2(N::Int) = sum([Xij(i,j,N)*Xij(j,i,N) for i = 0:N-1 for j = 0:N-1])
 # The 2x2 minors cut out the rank < 2 matrices
 minors(N::Int) = [Xij(i,k,N)*Xij(j,l,N)-Xij(i,l,N)*Xij(j,k,N) for i in 0:N-2 for j in i+1:N-1 for k in 0:N-2 for l in k+1:N-1];
 
-function XX(j::nmod_mat) 
+function XX(j::zzModMatrix) 
     N = Int(characteristic(base_ring(j)))
     sum([X(a,a+j[1],N)*X(a+j[1]+j[2],a+j[2],N) for a in 0:N-1])
 end
 
 XX(j1,j2,N::Int) = XX(ZN(N)[j1 j2])
 
-function h(j::nmod_mat) 
+function h(j::zzModMatrix) 
     N = Int(characteristic(base_ring(j)))
     (N+1)*XX(j) - ((j[1]==0 ? 1 : 0) + (j[2]==0 ? 1 : 0))*TrX(N)^2
 end
 h(j1,j2,N::Int) = h(ZN(N)[j1 j2])
 
-function h2(j::nmod_mat) 
+function h2(j::zzModMatrix) 
     N = Int(characteristic(base_ring(j)))
     (N+1)*XX(j) - ((j[1]==0 ? 1 : 0) + (j[2]==0 ? 1 : 0))*TrX2(N)
 end
 h2(j1,j2,N::Int) = h2(ZN(N)[j1 j2])
 
-function hp(j::nmod_mat) 
+function hp(j::zzModMatrix) 
     N = Int(characteristic(base_ring(j)))
     ((N+1)//2)*(XX(j) + XX(ZN(N)[j[2] j[1]])) - ((j[1]==0 ? 1 : 0) + (j[2]==0 ? 1 : 0))*(TrX(N)^2 + TrX2(N))*(1//2)
 end
 hp(j1,j2,N::Int) = hp(ZN(N)[j1 j2])
 
-function hm(j::nmod_mat) 
+function hm(j::zzModMatrix) 
     N = Int(characteristic(base_ring(j)))
     ((N+1)//2)*(XX(j) - XX(ZN(N)[j[2] j[1]])) - ((j[1]==0 ? 1 : 0) + (j[2]==0 ? 1 : 0))*(TrX(N)^2 - TrX2(N))*(1//2)
 end
@@ -143,7 +143,7 @@ QQXp(N::Int) = ideal(QQX(N),gens(QQX(N)))
 
 function sicrcf(N::Int)
     D = (N-3)*(N+1)
-    _,x = PolynomialRing(QQ)
+    _,x = polynomial_ring(QQ)
     K, _ = NumberField(x^2 - D, "s")
     OK = maximal_order(K)
     _,ph = ray_class_group((isodd(N) ? N : 2*N)*OK,infinite_places(K))

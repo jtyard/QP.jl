@@ -1,10 +1,10 @@
 export SicData
 
 mutable struct SicData
-    d::fmpz
-    D::fmpz    
-    D0::fmpz
-    f::fmpz
+    d::ZZRingElem
+    D::ZZRingElem    
+    D0::ZZRingElem
+    f::ZZRingElem
     K::NumField
     inf::Vector{InfPlc}
     OK::NumFieldOrd # the maximal order Z[uf]
