@@ -140,9 +140,9 @@ function irrelevant_ideal(S::ProjectiveMatrixSpace)
     irrelevant_ideal(S.RP)
 end
 
-function saturation(I::MPolyIdeal)
-    saturation(I,irrelevant_ideal(base_ring(I)))
-end
+#function saturation(I::MPolyIdeal)
+#    saturation(I,irrelevant_ideal(base_ring(I)))
+#end
 
 function is_saturated(I::MPolyIdeal)
     saturation(I) == I
