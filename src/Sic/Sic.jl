@@ -21,8 +21,12 @@ export is_fiducial, heis_orbit, algebra_from_heis_orbit, algebra_from_basis
 
 export dwork_modulus
 
+import Oscar.scheme
+export scheme
 
-
+function scheme(S::SicData) 
+    subscheme(S.P.P,S.I)
+end
 
 function is_fiducial(Phi::AbstractAlgebra.Generic.MatSpaceElem) 
     N = ncols(Phi)

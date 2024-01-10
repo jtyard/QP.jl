@@ -5,6 +5,9 @@ mutable struct SicData
     D::ZZRingElem    
     D0::ZZRingElem
     f::ZZRingElem
+    P::ProjectiveMatrixSpace
+    I::MPolyIdeal
+    Iall::MPolyIdeal
     K::NumField
     inf::Vector{InfPlc}
     OK::NumFieldOrd # the maximal order Z[uf]
@@ -19,12 +22,24 @@ mutable struct SicData
     #ring_class_field::ClassField
     #function SicData(d::Int;build_nf=true)
     @memoize function SicData(d::Int;build_nf=true)
+        if d == 2
+            P = projective_matrix_space(QQ,d)
+            I = Ihplus(P) + Im(P)
+            Iall = Ihplus(P) + Ihminus(P)
+            return new(2,-3,-3,1,P,I,Iall,rationals_as_number_field()[1])
+        end
         if d == 3
-            return new(3,0,0,1,rationals_as_number_field()[1])
+            P = projective_matrix_space(QQ,d)
+            I = Ihplus(P) + Im(P)
+            Iall = Ihplus(P) + Ihminus(P)
+            return new(3,0,0,1,P,I,Iall,rationals_as_number_field()[1])
         end
         D = ZZ((d-3)*(d+1))
         D0 = fundamental_discriminant(D) 
         f = ZZ(sqrt(D//D0)) 
+        P = projective_matrix_space(QQ,d)
+        I = Ihplus(P) + Im(P)
+        Iall = Ihplus(P) + Ihminus(P)
         K = quadratic_field(Hecke.squarefree_part(D0))[1] 
         inf = real_places(K)
         OK = maximal_order(K)
@@ -36,10 +51,14 @@ mutable struct SicData
         rcf = ray_class_field((isodd(d) ? d : 2*d)*OK,infinite_places(K))
         
         #println("Constructing new")
-        S = new(d,
+        S = new(
+        d,
         D,
         D0,
         f,
+        P,
+        I,
+        Iall,
         K,
         inf,
         OK,
