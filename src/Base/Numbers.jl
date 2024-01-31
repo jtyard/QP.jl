@@ -19,7 +19,7 @@ export roots_of_unity, primitive_roots_of_unity
 Base.Int(a::zzModRingElem) = Int(ZZ(a))
 
 # Caching works unexpectedly - `@memoize` ensures that e.g. Z2 == ZN(2) always, which was broken for `using QP`
-@memoize ZN(N) = ResidueRing(ZZ,N) 
+@memoize ZN(N) = ResidueRing(ZZ,N)[1] 
 Z2 = ZN(2)
 Z3 = ZN(3)
 Z4 = ZN(4)
