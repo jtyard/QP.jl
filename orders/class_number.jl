@@ -13,7 +13,28 @@ OB = maximal_order(B)
 
 Ord = Hecke.AlgAssRelOrd # could do Union{Hecke.AlgAssAbsOrd,Hecke.AlgAssRelOrd} but disc not an ideal
 
+import Oscar.discriminant
 
+function split_real_places(A::Hecke.QuaternionAlgebra)
+    K = base_ring(A)
+    a,b = A.std
+    return [v for v in real_places(K) if is_negative(a,v) | is_negative(b,v)]
+end 
+
+function _candidate_ramified_primes(A::Hecke.QuaternionAlgebra)
+    OK = maximal_order(base_ring(A))
+    2*OK
+end
+
+function ramified_primes(A::Hecke.QuaternionAlgebra)
+    OK = maximal_order(base_ring(A))
+    a,b = A.std
+    [p for p in _candidate_ramified_primes(A) if hilbert_symbol(a,b,p) == -1]
+end
+
+function discriminant(A::Hecke.QuaternionAlgebra)
+    prod(ramified_primes(A))
+end
 
 class_number(A::Hecke.QuaternionAlgebra) = class_number(maximal_order(A))
 split_real_places(A::Hecke.QuaternionAlgebra) = split_real_places(maximal_order(A))
@@ -25,11 +46,7 @@ function _class_number_totally_definite(O::Ord)
     facD = factor(D)
 end
 
-function split_real_places(A::Hecke.QuaternionAlgebra)
-    K = base_ring(A)
-    a,b = A.std
-    return [v for v in real_places(K) if is_negative(a,v) | is_negative(b,v)]
-end
+
 
 function class_number(O::Ord)
     A = algebra(O)
