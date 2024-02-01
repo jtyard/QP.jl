@@ -22,7 +22,7 @@ function quadratic_order(b::NumFieldElem)
     K = parent(b)
     @assert degree(K) == 2 "Ambient field of " * string(b) * " must be quadratic"
     @assert degree(b) == 2 string(b) * " must be quadratic"
-    NfAbsOrd([K(1), b])
+    AbsNumFieldOrder([K(1), b])
 end
 
 # The quadratic order of discriminant D
