@@ -68,7 +68,7 @@ Supported in part by the NSERC Discovery under Grant No. RGPIN-2018-04742, the N
 - Rings of polynomial functions on matrices over number fields 
 - Explicit computing in bases (vector, operator, etc)
 - Useful matrices and tensor products 
-- Multiqudit bases parameterized by elements of finite cyclic rings (~~`nmod`~~`zzModRingElem`), of modules over them (~~`nmod_mat`~~`zzModMatrix`) or of finite abelian groups (`GrpAbFinGenElem`)
+- Multiqudit bases parameterized by elements of finite cyclic rings (~~`nmod`~~`zzModRingElem`), of modules over them (~~`nmod_mat`~~`zzModMatrix`) or of finite abelian groups (`FinGenAbGroupElem`)
 - Single-qudit generalized Paulis in all dimensions
 - Qudit generalized Clifford = Weil representation in prime dimensions
 - Projective linear groups 
