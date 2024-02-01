@@ -1,13 +1,16 @@
 # Julia workflow
+The [julia package manager](https://github.com/JuliaLang/juliaup) is probably the easiest way to get julia.  
 
-For generic linux systems on Intel x86 (running natively, in [Windows 11 WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) and on a [Chromebook](https://chromeos.dev/en/linux), I install julia with the following commands from a bash shell
+For generic linux systems on Intel x86 (running natively, in [Windows 11 WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) and on a [Chromebook](https://chromeos.dev/en/linux), you can also install julia with the following commands from a bash shell
 ```
-$ wget https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-1.9.3-linux-x86_64.tar.gz
-tar -xvf julia-1.9.3-linux-x86_64.tar.gz
+$ wget https://julialang-s3.julialang.org/bin/linux/x64/1.10/julia-1.10.0-linux-x86_64.tar.gz
+tar -xvf julia-1.10.0-linux-x86_64.tar.gz
 sudo rm /usr/local/bin/julia  # only if previously installed
-sudo ln -s ./julia-1.9.3/bin/julia /usr/local/bin/julia
+sudo ln -s ./julia-1.10.0/bin/julia /usr/local/bin/julia
 sudo chmod +x /usr/local/bin/julia # may not be needed but can't hurt
 ``` 
+
+I don't recomment installing julia directly in Windows.  I don't think this is supported by Oscar. 
 
 I keep these packages [`OhMyREPL`](https://kristofferc.github.io/OhMyREPL.jl/latest/), 
 [`PkgTemplates`](https://github.com/JuliaCI/PkgTemplates.jl),
