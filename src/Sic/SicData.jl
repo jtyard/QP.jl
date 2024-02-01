@@ -10,15 +10,15 @@ mutable struct SicData
     Iall::MPolyIdeal
     K::NumField
     inf::Vector{InfPlc}
-    OK::NumFieldOrd # the maximal order Z[uf]
-    uf::NumFieldOrdElem #or NumFieldElem?
-    OD::NumFieldOrd # the minimal order Z[b]
-    Ob::NumFieldOrd # the minimal order Z[b]
-    b::NumFieldOrdElem # or NumFieldOrdElem?
+    OK::NumFieldOrder # the maximal order Z[uf]
+    uf::NumFieldOrderElem #or NumFieldElem?
+    OD::NumFieldOrder # the minimal order Z[b]
+    Ob::NumFieldOrder # the minimal order Z[b]
+    b::NumFieldOrderElem # or NumFieldOrdElem?
     rcf::ClassField
     F::NumField
-    c::Hecke.NumFieldMor
-    e::Hecke.NumFieldEmbNfNS
+    c::NumFieldHom
+    e::Hecke.NumFieldEmb # or HeckeNumFieldEmbNfNS ?
     #ring_class_field::ClassField
     #function SicData(d::Int;build_nf=true)
     @memoize function SicData(d::Int;build_nf=true)

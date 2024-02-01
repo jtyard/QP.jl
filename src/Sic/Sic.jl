@@ -82,7 +82,7 @@ end
 
 
 
-function is_split(A::AlgMat)
+function is_split(A::MatAlgebra)
     is_split(AlgAss(A)[1])
 end
 

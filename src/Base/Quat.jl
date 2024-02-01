@@ -6,7 +6,7 @@ using QP
 export quaternion_algebra, lipschitz_quaternions, hurwitz_quaternions, clifford_quaternions, su2levelk, toM, toU
 
 # A wrapper that coerces the generators automatically - should merge into OSCAR
-quaternion_algebra(K,a,b) = Hecke.AlgQuat(K,K(a),K(b))
+quaternion_algebra(K,a,b) = Hecke.QuaternionAlgebra(K,K(a),K(b))
 
 #include("su2k.jl")
 
@@ -99,12 +99,12 @@ end
 
 mutable struct su2levelk
     K::AnticNumberField
-    qq::nf_elem # 2nth root of unity
-    Dn::nf_elem # Dn(n) is totally positive and sqrt(-Dn(n)) generates Q(zeta_n):
-    OK::NfOrd
-    A::Hecke.AlgQuat # The quaternion algebra (K, -[3]_q,-D_n)
+    qq::NumFieldElem # 2nth root of unity
+    Dn::NumFieldElem # Dn(n) is totally positive and sqrt(-Dn(n)) generates Q(zeta_n):
+    OK::NumFieldOrder
+    A::Hecke.QuaternionAlgebra # The quaternion algebra (K, -[3]_q,-D_n)
     OA::Hecke.AlgAssRelOrd 
-    D::NfOrdIdl
+    D::NumFieldOrderIdeal
  
     function su2levelk(k::Int) 
         n = k+2

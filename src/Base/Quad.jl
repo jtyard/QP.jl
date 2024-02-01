@@ -41,7 +41,7 @@ end
 #end
 
 # Fundamental unit is smallest unit > 1 
-function fundamental_unit(OK::NumFieldOrd) 
+function fundamental_unit(OK::NumFieldOrder) 
     u = unit_group(OK)[2](unit_group(OK)[1]([0,1]))
     K = OK.nf
     e = real_embeddings(K)[2]

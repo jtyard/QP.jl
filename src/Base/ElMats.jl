@@ -26,7 +26,7 @@ ket(i::zzModRingElem) = ket(Int(i),Int(characteristic(parent(i))))
 
 ket(a::zzModMatrix) = tensor([ket(a[i]) for i in 1:length(a)]...)
 
-ket(a::GrpAbFinGenElem) = tensor([ket(Int(a[i]),Int(order(gens(parent(a))[i]))) for i in 1:length(a.coeff)]...)
+ket(a::FinGenAbGroupElem) = tensor([ket(Int(a[i]),Int(order(gens(parent(a))[i]))) for i in 1:length(a.coeff)]...)
 
 bra(a...) = transpose(ket(a...))
 
