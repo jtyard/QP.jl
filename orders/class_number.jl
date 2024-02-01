@@ -20,7 +20,7 @@ split_real_places(A::Hecke.AlgQuat) = split_real_places(maximal_order(A))
 
 
 # Following Section 5 of https://arxiv.org/abs/0808.3833
-function class_number_totally_definite(O::Ord)
+function _class_number_totally_definite(O::Ord)
     D = discriminant(O)
     facD = factor(D)
 end
@@ -37,7 +37,7 @@ function class_number(O::Ord)
     K = base_ring(A)
     srp = split_real_places(A)
     if length(srp) == degree(K)
-        return class_number_totally_definite(O)
+        return _class_number_totally_definite(O)
     else
         return order(ray_class_group(1*maximal_order(K),srp)[1])
     end
