@@ -17,7 +17,7 @@ export Ih, Ih2, Im, Ihm, Ihp, Ic, Icc, Itr0, Itr1, IT
 
 import Oscar.overlaps, Oscar.complex_conjugation
 export overlaps, complex_conjugation
-export is_fiducial, heis_orbit, algebra_from_heis_orbit, algebra_from_basis
+export is_fiducial, heis_orbit, algebra_from_heis_orbit, algebra_from_basis, sic
 
 export dwork_modulus
 
@@ -41,7 +41,7 @@ function is_fiducial(Phi::AbstractAlgebra.Generic.MatSpaceElem)
     return true
 end
                 
-function overlaps(Phi::AbstractAlgebra.Generic.MatSpaceElem) 
+function Oscar.overlaps(Phi::AbstractAlgebra.Generic.MatSpaceElem) 
     N = ncols(Phi)
     F = base_ring(Phi)
     C_to_F = hom(cyclotomic_field(N)[1],F,zetaN(N,F))
