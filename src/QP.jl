@@ -4,11 +4,11 @@ module QP
 
 using Oscar
 
-nmod = zzModRingElem
-nmod_mat = zzModMatrix
-fmpz = ZZRingElem
-fmpq = QQFieldElem
-PolynomialRing = polynomial_ring
+#nmod = zzModRingElem
+#nmod_mat = zzModMatrix
+#fmpz = ZZRingElem
+#fmpq = QQFieldElem
+#PolynomialRing = polynomial_ring
 
 # Scalars
 include("Base/Numbers.jl")
@@ -29,7 +29,8 @@ include("Base/Groups.jl")
 include("Base/Quad.jl")
 
 # Quaternion algebras and orders 
-include("Base/Quat.jl")
+include("Quat/Orders.jl")
+include("Quat/ClassNumber.jl")
 
 # Heisenberg groups for all Z/N and Weil for Z/p
 include("Clif/Heis.jl")
