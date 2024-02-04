@@ -6,7 +6,7 @@ Ord = Hecke.AlgAssRelOrd # could do Union{Hecke.AlgAssAbsOrd,Hecke.AlgAssRelOrd}
 
 import Oscar.discriminant, Oscar.prime_divisors, Oscar.class_number
 
-export Ord, split_real_places, prime_divisors, ramified_places, discriminant, class_number
+export Ord, split_real_places, ramified places#, prime_divisors, discriminant, class_number
 
 function split_real_places(A::Hecke.QuaternionAlgebra)
     K = base_ring(A)
