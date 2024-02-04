@@ -6,8 +6,9 @@ using Oscar
 
 export aut, inn
 
-export eye, PSL,PGL, abelian_2cocycle, abelian_2cocycle_mat, affine_group 
+import Oscar.max_order
 
+export eye, PSL,PGL, abelian_2cocycle, abelian_2cocycle_mat, affine_group, max_order
 
 import Oscar.aut
 aut(G::Oscar.GAPGroup) = automorphism_group(G)
@@ -55,3 +56,5 @@ function affine_group(G::MatrixGroup)
     return matrix_group(vcat(linear_gens,affine_gens))
 end
 
+
+max_order(G::MatrixGroup) = maximum([order(c.repr) for c in conjugacy_classes(G)])
