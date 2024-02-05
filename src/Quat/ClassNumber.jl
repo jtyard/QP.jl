@@ -2,11 +2,17 @@
 
 using Oscar, QP  
 
+#import Hecke.discriminant, Oscar.prime_divisors, Hecke.QuaternionAlgebra, Oscar.NumFieldElem
+
+export Ord
+
+export split_real_places, class_number, ramified_places, class_number, prime_divisors, discriminant, class_number
+
 Ord = Hecke.AlgAssRelOrd # could do Union{Hecke.AlgAssAbsOrd,Hecke.AlgAssRelOrd} but disc not an ideal
+#QuaternionAlgebra  = Hecke.QuaternionAlgebra
 
-import Oscar.discriminant, Oscar.prime_divisors, Oscar.class_number
-
-export Ord, split_real_places, ramified places#, prime_divisors, discriminant, class_number
+# A wrapper that coerces the generators automatically - should merge into OSCAR
+quaternion_algebra(K,a,b) = Hecke.QuaternionAlgebra(K,K(a),K(b))
 
 function split_real_places(A::Hecke.QuaternionAlgebra)
     K = base_ring(A)
@@ -14,19 +20,20 @@ function split_real_places(A::Hecke.QuaternionAlgebra)
     return [v for v in real_places(K) if is_negative(a,v) | is_negative(b,v)]
 end 
 
-prime_divisors(a::NumFieldElem) = [p[1] for p in factor(a*maximal_order(parent(a))) ]
+Oscar.prime_divisors(a::NumFieldElem) = [p[1] for p in factor(a*maximal_order(parent(a))) ]
 
-function ramified_primes(A::Hecke.QuaternionAlgebra)
+function Oscar.ramified_primes(A::Hecke.QuaternionAlgebra)
     OK = maximal_order(base_ring(A))
     a,b = A.std
-    [p for p in _candidate_ramified_primes(A) if hilbert_symbol(a,b,p) == -1]
+    [p for p in union(prime_divisors(a),prime_divisors(b)) if hilbert_symbol(a,b,p) == -1]
 end
 
-function discriminant(A::Hecke.QuaternionAlgebra)
-    prod(ramified_primes(A))
+function Oscar.discriminant(A::Hecke.QuaternionAlgebra)
+    OK = maximal_order(base_ring(A))
+    prod([ramified_primes(A);1*OK])
 end
 
-class_number(A::Hecke.QuaternionAlgebra) = class_number(maximal_order(A))
+class_number(A::Hecke.QuaternionAlgebra) = prod(ramified_primes(A))
 
 # Following Section 5 of https://arxiv.org/abs/0808.3833
 function _class_number_totally_definite(O::Ord)
