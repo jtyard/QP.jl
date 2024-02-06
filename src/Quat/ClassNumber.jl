@@ -23,9 +23,9 @@ end
 Oscar.prime_divisors(a::NumFieldElem) = [p[1] for p in factor(a*maximal_order(parent(a))) ]
 
 function Oscar.ramified_primes(A::Hecke.QuaternionAlgebra)
-    OK = maximal_order(base_ring(A))
+    K = base_ring(A)
     a,b = A.std
-    [p for p in union(prime_divisors(a),prime_divisors(b)) if hilbert_symbol(a,b,p) == -1]
+    [p for p in union(prime_divisors(a),prime_divisors(b),prime_divisors(K(2))) if hilbert_symbol(a,b,p) == -1]
 end
 
 function Oscar.discriminant(A::Hecke.QuaternionAlgebra)
@@ -33,7 +33,7 @@ function Oscar.discriminant(A::Hecke.QuaternionAlgebra)
     prod([ramified_primes(A);1*OK])
 end
 
-class_number(A::Hecke.QuaternionAlgebra) = prod(ramified_primes(A))
+class_number(A::Hecke.QuaternionAlgebra) = class_number(maximal_order(A))
 
 # Following Section 5 of https://arxiv.org/abs/0808.3833
 function _class_number_totally_definite(O::Ord)
