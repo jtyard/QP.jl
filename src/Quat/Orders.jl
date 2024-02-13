@@ -3,10 +3,15 @@
 using Oscar
 using QP
 
-export quaternion_algebra, lipschitz_quaternions, hurwitz_quaternions, clifford_quaternions, su2levelk, toM, toU
+export Ord
 
-# A wrapper that coerces the generators automatically - should merge into OSCAR
-quaternion_algebra(K,a,b) = Hecke.QuaternionAlgebra(K,K(a),K(b))
+export lipschitz_quaternions, hurwitz_quaternions, clifford_quaternions, su2levelk, toM, toU
+
+
+
+Ord = Hecke.AlgAssRelOrd # could do Union{Hecke.AlgAssAbsOrd,Hecke.AlgAssRelOrd} but disc not an ideal
+#QuaternionAlgebra  = Hecke.QuaternionAlgebra
+
 
 #include("su2k.jl")
 

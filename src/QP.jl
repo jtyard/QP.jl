@@ -29,6 +29,7 @@ include("Base/Groups.jl")
 include("Base/Quad.jl")
 
 # Quaternion algebras and orders 
+include("Quat/QuaternionAlgebras.jl")
 include("Quat/Orders.jl")
 include("Quat/ClassNumber.jl")
 

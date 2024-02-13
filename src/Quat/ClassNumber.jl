@@ -4,15 +4,7 @@ using Oscar, QP
 
 #import Hecke.discriminant, Oscar.prime_divisors, Hecke.QuaternionAlgebra, Oscar.NumFieldElem
 
-export Ord
-
 export split_real_places, class_number, ramified_places, class_number, prime_divisors, discriminant, class_number
-
-Ord = Hecke.AlgAssRelOrd # could do Union{Hecke.AlgAssAbsOrd,Hecke.AlgAssRelOrd} but disc not an ideal
-#QuaternionAlgebra  = Hecke.QuaternionAlgebra
-
-# A wrapper that coerces the generators automatically - should merge into OSCAR
-quaternion_algebra(K,a,b) = Hecke.QuaternionAlgebra(K,K(a),K(b))
 
 function split_real_places(A::Hecke.QuaternionAlgebra)
     K = base_ring(A)
