@@ -1,7 +1,11 @@
+# In principle should find real ray class fiducials for all m
+
+
 using Oscar, QP
 
-m = 2
+m = 1
 N = 4*m^2+3
+println(N)
 
 S = SicData(N)
 
