@@ -11,9 +11,9 @@ include("Harm2.jl")
 
 # These are all terrible names to be global in QP.jl
 # ultimately will move them out of global after things are working
-export minors, Im, QQXp
-export XX, h, h2, hp, hm
-export Ih, Ih2, Im, Ihm, Ihp, Ic, Icc, Itr0, Itr1, IT
+#export minors, Im, QQXp
+#export XX, h, h2, hp, hm
+#export Ih, Ih2, Im, Ihm, Ihp, Ic, Icc, Itr0, Itr1, IT
 
 import Oscar.overlaps, Oscar.complex_conjugation
 export overlaps, complex_conjugation

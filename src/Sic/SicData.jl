@@ -24,13 +24,13 @@ mutable struct SicData
     @memoize function SicData(d::Int;build_nf=true)
         if d == 2
             P = projective_matrix_space(QQ,d)
-            I = Ihplus(P) + Im(P)
+            I = Ihplus(P) + Iminors(P,2)
             Iall = Ihplus(P) + Ihminus(P)
             return new(2,-3,-3,1,P,I,Iall,rationals_as_number_field()[1])
         end
         if d == 3
             P = projective_matrix_space(QQ,d)
-            I = Ihplus(P) + Im(P)
+            I = Ihplus(P) + Iminors(P,2)
             Iall = Ihplus(P) + Ihminus(P)
             return new(3,0,0,1,P,I,Iall,rationals_as_number_field()[1])
         end
@@ -38,7 +38,7 @@ mutable struct SicData
         D0 = fundamental_discriminant(D) 
         f = ZZ(sqrt(D//D0)) 
         P = projective_matrix_space(QQ,d)
-        I = Ihplus(P) + Im(P)
+        I = Ihplus(P) + Iminors(P,2)
         Iall = Ihplus(P) + Ihminus(P)
         K = quadratic_field(Hecke.squarefree_part(D0))[1] 
         inf = real_places(K)

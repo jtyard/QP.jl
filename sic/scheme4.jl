@@ -4,10 +4,10 @@ N = 4
 
 S = SicData(4)
 F = S.F
+P = S.P
+X = gen(P)
 
-P = projective_matrix_space(QQ,N)
-
-I = Im(P) + Ihplus(P) + Ireal(P)
+T = subscheme(S.P,S.I)
 
 
 

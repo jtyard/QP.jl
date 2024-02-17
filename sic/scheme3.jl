@@ -4,10 +4,11 @@ N = 3
 
 P = projective_matrix_space(rationals_as_number_field()[1],N)
 R = P.RP
+S = P.RA
 
 f = dwork_polynomial(P,0,0)
 
-I = Im(P) + Ihplus(P) #+ Ireal(P)
+I = Iminors(P,2) + Ihplus(P) #+ Ireal(P)
 
 II = I + ideal(R,f)
 
@@ -20,8 +21,10 @@ TT = subscheme(T,f)
 
 #rational_solutions(I)
 
+println(dim(T), dim(subscheme(T,f)), is_saturated(I), is_saturated(II), is_radical(I), is_radical(II))
 
-#@time pd = primary_decomposition(I)
+@time pd = primary_decomposition(I,algorithm=:SY)
 
-dim(T), dim(subscheme(T,f)), is_saturated(I), is_saturated(II), is_radical(I), is_radical(II)
+
 #(1, 0, true, true, false, false)
+
