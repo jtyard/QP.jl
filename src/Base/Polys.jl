@@ -15,7 +15,7 @@ using Memoize
 
 export MatrixPolynomialRing, VariableMatrix, MatrixGradedPolynomialRing, QQXgraded
 export FX, QQX, Xij, TrX, TrX2, QQXhom, QQXt
-export QQzw, wj, zj, monomials_of_degree, laplacian, Laplacian
+export QQzw, wj, zj, laplacian, Laplacian, monomials_of_degree
 export QQXtozw
 
 ###############
@@ -89,7 +89,7 @@ QQXp(N::Int; graded = false) = ideal(QQX(N,graded=graded),gens(QQX(N,graded=grad
 end
 
 # Assuming for now input is of the type QQzw - can/should be generalized
-function monomials_of_degree(R::MPolyRing_dec,n::Union{Int,ZZRingElem})
+function monomials_of_degree(R::MPolyDecRing,n::Union{Int,ZZRingElem})
     Rnn, to_R = homogeneous_component(R,[n,n])
     [to_R(f) for f in gens(Rnn)]
 end
@@ -106,11 +106,6 @@ function wj(j::zzModRingElem)
     gens(QQzw(N))[1 + N + (j % N)]
 end
 
-
-
-
-
-
 laplacian(f) = sum([derivative(derivative(f,zj(a)),wj(a)) for a in ZN(ZZ(length(gens(parent(f)))//2))])
 
 function Laplacian(f)
@@ -119,17 +114,17 @@ function Laplacian(f)
 end
 
 # Not sure Oscar is being consistent with their usage of "base_ring" as they should sometimes call it "ambient ring"
-import Oscar.change_base_ring
+#import Oscar.change_base_ring
 
-function change_base_ring(F::AbstractAlgebra.Ring,R::MPolyRing_dec)
+function Oscar.change_base_ring(F::AbstractAlgebra.Ring,R::MPolyDecRing)
     graded_polynomial_ring(F,[string(x) for x in R.R.S],R.d)[1]
 end
 
-function change_base_ring(F::AbstractAlgebra.Ring,R::MPolyRing)
+function Oscar.change_base_ring(F::AbstractAlgebra.Ring,R::MPolyRing)
     polynomial_ring(F,[string(x) for x in R.S])
 end
 
-function change_base_ring(F::AbstractAlgebra.Ring,I::MPolyIdeal)
+function Oscar.change_base_ring(F::AbstractAlgebra.Ring,I::MPolyIdeal)
     R = base_ring(I)
     RF = change_base_ring(F,R)
     ideal(RF,[change_base_ring(F,f,parent=RF) for f in gens(I)])
