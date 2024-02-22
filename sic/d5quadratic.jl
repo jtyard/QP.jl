@@ -3,30 +3,30 @@
 using Oscar
 
 # Rationals as a number field
-_, x = PolynomialRing(QQ)
-Q,_ = NumberField(x-1,"a")
+_, x = polynomial_ring(QQ)
+Q,_ = number_field(x-1,"a")
 Z = maximal_order(Q)
-RC = absolute_simple_field(NumberField(ray_class_field(60*Z)))[1]
+RC = absolute_simple_field(number_field(ray_class_field(60*Z)))[1]
 
 K,s = quadratic_field(3)
 OK = maximal_order(K)
-FK = NumberField(ray_class_field(5*OK,[infinite_places(K)[1]]))
+FK = number_field(ray_class_field(5*OK,[infinite_places(K)[1]]))
 F,FK_to_F = absolute_simple_field(FK)
 
 subs = subfields(F)
 rc = [f for f in subs if degree(f[1]) == 8][1][1]
-_,rc_to_RC = isisomorphic(rc,RC)
+_,rc_to_RC = is_isomorphic_with_map(rc,RC)
 
 Frc,F_to_Frc = relative_simple_extension(F,rc)
 
 dd = discriminant(Frc)
 
-_,y = PolynomialRing(K,"y")
+_,y = polynomial_ring(K,"y")
 f = 1296y^8 - (648 - 1080s)y^7 + 648y^6 + (864 - 360s)y^5 - (540-360s)y^4 + (144-60s)y^3 + 18y^2 - (3-5s)y + 1
 
 
 
-C60,z60 = CyclotomicField(60)
+C60,z60 = cyclotomic_field(60)
 
 factor(ZZ(discriminant(C60)))
 
@@ -41,6 +41,9 @@ factor(6103515625)
 
 println(collect(factor(dd)))
 
+
+OFrc = maximal_order(Frc)
+p = discriminant(OFrc)
 
 
 
