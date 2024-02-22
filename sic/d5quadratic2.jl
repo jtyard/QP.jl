@@ -1,3 +1,5 @@
+# Shintani proved Stark's conjecture when the ray class field is quadratic over its maximal abelian subfield.  For SICs this happens in d=5 and possibly only in this case (what about 4?).
+
 using Oscar, QP
 
 S = SicData(5)
