@@ -1,6 +1,6 @@
 
 C3, z3 = cyclotomic_field(3)
-C4, i = cyclotomic_field(4)
+C4, i = cyclotomic_field(4,"i")
 C8, z8 = cyclotomic_field(8)
 C9, z9 = cyclotomic_field(9)
 
@@ -20,3 +20,14 @@ Z = QQ[1 0; 0 -1]
 u = (1//2)*(1 + i*(X+Y+Z))
 
 
+U = C4[1+i 0; 0 1; 0 1]
+(1//2)*U*dagger(U)
+
+
+
+# WHy isn't this working???
+[det((1//2)*dagger(U)*weil_U(g)*U) for g in SL(2,Z3)]
+
+#Matrix entry of the fiducial (0 : 1 : -1)
+r  = QQ[0; 1; -1]
+[((1//2)*transpose(r)*weil_U(g)*r)[1] for g in SL(2,Z3)]
