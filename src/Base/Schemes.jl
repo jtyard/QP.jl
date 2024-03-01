@@ -18,7 +18,7 @@ struct ProjectiveMatrixSpace
     N::Int
     X::Union{AbstractString, Char, Symbol}
     RP::MPolyDecRing
-    A::Spec 
+    A::AffineScheme
     RA::MPolyRing
     ph::Oscar.MPolyAnyMap
 
@@ -47,7 +47,7 @@ function affine_slice(P::AbsProjectiveScheme, f::MPolyDecRingElem)
     subscheme(C,id(f))
 end
 
-vdim(S::Spec) = vdim(OO(S))
+vdim(S::AffineScheme) = vdim(OO(S))
 vdim(R::MPolyQuoRing) = vector_space_dimension(R)
 
 matrix(S::ProjectiveMatrixSpace) = matrix(S.RP,S.N,S.N,gens(homogeneous_coordinate_ring(S.P)))

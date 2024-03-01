@@ -1,4 +1,4 @@
-
+# Some qubit gates
 C3, z3 = cyclotomic_field(3)
 C4, i = cyclotomic_field(4,"i")
 C8, z8 = cyclotomic_field(8)
@@ -20,6 +20,7 @@ Z = QQ[1 0; 0 -1]
 u = (1//2)*(1 + i*(X+Y+Z))
 
 
+# Isometry onto an embedded qubit
 U = C4[1+i 0; 0 1; 0 1]
 (1//2)*U*dagger(U)
 
