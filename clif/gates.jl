@@ -32,3 +32,11 @@ U = C4[1+i 0; 0 1; 0 1]
 #Matrix entry of the fiducial (0 : 1 : -1)
 r  = QQ[0; 1; -1]
 [((1//2)*transpose(r)*weil_U(g)*r)[1] for g in SL(2,Z3)]
+
+function jordan_wigner(n)
+    c = [0 for k in 1:2*n]
+    for k in 1:2*n
+        c[k] = tensor([[Z^((i < k) ? 1 : 0) for i in 1:n-1];[isodd(k) ? X : Y]])
+    end
+    c 
+end
