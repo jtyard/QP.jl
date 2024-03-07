@@ -113,7 +113,7 @@ mutable struct su2levelk
  
     function su2levelk(k::Int) 
         n = k+2
-        K, qq = CyclotomicRealSubfield(n)
+        K, qq = cyclotomic_real_subfield(n)
         Dn = n % 4 == 0 ? K(1) : 4-qq^2
         A = quaternion_algebra(K,-1-qq,-Dn) 
         OK = maximal_order(K)

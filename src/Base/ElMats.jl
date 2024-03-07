@@ -35,7 +35,7 @@ bra(a...) = transpose(ket(a...))
 
 #tensor = kronecker_product
 
-function tensor(A...)
+function Oscar.tensor(A...)
     n = length(A)
     out = A[n]
     for a in A[n-1:-1:1]

@@ -51,7 +51,7 @@ end
 
 # Create row vectors over R (or do I want column vectors??)
 import Base.^
-R^n = MatrixSpace(R,n,1)
+R^n = matrix_space(R,n,1)
 
 # note that rand(R^n) actually works
 
