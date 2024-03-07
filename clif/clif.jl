@@ -56,3 +56,6 @@ z = phh(Z[1]) # generator of the center of Q
 println(length([s for s in aut(Q) if s(z) == z]))
 
 
+OH = matrix_group([g for g in GL(4,2) if quadratic_form( [q11 o; o q11]) == quadratic_form( [q11 o; o q11])^g])
+OHOH = matrix_group(collect(Set([a*b*a^-1*b^-1 for a in OH for b in OH])))
+println(order(OHOH),", " ,is_abelian(OHOH))
