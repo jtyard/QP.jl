@@ -1,2 +1,6 @@
 sourcesDir: src
-dependencies: [arend-lib]
+modules: 
+  - Example
+  - Sphere
+
+  

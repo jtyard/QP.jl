@@ -1,1 +1,1 @@
-\func f => 0
+\func f : Nat => 0

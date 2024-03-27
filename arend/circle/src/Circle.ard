@@ -1,6 +1,6 @@
-\import Prelude.Bool
-\import Prelude.Int
-\import Data.List
+\import Bool
+\import Int
+\import List
 
 \data Structure
   | trivial
