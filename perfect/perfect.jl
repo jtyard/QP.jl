@@ -67,3 +67,5 @@ J2 = [p[2] for p in primary_decomposition(I2,algorithm=:SY)]
 println([dim(subscheme(P,p)) for p in J1])
 println([dim(subscheme(P,p)) for p in J2])
 
+# The second components coincide. 
+J1[2] == J2[2]
