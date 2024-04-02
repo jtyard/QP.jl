@@ -22,7 +22,7 @@ function tr1(A::MatElem, m,n)
     B
 end
 
-d = 3
+d = 2
 P = projective_space(QQ,2*d^2)
 
 R = homogeneous_coordinate_ring(P)
@@ -49,22 +49,22 @@ I2 = defining_ideal(S2)
 S = subscheme(P,I1 + I2)
 
 # is it is reduced
-println(is_reduced(S))
+#println(is_reduced(S))
 
 # of dimension 4
 println(dim(S))  
 
 # and irreducible
-println(is_irreducible(S))
+#println(is_irreducible(S))
 
 #On the other hand each of S1 and S2 has 2 components each of dimension 4: 
 
 # We can compute the dimensions of the components
-J1 = [p[2] for p in primary_decomposition(I1,algorithm=:SY)]
-J2 = [p[2] for p in primary_decomposition(I2,algorithm=:SY)]
+#J1 = [p[2] for p in primary_decomposition(I1,algorithm=:SY)]
+#J2 = [p[2] for p in primary_decomposition(I2,algorithm=:SY)]
 
-println([dim(subscheme(P,p)) for p in J1])
-println([dim(subscheme(P,p)) for p in J2])
+#println([dim(subscheme(P,p)) for p in J1])
+#println([dim(subscheme(P,p)) for p in J2])
 
 # The second components coincide. 
-J1[2] == J2[2]
+#J1[2] == J2[2]
