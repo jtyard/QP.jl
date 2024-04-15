@@ -1,6 +1,8 @@
 using Oscar
 
-export fiducial
+export fiducial, FIDUCIALS_DIR
+
+FIDUCIALS_DIR = (@__DIR__)*"/fiducials/"
 
 # Returns a fiducial in dimension d - todo: return more like SICdata, rcf, complex conjugation?
 function fiducial(d::Int)
@@ -24,16 +26,16 @@ end
 # e.g. fiducial("7b") returns the Scott-Grassl 7b fiducial
 function fiducial(label::String)
     if label == "4a"
-        include("src/Sic/fiducials/4a.jl")
+        include(FIDUCIALS_DIR*"4a.jl")
         return Phi
     elseif label == "5a"
-        include("src/Sic/fiducials/5a.jl")
+        include(FIDUCIALS_DIR*"5a.jl")
         return Phi
     elseif    label == "7a"
-        include("src/Sic/fiducials/7ab.jl")
+        include(FIDUCIALS_DIR*"7ab.jl")
         return Psia
     elseif label == "7b"
-        include("src/Sic/fiducials/7ab.jl")
+        include(FIDUCIALS_DIR*"7ab.jl")
         return Psib
     else
         error("Not implemented")
