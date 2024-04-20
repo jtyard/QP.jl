@@ -22,8 +22,8 @@ function tr1(A::MatElem, m,n)
     B
 end
 
-d = 2
-P = projective_space(QQ,2*d^2)
+#d = 2
+P = projective_space(QQ,2*d^2-1)
 
 R = homogeneous_coordinate_ring(P)
 
@@ -40,19 +40,20 @@ eqns1 = collect(d*rho1 - r*identity_matrix(R,d))[:]
 eqns2 = collect(d*rho2 - r*identity_matrix(R,d))[:]
 #display(eqns)
 
-S1 = subscheme(P,eqns1)
-S2 = subscheme(P,eqns2)
+S = subscheme(P,vcat(eqns1,eqns2))
+dim(S)
+#S2 = subscheme(P,eqns2)
+#
+#I1 = defining_ideal(S1)
+#I2 = defining_ideal(S2)
 
-I1 = defining_ideal(S1)
-I2 = defining_ideal(S2)
+#S = subscheme(P,I1 + I2)
 
-S = subscheme(P,I1 + I2)
-
-# is it is reduced
+#is it is reduced
 #println(is_reduced(S))
 
 # of dimension 4
-println(dim(S))  
+#println(dim(S))  
 
 # and irreducible
 #println(is_irreducible(S))
