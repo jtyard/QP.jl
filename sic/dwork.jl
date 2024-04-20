@@ -1,8 +1,9 @@
 using Oscar, QP
 
-S = SicData(5)
+d = 4
+S = SicData(d)
 
-Psi = fiducial(5)
+Psi = fiducial(d)
 
 F = S.F 
 
