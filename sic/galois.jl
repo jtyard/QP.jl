@@ -20,4 +20,4 @@ gal = domain(art2)
 
 #stab = sub(gal,[g for g in gal if art2(g)(mu) == mu])[1]
 
-#ng, m = norm_group(rcf)
+ng, m = norm_group(rcf)
