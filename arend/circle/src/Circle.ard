@@ -1,6 +1,6 @@
-\import Bool
-\import Int
-\import List
+\open Nat (suc zero)
+\open Bool (true false)
+\open Prelude (List (::) nil)
 
 \data Structure
   | trivial
