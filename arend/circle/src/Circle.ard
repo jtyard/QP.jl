@@ -1,5 +1,5 @@
 \open Nat (suc zero)
-\open Bool (true false)
+\open Prelude (Bool (True False))
 \open Prelude (List (::) nil)
 
 \data Structure
