@@ -116,13 +116,13 @@ end
 # Not sure Oscar is being consistent with their usage of "base_ring" as they should sometimes call it "ambient ring"
 #import Oscar.change_base_ring
 
-function Oscar.change_base_ring(F::AbstractAlgebra.Ring,R::MPolyDecRing)
-    graded_polynomial_ring(F,[string(x) for x in R.R.S],R.d)[1]
-end
+#function Oscar.change_base_ring(F::AbstractAlgebra.Ring,R::MPolyDecRing)
+#    graded_polynomial_ring(F,[string(x) for x in R.R.S],R.d)[1]
+#end
 
-function Oscar.change_base_ring(F::AbstractAlgebra.Ring,R::MPolyRing)
-    polynomial_ring(F,[string(x) for x in R.S])
-end
+#function Oscar.change_base_ring(F::AbstractAlgebra.Ring,R::MPolyRing)
+#    polynomial_ring(F,[string(x) for x in R.S])
+#end
 
 function Oscar.change_base_ring(F::AbstractAlgebra.Ring,I::MPolyIdeal)
     R = base_ring(I)
