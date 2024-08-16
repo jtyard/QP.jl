@@ -15,7 +15,7 @@ using Memoize
 
 export MatrixPolynomialRing, VariableMatrix, MatrixGradedPolynomialRing, QQXgraded
 export FX, QQX, Xij, TrX, TrX2, QQXhom, QQXt
-export QQzw, wj, zj, laplacian, Laplacian, monomials_of_degree
+export QQzw, wj, zj, laplacian, Laplacian#, monomials_of_degree
 export QQXtozw
 
 ###############
@@ -89,10 +89,10 @@ QQXp(N::Int; graded = false) = ideal(QQX(N,graded=graded),gens(QQX(N,graded=grad
 end
 
 # Assuming for now input is of the type QQzw - can/should be generalized
-function monomials_of_degree(R::MPolyDecRing,n::Union{Int,ZZRingElem})
-    Rnn, to_R = homogeneous_component(R,[n,n])
-    [to_R(f) for f in gens(Rnn)]
-end
+#function monomials_of_degree(R::MPolyDecRing,n::Union{Int,ZZRingElem})
+#    Rnn, to_R = homogeneous_component(R,[n,n])
+#    [to_R(f) for f in gens(Rnn)]
+#end
 
 function zj(j::zzModRingElem) 
     N = Int(characteristic(parent(j)))
