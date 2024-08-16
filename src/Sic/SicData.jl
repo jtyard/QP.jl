@@ -5,7 +5,7 @@ mutable struct SicData
     D::ZZRingElem    
     D0::ZZRingElem
     f::ZZRingElem
-    P::ProjectiveMatrixSpace
+    P::MatPolyRing
     K::NumField
     inf::Vector{InfPlc}
     OK::NumFieldOrder # the maximal order Z[uf]
@@ -23,14 +23,14 @@ mutable struct SicData
     #function SicData(d::Int;build_nf=true)
     @memoize function SicData(d::Int;build_nf=true)
         if d == 2
-            P = projective_matrix_space(QQ,d)
+            P = matrix_polynomial_ring(QQ,d)
             S = new(2,-3,-3,1,P,rationals_as_number_field()[1])
             S. I = Ihplus(P) + Iminors(P,2)
             S. Iall = Ihplus(P) + Ihminus(P)
             return S
         end
         if d == 3
-            P = projective_matrix_space(QQ,d)
+            P = matrix_polynomial_ring(QQ,d)
             S = new(3,0,0,1,P,rationals_as_number_field()[1])
             S.I = Ihplus(P) + Iminors(P,2)
             S.Iall = Ihplus(P) + Ihminus(P)
@@ -40,7 +40,7 @@ mutable struct SicData
         D0 = fundamental_discriminant(D) 
         f = ZZ(sqrt(D//D0)) 
         #println("making projective space")
-        P = projective_matrix_space(QQ,d)
+        P = matrix_polynomial_ring(QQ,d)
         #println("Ihplus + Iminors")
         #I = Ihplus(P) + Iminors(P,2)
         #println("Ihplus + Ihminus")
