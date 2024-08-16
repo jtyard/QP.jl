@@ -1,3 +1,7 @@
+# Broken - Ignores the U(1) action e.g. dim(P) gives 7 and not 6 as needed.  
+# Unlike Magma, Oscar doesn't have products of projective spaces.  
+# Either way I don't think we can escape the Segre embedding
+
 using Oscar
 
 function tr2(A::MatElem, m,n)
@@ -69,3 +73,4 @@ println([dim(subscheme(P,p)) for p in J2])
 
 # The second components coincide. 
 J1[2] == J2[2]
+
