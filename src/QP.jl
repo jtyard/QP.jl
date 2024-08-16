@@ -20,7 +20,13 @@ include("Base/ElMats.jl")
 include("Base/Polys.jl")
 
 # Projective scheme of matrices over arbitrary base. Include harmonics and minors here.
-include("Base/Schemes.jl")
+#include("Base/Schemes.jl")
+
+# A better approach to matrix polynomials?
+include("Base/MatPoly.jl")
+
+# Cartesian products of polynomial rings 
+#include("Base/ProdPoly.jl")
 
 # Groups
 include("Base/Groups.jl")
