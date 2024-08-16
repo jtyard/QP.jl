@@ -2,15 +2,15 @@
 
 using Oscar
 
-import Oscar.gen, Oscar.matrix, Oscar.minors, Oscar.irrelevant_ideal, Oscar.saturation
+#import Oscar.gen, Oscar.matrix, Oscar.minors, Oscar.irrelevant_ideal, Oscar.saturation
 
-export ProjectiveMatrixSpace, projective_matrix_space, gen, matrix
+#export ProjectiveMatrixSpace, projective_matrix_space, gen, matrix
 
-export fij, fplus, fminus, hij, hplus, hminus
+#export fij, fplus, fminus, hij, hplus, hminus
 
-export laplacian
+#export laplacian
 
-export Iminors, Ihplus, Ihminus, Ireal, Icyclic, irrelevant_ideal, saturation, is_saturated, affine_slice, subscheme, vdim
+#export Iminors, Ihplus, Ihminus, Ireal, Icyclic, irrelevant_ideal, saturation, is_saturated, affine_slice, subscheme, vdim
 
 
 struct ProjectiveMatrixSpace
