@@ -46,7 +46,7 @@ function clifford_quaternions(K::Field)
         s = sqrt(K(2))
     else
         _, x = polynomial_ring(K, "x")
-        F, s = NumberField(x^2 - 2, "√2") # \sqrt TAB = \sqrt 
+        F, s = number_field(x^2 - 2, "√2") # \sqrt TAB = \sqrt 
     end
 
     B = quaternion_algebra(F,-1,-1)
