@@ -19,14 +19,14 @@ import Oscar.overlaps, Oscar.complex_conjugation
 export overlaps, complex_conjugation
 export is_fiducial, heis_orbit, algebra_from_heis_orbit, algebra_from_basis, sic
 
-export dwork_modulus, dwork_polynomial
+#export dwork_modulus, dwork_polynomial
 
 import Oscar.scheme
 export scheme
 
-function scheme(S::SicData) 
-    subscheme(S.P.P,S.I)
-end
+#function scheme(S::SicData) 
+#    subscheme(S.P.P,S.I)
+#end
 
 function is_fiducial(Phi::AbstractAlgebra.Generic.MatSpaceElem) 
     N = ncols(Phi)
@@ -102,15 +102,4 @@ function dwork_modulus(P)
     N = length(v)
     sum([a^N for a in v])//prod([a for a in v]) # Often divided by N but it is more integral without doing that
 end
-
-function dwork_polynomial(P::ProjectiveMatrixSpace,mu,mubar)
-    X = gen(P)
-    N = P.N
-    
-    ss = sum(X[i,j]^N for i in 1:N for j in 1:N) # (sum z_i^N)(sum w_i^N)
-    pp = prod(X[i,i] for i in 1:N) # (prod z_i^N)(prod w_i^N)
-    sp = sum(prod(X[i,j] for j in 1:N) for i in 1:N) # (sum z_i^N)(prod w_i^N)
-    ps = sum(prod(X[j,i] for j in 1:N) for i in 1:N) # (prod z_i^N)(sum w_i^N)
-    
-    ss - N*(ps*mu + sp*mubar) + N^2*mu*mubar*pp
-end
+ 
