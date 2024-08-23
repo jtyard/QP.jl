@@ -31,17 +31,18 @@ function _point(P,p)
     P(vcat(p,p))  
 end
 
+cat_state(d,n) = sum([ket(matrix(ZN(d),transpose([i for _ in 1:n]))) for i in  0:d-1])
+
 # computes dimension of tangent space at the point p 
 dim_at_point(P,p) = dim(tangent_space(_point(P,p)))
 
 
-println(dim_at_point(perfect_tensors(2,3), ket(Z2[0 0 0]) + ket(Z2[1 1 1])))
+println(dim_at_point(perfect_tensors(2,3), cat_state(2,3)))
 # 9 
-println(dim_at_point(perfect_tensors(2,3,t=2), ket(Z2[0 0 0]) + ket(Z2[1 1 1])))
+println(dim_at_point(perfect_tensors(2,3,t=2), cat_state(2,3)))
 # 8
 # projective would cut out the U(1) and give 7
 
-ghz(d) = sum([ket(matrix(ZN(d),transpose([i for _ in 1:d]))) for i in  0:d-1])
 
 # Rational points 
 # d = 3, n = 3
@@ -50,7 +51,7 @@ ghz3 = ket(Z3[0 0 0]) + ket(Z3[1 1 1]) + ket(Z3[2 2 2]);
 _det= ket(Z3[0 1 2]) + ket(Z3[1 2 0]) + ket(Z3[2 0 1]) - ket(Z3[2 1 0]) - ket(Z3[1 0 2]) - ket(Z3[0 2 1]);
 
 P = perfect_tensors(3,3)
-println((dim_at_point(P,per), dim_at_point(P,ghz3), dim_at_point(P,_det)))
+println((dim_at_point(P,per), dim_at_point(P,cat_state(3,3)), dim_at_point(P,_det)))
 # (32, 34, 38)
 
 
