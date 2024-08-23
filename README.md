@@ -112,7 +112,7 @@ Supported in part by the NSERC Discovery under Grant No. RGPIN-2018-04742, the N
 
 
 ## Class fields
-http://www.thofma.com/Hecke.jl/v0.6.1/class_fields/intro.html
+https://www.thofma.com/Hecke.jl/stable/l
 
 Some relevant functions from Hecke:
 - Relative automorphism generators from  `Hecke.automorphism_groupQQ`
