@@ -17,16 +17,13 @@ include("Base/Numbers.jl")
 include("Base/ElMats.jl")
 
 # Polynomial rings (to be removed/replaced by ambient schemes)
-include("Base/Polys.jl")
-
-# Projective scheme of matrices over arbitrary base. Include harmonics and minors here.
-#include("Base/Schemes.jl")
+include("Poly/Polys.jl")
 
 # A better approach to matrix polynomials?
-include("Base/MatPoly.jl")
+include("Poly/MatPoly.jl")
 
 # Cartesian products of polynomial rings 
-#include("Base/ProdPoly.jl")
+include("Poly/ProdPoly.jl")
 
 # Groups
 include("Base/Groups.jl")
