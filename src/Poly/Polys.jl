@@ -13,10 +13,10 @@
 using Oscar
 using Memoize 
 
-export MatrixPolynomialRing, VariableMatrix, MatrixGradedPolynomialRing, QQXgraded
-export FX, QQX, Xij, TrX, TrX2, QQXhom, QQXt
-export QQzw, wj, zj, laplacian, Laplacian#, monomials_of_degree
-export QQXtozw
+#export MatrixPolynomialRing, VariableMatrix, MatrixGradedPolynomialRing, QQXgraded
+#export FX, QQX, Xij, TrX, TrX2, QQXhom, QQXt
+#export QQzw, wj, zj, laplacian, Laplacian#, monomials_of_degree
+#export QQXtozw
 
 ###############
 # Matrix polynomials 
@@ -63,9 +63,9 @@ QQXt(N::Int) = QQXhom(transpose(Xij(N)))
 # Mapping to z and w 
 QQXtozw(N) = hom(QQX(N),QQzw(N),[gens(QQzw(N))[i]*gens(QQzw(N))[N+j] for i=1:N for j=1:N])
 
-TrX(N::Int; graded = false) = sum([Xij(i,i,N,graded=graded) for i = 0:N-1])
+TrX(N::Int; graded = false) = sum([Xij(i,i,N,graded=graded) for i = 0:N-1])  
 TrX2(N::Int; graded = false) = sum([Xij(i,j,N,graded=graded)*Xij(j,i,N,graded=graded) for i = 0:N-1 for j = 0:N-1])
-
+ 
 # The 2x2 minors cut out the rank < 2 matrices
 #minors(N::Int; graded = false) = [Xij(i,k,N,graded=graded)*Xij(j,l,N,graded=graded)-Xij(i,l,N,graded=graded)*Xij(j,k,N,graded=graded) for i in 0:N-2 for j in i+1:N-1 for k in 0:N-2 for l in k+1:N-1];
 
