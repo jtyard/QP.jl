@@ -8,17 +8,17 @@ struct MatPolyRing{T, R<:Ring, S<:MPolyRing} <: Ring
     S::S
     Sgr::MPolyDecRing
 
-    function MatPolyRing(R::Ring, N::Int, vars::Vector{String})
-        S, _ = polynomial_ring(R, vars)
+    function MatPolyRing(R::Ring, N::Int, vars::Vector{String}; internal_ordering=:lex)
+        S, _ = polynomial_ring(R, vars; internal_ordering=internal_ordering)
         T = Oscar.elem_type(S)
         new{T, typeof(R), typeof(S)}(R, N, S, grade(S)[1])
     end
 end
 
 # Constructor
-function MatPolyRing(F::Ring, N::Int; X::Union{AbstractString, Char, Symbol} = "X")
+function MatPolyRing(F::Ring, N::Int; X::Union{AbstractString, Char, Symbol} = "X", internal_ordering=:lex)
     vars = [string(X, "_{", i, ",", j, "}") for i in 0:N-1 for j in 0:N-1]
-    MatPolyRing(F, N, vars)
+    MatPolyRing(F, N, vars; internal_ordering=internal_ordering)
 end
 
 # Alternate constructor that accepts a symbol for the variable name
@@ -27,8 +27,10 @@ end
 #end
 
 
-matrix_polynomial_ring(F::Ring, N::Int; X::Union{AbstractString, Char} = "X") = MatPolyRing(F, N, X=X)
-matrix_polynomial_ring(F::Ring, N::Int, X::Symbol) = MatPolyRing(F, N, X=X)
+matrix_polynomial_ring(F::Ring, N::Int; X::Union{AbstractString, Char, Symbol} = "X", internal_ordering=:lex) = MatPolyRing(F, N; X=X, internal_ordering=internal_ordering) 
+#matrix_polynomial_ring(F::Ring, N::Int; X::Symbol, internal_ordering=:lex) = MatPolyRing(F, N; X=X, internal_ordering=internal_ordering)
+
+
 
 
 
