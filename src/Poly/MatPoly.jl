@@ -102,7 +102,7 @@ end
 Ihminus(S::MatPolyRing) = ideal(S.Sgr,[hminus(S,i,j) for i in 0:S.N-1 for j in 0:i if i != j])
 
 function Iminors(S::MatPolyRing,k) 
-    ideal(S,minors(gen(S),k))
+    ideal(S.Sgr,minors(gen(S),k))
 end
 
 Ireal(S::MatPolyRing) = ideal(S.Sgr,[gen(S,i,j) - gen(S,j,i) for i in 0:S.N-1 for j in 0:i if i != j])
