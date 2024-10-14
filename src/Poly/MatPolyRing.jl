@@ -1,33 +1,34 @@
-
+import Base.transpose
+transpose(x::Symbol) = x
 
 # export print_with_subscripts, display_with_subscripts, latex_representation
 
 struct MatPolyRing{T, R<:Ring, S<:MPolyRing} <: Ring
     R::R
+    M::Int
     N::Int
     S::S
     Sgr::MPolyDecRing
 
-    function MatPolyRing(R::Ring, N::Int, vars::Vector{String}; internal_ordering=:lex)
-        S, _ = polynomial_ring(R, vars; internal_ordering=internal_ordering)
+    function MatPolyRing(R::Ring, vars::Matrix{Symbol}; internal_ordering=:lex)
+        S, _ = polynomial_ring(R, vec(transpose(vars)); internal_ordering=internal_ordering)
         T = Oscar.elem_type(S)
-        new{T, typeof(R), typeof(S)}(R, N, S, grade(S)[1])
+        new{T, typeof(R), typeof(S)}(R, nrows(vars), ncols(vars), S, grade(S)[1])
     end
 end
 
-# Constructor
-function MatPolyRing(F::Ring, N::Int; X::Union{AbstractString, Char, Symbol} = "X", internal_ordering=:lex)
-    vars = [string(X, "_{", i, ",", j, "}") for i in 0:N-1 for j in 0:N-1]
-    MatPolyRing(F, N, vars; internal_ordering=internal_ordering)
+# Constructors
+function matrix_polynomial_ring(F::Ring, M::Int, N::Int, X::Symbol = :X; internal_ordering=:lex)
+    vars = Matrix{Symbol}([Symbol(string(X, "_{", i, ",", j, "}")) for i in 0:M-1, j in 0:N-1])
+    MatPolyRing(F, vars; internal_ordering=internal_ordering)
 end
+# Accept non-symbols for the variable
+matrix_polynomial_ring(F::Ring, M::Int, N::Int, X::Union{Char,AbstractString}; internal_ordering=:lex) = matrix_polynomial_ring(F, M, N, Symbol(X); internal_ordering=internal_ordering)
 
-# Alternate constructor that accepts a symbol for the variable name
-#function MatPolyRing(F::Ring, N::Int; X::Symbol = :X)
-#    MatPolyRing(F, N, X=string(X))
-#end
-
-
-matrix_polynomial_ring(F::Ring, N::Int; X::Union{AbstractString, Char, Symbol} = "X", internal_ordering=:lex) = MatPolyRing(F, N; X=X, internal_ordering=internal_ordering) 
+# Square matrices
+matrix_polynomial_ring(F::Ring, N::Int, X::Symbol = :X; internal_ordering=:lex) = matrix_polynomial_ring(F, N, N, X; internal_ordering=internal_ordering)
+# Square + char or string
+matrix_polynomial_ring(F::Ring, N::Int, X::Union{Char, AbstractString}; internal_ordering=:lex) = matrix_polynomial_ring(F, N, Symbol(X), internal_ordering=internal_ordering) 
 #matrix_polynomial_ring(F::Ring, N::Int; X::Symbol, internal_ordering=:lex) = MatPolyRing(F, N; X=X, internal_ordering=internal_ordering)
 
 
@@ -52,13 +53,13 @@ end
 
 # Implement necessary methods
 Oscar.base_ring(R::MatPolyRing) = R.R
-Oscar.ngens(R::MatPolyRing) = R.N^2
+Oscar.ngens(R::MatPolyRing) = R.N*R.M
 Oscar.gens(R::MatPolyRing) = gens(R.S)
 Oscar.gen(R::MatPolyRing, i::Int) = gen(R.S, i)
 
 # Add matrix-specific methods
 function gen(R::MatPolyRing)
-    matrix(R.S, R.N, R.N, gens(R.S))
+    matrix(R.S, R.M, R.N, gens(R.S))
 end
 
 function Oscar.gen(R::MatPolyRing, i::Int, j::Int)
