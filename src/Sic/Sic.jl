@@ -17,7 +17,7 @@ include("Harm2.jl")
 
 import Oscar.overlaps, Oscar.complex_conjugation
 export overlaps, complex_conjugation
-export is_fiducial, heis_orbit, algebra_from_heis_orbit, algebra_from_basis, sic
+export is_fiducial, heis_orbit, algebra_from_heis_orbit, algebra_from_basis, sic, heis_action
 
 #export dwork_modulus, dwork_polynomial
 
@@ -57,6 +57,14 @@ function heis_orbit(Phi)
     [map(C_to_F,heis(ZN(N)[i j]))*Phi* map(C_to_F,heis(ZN(N)[i j])^-1) for j in 0:N-1 for i in 0:N-1]
 end
 
+function heis_action(Phi,i,j)
+    N = ncols(Phi)
+    NN = (isodd(N) ? N : 2*N)
+    F = base_ring(Phi)
+    C_to_F = hom(cyclotomic_field(NN)[1],F,zetaN(NN,F))
+    map(C_to_F,heis(ZN(N)[i j]))*Phi* map(C_to_F,heis(ZN(N)[i j])^-1)
+end
+
 
 function sic(d::Int)
     heis_orbit(fiducial(d))
@@ -69,7 +77,7 @@ end
 
 function algebra_from_basis(Phis)
     F = base_ring(Phis[1])
-    matrix_algebra(QQ,F,Phis)
+    matrix_algebra(base_field(F),F,Phis)
 end
 
 
