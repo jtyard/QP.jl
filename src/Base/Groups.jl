@@ -8,7 +8,7 @@ export aut, inn
 
 import Oscar.max_order
 
-export eye, PSL,PGL, abelian_2cocycle, abelian_2cocycle_mat, affine_group, max_order
+export eye, PSL,PGL, abelian_2cocycle, abelian_2cocycle_mat, affine_group, max_order, diagonal_torus
 
 import Oscar.aut
 aut(G::Oscar.GAPGroup) = automorphism_group(G)
@@ -58,3 +58,13 @@ end
 
 
 max_order(G::MatrixGroup) = maximum([order(c.repr) for c in conjugacy_classes(G)])
+
+function diagonal_torus(G)
+    A,ph = unit_group(base_ring(G))
+    if G.descr == :SL
+        matrix_group([G([ph(a) 0;0 ph(a)^-1]) for a in gens(A)])
+    elseif G.descr == :GL
+        matrix_group([G([ph(a) 0; 0 1]) for a in gens(A)])
+    end
+end
+
