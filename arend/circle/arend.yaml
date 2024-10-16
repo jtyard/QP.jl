@@ -1,7 +1,0 @@
-sourcesDir: src
-modules: 
-  - Example
-  - Sphere
-dependencies:
-  - arend-lib
-
