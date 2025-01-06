@@ -21,7 +21,7 @@ p2 = OK(3+s)*OK
 
 rcf1 = ray_class_field(p1,[inf1])
 rcf2 = ray_class_field(p2,[inf2])
-
+rcf = ray_class_field(p1*p2,[inf1,inf2])
 
 ########
 # Scott-Grassl 7a
@@ -53,21 +53,27 @@ psia = Li[1; A; A; B; A; B; B]
 c = complex_conjugation(rcfa,inf2)
 Psia = psia*dagger(psia,c)
 
-
 #########
 # scott-Grassl 7b
 #########
 
 L = number_field(rcf2)
+F = number_field(rcf)
 
-rb = sqrt(L(2s-1))
+rb = sqrt(F(2s-1))
 u = (-rb - 1 - s)/2
 
 A3 = u
 B3 = u^-1
 
-
-psib = L[1;u;u;u^-1;u;u^-1;u^-1]
+psib = F[
+        1
+        u
+        u
+        u^-1
+        u
+        u^-1
+        u^-1]
 
 Psib = psib * transpose(psib)
 
