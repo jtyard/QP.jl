@@ -7,11 +7,10 @@ Let $R$ be an integral domain and $B$ a central simple algebra over $\mathrm{Fra
   - $I$ is an $O_\ell(I)-O_r(I)$-bimodule, a left fractional $O_\ell(I)$ 
 ideal and a right fractional $O_r(I)$-ideal.
   - There is a **category** whose objects are the orders and whose morphisms are the fractional ideals, with composition given by proper products (requiring matching left and right orders).  Fractional ideals **connect** their left/right orders.
-- $O\simeq O'$ iff $bOb^{-1} = O'$ for some $b \in B^\times$ 
-iff they are connected by a principal ideal $bO = O'b$. So the isomorphism classes are the conjugacy classes.
+- $O_1\simeq O_2$ iff there exists a $b \in B^\times$ such that $bO_1b^{-1} = O_2$ iff they are connected by a principal ideal $bO_1 = O_2 b$. So the isomorphism classes are the conjugacy classes. 
 - An **invertible ideal** of $B$ is a fractional ideal $I$ with an **inverse** $I^{-1}$, satisfying 
-$I^{-1}I = O_R(I)$ and therefore $I I^{-1} = O_\ell(I)$.
-  - The orders and the invertible ideals form a groupoid called the **core** of the above category.
+$I^{-1}I = O_r(I)$ and therefore $I I^{-1} = O_\ell(I)$.
+  - The orders and the invertible ideals form a groupoid equal to the **core** of the above category.
 - A **normal ideal** of $B$ is a fractional $R$-ideal with maximal left/right orders.
   - normal $\Rightarrow$ invertible.  
   -  The maximal orders and normal ideals of $B$ form the **Brandt groupoid**.
