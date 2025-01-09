@@ -5,7 +5,7 @@ Some relevant functions from Hecke:
 - Relative automorphism generators from  `Hecke.automorphism_groupQQ`
 - Defining ray class fields: `rcf = ray_class_field((iseven(d) ? 2*d : d)*OK,infinite_places(K))` for `K = quadratic_field((d-3)*(d+1))[1]` and `OK = maximal_order(K)`.
 - `number_field(rcf)` computes generators `absolute_automorphism_group(rcf)` of the full automorphism group and now works for all `d`.   
-- TO DO: check that we can construct the ring ray class fields.
+- TO DO: interface for ring ray class fields i.e. ray class fields of non-maximal orders.
 - `MapClassGrp` : {quotient of the class group} -> {ideals} 
 - `MapRayClassGrp` : {quotient of a ray class group} -> {ideals prime to the conductor}
 - `ClassField` 
