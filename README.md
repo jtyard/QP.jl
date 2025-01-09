@@ -108,7 +108,7 @@ Supported in part by the NSERC Discovery under Grant No. RGPIN-2018-04742, the N
 
 ## SIC-POVMs
 - `SicData(d)` (or `SicData(d,build_nf=false)` to skip building the number field)
-- `fiducial(d)` and `sic(d)` for `d=2,3,3,4,5,7` as well as `fiducial("7a")`, `fiducial("7b)` etc.
+- `fiducial(d)` and `sic(d)` for `d=2,3,3,4,5,7` as well as `fiducial("7a")`, `fiducial("7b")` etc.
 - [Class field thery in Hecke](ClassFields.md)
 
 
